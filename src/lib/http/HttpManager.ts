@@ -1,0 +1,128 @@
+import { Config } from "../../interfaces/Config";
+import { Response, RequestInitWithQuery } from "../../interfaces/Request";
+
+export class HttpClient {
+  protected baseURL = "https://beta.stats.fm/api/v1";
+
+  constructor(protected config: Config) {}
+
+  /**
+   * @param {string} slug
+   * @param {string} query
+   * @returns {string} Returns the full url.
+   */
+  getURL(slug: string, query?: Record<string, string>): string {
+    const url = new URL(this.baseURL);
+    url.pathname += slug;
+    url.search = new URLSearchParams(query).toString();
+
+    return url.toString();
+  }
+
+  /**
+   * @param  {string} slug
+   * @param  {RequestInit} init?
+   * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
+   */
+  async request<T>(
+    slug: string,
+    init?: RequestInitWithQuery
+  ): Promise<Response<T>> {
+    const options = {
+      ...init,
+      headers: {
+        Authorization: this.config?.acccessToken,
+        "Content-Type": "application/json",
+        ...init?.headers,
+      },
+    };
+
+    if (options.headers["Content-Type"] == null) {
+      delete options.headers["Content-Type"];
+    }
+
+    const url = this.getURL(slug, options?.query);
+
+    const res = await fetch(url, options);
+    const parsed: Response = {
+      success: res.ok,
+      status: res.status,
+      statusText: res.statusText,
+      url: res.url,
+      headers: res.headers,
+      data: await res.json(),
+    };
+
+    if (!parsed.success) {
+      switch (parsed.status) {
+        case 403:
+          console.error(parsed.statusText);
+          break;
+        default:
+          console.error(parsed.status, parsed.data);
+      }
+    }
+
+    return parsed as Response<T>;
+  }
+
+  /**
+   * @param  {string} slug
+   * @param  {RequestInit} options?
+   * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
+   */
+  async get<T>(
+    slug: string,
+    options?: RequestInitWithQuery
+  ): Promise<Response<T>> {
+    return await this.request<T>(slug, {
+      ...options,
+      method: "GET",
+    });
+  }
+
+  /**
+   * @param  {string} slug
+   * @param  {RequestInit} options?
+   * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
+   */
+  async post<T>(
+    slug: string,
+    options?: RequestInitWithQuery
+  ): Promise<Response<T>> {
+    return await this.request<T>(slug, {
+      ...options,
+      method: "POST",
+    });
+  }
+
+  /**
+   * @param  {string} slug
+   * @param  {RequestInit} options?
+   * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
+   */
+  async put<T>(
+    slug: string,
+    options?: RequestInitWithQuery
+  ): Promise<Response<T>> {
+    return await this.request<T>(slug, {
+      ...options,
+      method: "PUT",
+    });
+  }
+
+  /**
+   * @param  {string} slug
+   * @param  {RequestInit} options?
+   * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
+   */
+  async delete<T>(
+    slug: string,
+    options?: RequestInitWithQuery
+  ): Promise<Response<T>> {
+    return await this.request<T>(slug, {
+      ...options,
+      method: "DELETE",
+    });
+  }
+}
