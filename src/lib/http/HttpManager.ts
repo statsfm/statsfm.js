@@ -3,8 +3,6 @@ import { Response, RequestInitWithQuery } from '../../interfaces/Request';
 import 'isomorphic-unfetch';
 
 export class HttpClient {
-  protected baseURL = 'https://beta.stats.fm/api/v1';
-
   constructor(protected config: Config) {}
 
   /**
@@ -13,7 +11,7 @@ export class HttpClient {
    * @returns {string} Returns the full url.
    */
   getURL(slug: string, query?: Record<string, string>): string {
-    const url = new URL(this.baseURL);
+    const url = new URL(this.config.baseUrl);
     url.pathname += slug;
     url.search = new URLSearchParams(query).toString();
 
@@ -48,7 +46,9 @@ export class HttpClient {
       statusText: res.statusText,
       url: res.url,
       headers: res.headers,
-      data: await res.json()
+      data: res.headers?.get('Content-Type')?.includes('application/json')
+        ? await res.json()
+        : await res.text()
     };
 
     if (!parsed.success) {
