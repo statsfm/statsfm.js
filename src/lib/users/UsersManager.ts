@@ -9,13 +9,13 @@ export default class UsersManager extends Manager {
     return res.data.item;
   }
 
-  async getStreams(id: string, options?: RequestInitWithQuery): Promise<statsfm.Stream[]> {
+  async streams(id: string, options?: RequestInitWithQuery): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams`, options);
 
     return res.data.items;
   }
 
-  async getRecentStreams(
+  async recentStreams(
     id: string,
     options?: RequestInitWithQuery
   ): Promise<statsfm.RecentlyPlayedTrack[]> {
@@ -24,19 +24,13 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getCount(id: string, options?: RequestInitWithQuery): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/count`, options);
+  async stats(id: string, options?: RequestInitWithQuery): Promise<any> {
+    const res = await this.http.get(`/users/${id}/streams/stats`, options);
 
-    return res.data.item;
+    return res.data.items;
   }
 
-  async getDuration(id: string, options?: RequestInitWithQuery): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/duration`, options);
-
-    return res.data.item;
-  }
-
-  async getTrackStreams(
+  async trackStreams(
     id: string,
     trackId: number,
     options?: RequestInitWithQuery
@@ -46,27 +40,13 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getTrackCount(
-    id: string,
-    trackId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
+  async trackStats(id: string, trackId: number, options?: RequestInitWithQuery): Promise<any> {
     const res = await this.http.get(`/users/${id}/streams/tracks/${trackId}/count`, options);
 
     return res.data.item;
   }
 
-  async getTrackDuration(
-    id: string,
-    trackId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/tracks/${trackId}/duration`, options);
-
-    return res.data.item;
-  }
-
-  async getArtistStreams(
+  async artistStreams(
     id: string,
     artistId: number,
     options?: RequestInitWithQuery
@@ -76,27 +56,13 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getArtistCount(
-    id: string,
-    artistId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/artists/${artistId}/count`, options);
+  async artistStats(id: string, artistId: number, options?: RequestInitWithQuery): Promise<any> {
+    const res = await this.http.get(`/users/${id}/streams/artists/${artistId}/stats`, options);
 
-    return res.data.item;
+    return res.data.items;
   }
 
-  async getArtistDuration(
-    id: string,
-    artistId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/artists/${artistId}/duration`, options);
-
-    return res.data.item;
-  }
-
-  async getAlbumStreams(
+  async albumStreams(
     id: string,
     albumId: number,
     options?: RequestInitWithQuery
@@ -106,39 +72,25 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getAlbumCount(
-    id: string,
-    albumId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/albums/${albumId}/count`, options);
+  async albumStats(id: string, albumId: number, options?: RequestInitWithQuery): Promise<any> {
+    const res = await this.http.get(`/users/${id}/streams/albums/${albumId}/stats`, options);
 
-    return res.data.item;
+    return res.data.items;
   }
 
-  async getAlbumDuration(
-    id: string,
-    albumId: number,
-    options?: RequestInitWithQuery
-  ): Promise<number> {
-    const res = await this.http.get(`/users/${id}/streams/albums/${albumId}/duration`, options);
-
-    return res.data.item;
-  }
-
-  async getTopTracks(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopTrack[]> {
+  async topTracks(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopTrack[]> {
     const res = await this.http.get(`/users/${id}/top/tracks`, options);
 
     return res.data.items;
   }
 
-  async getTopArtists(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopArtist[]> {
+  async topArtists(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopArtist[]> {
     const res = await this.http.get(`/users/${id}/top/artists`, options);
 
     return res.data.items;
   }
 
-  async getTopTracksFromArtist(
+  async topTracksFromArtist(
     id: string,
     artistId: number,
     options?: RequestInitWithQuery
@@ -148,7 +100,7 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getTopAlbumsFromArtist(
+  async topAlbumsFromArtist(
     id: string,
     artistId: number,
     options?: RequestInitWithQuery
@@ -158,13 +110,13 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async getTopAlbums(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopAlbum[]> {
+  async topAlbums(id: string, options?: RequestInitWithQuery): Promise<statsfm.TopAlbum[]> {
     const res = await this.http.get(`/users/${id}/top/albums`, options);
 
     return res.data.items;
   }
 
-  async getTopTracksFromAlbums(
+  async topTracksFromAlbums(
     id: string,
     albumId: number,
     options?: RequestInitWithQuery
