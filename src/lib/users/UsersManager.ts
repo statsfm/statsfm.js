@@ -9,7 +9,7 @@ export default class UsersManager extends Manager {
     return res.data.item;
   }
 
-  async getStreams(id: string, options?: RequestInitWithQuery): Promise<statsfm.Stream> {
+  async getStreams(id: string, options?: RequestInitWithQuery): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams`, options);
 
     return res.data.items;
@@ -18,7 +18,7 @@ export default class UsersManager extends Manager {
   async getRecentStreams(
     id: string,
     options?: RequestInitWithQuery
-  ): Promise<statsfm.RecentlyPlayedTrack> {
+  ): Promise<statsfm.RecentlyPlayedTrack[]> {
     const res = await this.http.get(`/users/${id}/streams/recent`, options);
 
     return res.data.items;
@@ -40,7 +40,7 @@ export default class UsersManager extends Manager {
     id: string,
     trackId: number,
     options?: RequestInitWithQuery
-  ): Promise<statsfm.Stream> {
+  ): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams/tracks/${trackId}`, options);
 
     return res.data.items;
@@ -70,7 +70,7 @@ export default class UsersManager extends Manager {
     id: string,
     artistId: number,
     options?: RequestInitWithQuery
-  ): Promise<statsfm.Stream> {
+  ): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams/artists/${artistId}`, options);
 
     return res.data.items;
@@ -100,7 +100,7 @@ export default class UsersManager extends Manager {
     id: string,
     albumId: number,
     options?: RequestInitWithQuery
-  ): Promise<statsfm.Stream> {
+  ): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams/albums/${albumId}`, options);
 
     return res.data.items;
