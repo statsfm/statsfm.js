@@ -3,7 +3,7 @@ import { Response, RequestInitWithQuery } from '../../interfaces/Request';
 import 'isomorphic-unfetch';
 
 export class HttpClient {
-  constructor(protected config: Config) {}
+  constructor(public config: Config) {}
 
   /**
    * @param {string} slug
