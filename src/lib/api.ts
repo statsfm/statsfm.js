@@ -33,13 +33,13 @@ export default class Api {
       config.baseUrl = 'https://api.stats.fm/api/v1';
     }
     this.http = new HttpClient(config);
-    this.tracks = new TracksManager(config);
-    this.albums = new AlbumsManager(config);
-    this.artists = new ArtistsManager(config);
-    this.genres = new GenresManager(config);
-    this.users = new UsersManager(config);
-    this.me = new MeManager(config);
-    this.stats = new StatsManager(config);
-    this.search = new SearchManager(config);
+    this.tracks = new TracksManager(this.http);
+    this.albums = new AlbumsManager(this.http);
+    this.artists = new ArtistsManager(this.http);
+    this.genres = new GenresManager(this.http);
+    this.users = new UsersManager(this.http);
+    this.me = new MeManager(this.http);
+    this.stats = new StatsManager(this.http);
+    this.search = new SearchManager(this.http);
   }
 }
