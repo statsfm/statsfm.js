@@ -1,2 +1,5 @@
-export * from './lib/StatsfmAPI';
+import Api from './lib/api';
+
 export * from './interfaces';
+
+export default Api;
