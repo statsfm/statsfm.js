@@ -1,18 +1,18 @@
 import { Object } from '.';
 
-interface AudioAnalysisBar {
+export interface AudioAnalysisBar {
   start: number;
   duration: number;
   confidence: number;
 }
 
-interface AudioAnalysisBeat {
+export interface AudioAnalysisBeat {
   start: number;
   duration: number;
   confidence: number;
 }
 
-interface AudioAnalysisSection {
+export interface AudioAnalysisSection {
   start: number;
   duration: number;
   confidence: number;
@@ -27,7 +27,7 @@ interface AudioAnalysisSection {
   time_signature_confidence: number;
 }
 
-interface AudioAnalysisSegment {
+export interface AudioAnalysisSegment {
   start: number;
   duration: number;
   confidence: number;
@@ -39,7 +39,7 @@ interface AudioAnalysisSegment {
   timbre: number[];
 }
 
-interface AudioAnalysisTatum {
+export interface AudioAnalysisTatum {
   start: number;
   duration: number;
   confidence: number;

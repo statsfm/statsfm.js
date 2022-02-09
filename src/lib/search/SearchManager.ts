@@ -1,4 +1,4 @@
-import * as statsfm from 'src/interfaces/statsfm';
+import * as statsfm from '../../interfaces/statsfm';
 import { RequestInitWithQuery } from '../../interfaces/Request';
 import Manager from '../Manager';
 

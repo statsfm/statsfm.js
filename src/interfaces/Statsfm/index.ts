@@ -1,6 +1,13 @@
 import { Album, AlbumSimple, TopAlbum } from './album';
 import { Artist, ArtistSimple, TopArtist } from './artist';
-import { AudioAnalysis } from './audio-analysis';
+import {
+  AudioAnalysis,
+  AudioAnalysisBar,
+  AudioAnalysisBeat,
+  AudioAnalysisSection,
+  AudioAnalysisSegment,
+  AudioAnalysisTatum
+} from './audio-analysis';
 import { AudioFeatures } from './audio-features';
 import { Stream, StreamMinified, StreamMinifiedToStream, StreamToStreamMinified } from './stream';
 import { TopObject } from './top';
@@ -29,5 +36,10 @@ export {
   StreamMinifiedToStream,
   StreamToStreamMinified,
   AudioAnalysis,
-  AudioFeatures
+  AudioFeatures,
+  AudioAnalysisBar,
+  AudioAnalysisBeat,
+  AudioAnalysisSection,
+  AudioAnalysisSegment,
+  AudioAnalysisTatum
 };
