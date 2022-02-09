@@ -1,9 +1,9 @@
 export enum Indicator {
-  UP = "UP",
-  DOWN = "DOWN",
-  NEW = "NEW",
-  SAME = "SAME",
-  NONE = "NONE",
+  UP = 'UP',
+  DOWN = 'DOWN',
+  NEW = 'NEW',
+  SAME = 'SAME',
+  NONE = 'NONE'
 }
 
 export interface TopUser {

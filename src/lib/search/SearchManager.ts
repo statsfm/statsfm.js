@@ -1,8 +1,9 @@
+import * as statsfm from 'src/interfaces/statsfm';
 import { RequestInitWithQuery } from '../../interfaces/Request';
 import Manager from '../Manager';
 
-export default class StatsManager extends Manager {
-  async getDatabaseSize(options?: RequestInitWithQuery): Promise<any> {
+export default class SearchManager extends Manager {
+  async search(query: string, options?: RequestInitWithQuery): Promise<statsfm.Object[]> {
     const res = await this.http.get(`/stats/database/size`, options);
 
     return res.data.items;

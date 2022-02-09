@@ -1,8 +1,9 @@
-import { Config } from "../../interfaces/Config";
-import { Response, RequestInitWithQuery } from "../../interfaces/Request";
+import { Config } from '../../interfaces/Config';
+import { Response, RequestInitWithQuery } from '../../interfaces/Request';
+import 'isomorphic-unfetch';
 
 export class HttpClient {
-  protected baseURL = "https://beta.stats.fm/api/v1";
+  protected baseURL = 'https://beta.stats.fm/api/v1';
 
   constructor(protected config: Config) {}
 
@@ -21,108 +22,87 @@ export class HttpClient {
 
   /**
    * @param  {string} slug
-   * @param  {RequestInit} init?
+   * @param  {RequestInitWithQuery} init
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async request<T>(
-    slug: string,
-    init?: RequestInitWithQuery
-  ): Promise<Response<T>> {
+  async request<T>(slug: string, init?: RequestInitWithQuery): Promise<Response> {
     const options = {
       ...init,
       headers: {
         Authorization: this.config?.acccessToken,
-        "Content-Type": "application/json",
-        ...init?.headers,
-      },
+        'Content-Type': 'application/json',
+        ...init?.headers
+      }
     };
 
-    if (options.headers["Content-Type"] == null) {
-      delete options.headers["Content-Type"];
+    if (options.headers['Content-Type'] == null) {
+      delete options.headers['Content-Type'];
     }
 
     const url = this.getURL(slug, options?.query);
 
-    const res = await fetch(url, options);
+    const res = await fetch(url, options as unknown as RequestInit);
     const parsed: Response = {
       success: res.ok,
       status: res.status,
       statusText: res.statusText,
       url: res.url,
       headers: res.headers,
-      data: await res.json(),
+      data: await res.json()
     };
 
     if (!parsed.success) {
-      switch (parsed.status) {
-        case 403:
-          console.error(parsed.statusText);
-          break;
-        default:
-          console.error(parsed.status, parsed.data);
-      }
+      throw parsed;
     }
 
-    return parsed as Response<T>;
+    return parsed as Response;
   }
 
   /**
    * @param  {string} slug
-   * @param  {RequestInit} options?
+   * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async get<T>(
-    slug: string,
-    options?: RequestInitWithQuery
-  ): Promise<Response<T>> {
+  async get<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
     return await this.request<T>(slug, {
       ...options,
-      method: "GET",
+      method: 'GET'
     });
   }
 
   /**
    * @param  {string} slug
-   * @param  {RequestInit} options?
+   * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async post<T>(
-    slug: string,
-    options?: RequestInitWithQuery
-  ): Promise<Response<T>> {
+  async post<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
     return await this.request<T>(slug, {
       ...options,
-      method: "POST",
+      method: 'POST'
     });
   }
 
   /**
    * @param  {string} slug
-   * @param  {RequestInit} options?
+   * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async put<T>(
-    slug: string,
-    options?: RequestInitWithQuery
-  ): Promise<Response<T>> {
+  async put<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
     return await this.request<T>(slug, {
       ...options,
-      method: "PUT",
+      method: 'PUT'
     });
   }
 
   /**
    * @param  {string} slug
-   * @param  {RequestInit} options?
+   * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async delete<T>(
-    slug: string,
-    options?: RequestInitWithQuery
-  ): Promise<Response<T>> {
+  async delete<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
     return await this.request<T>(slug, {
       ...options,
-      method: "DELETE",
+      method: 'DELETE'
     });
   }
 }

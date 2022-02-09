@@ -1,15 +1,11 @@
-import { Album, AlbumSimple, TopAlbum } from "./album";
-import { Artist, ArtistSimple, TopArtist } from "./artist";
-import { AudioAnalysis } from "./audio-analysis";
-import { AudioFeatures } from "./audio-features";
-import { TopObject } from "./top";
-import { Track, RecentlyPlayedTrack, TopTrack } from "./track";
-import {
-  Stream,
-  StreamMinified,
-  StreamMinifiedToStream,
-  StreamToStreamMinified,
-} from "./stream";
+import { Album, AlbumSimple, TopAlbum } from './album';
+import { Artist, ArtistSimple, TopArtist } from './artist';
+import { AudioAnalysis } from './audio-analysis';
+import { AudioFeatures } from './audio-features';
+import { Stream, StreamMinified, StreamMinifiedToStream, StreamToStreamMinified } from './stream';
+import { TopObject } from './top';
+import { RecentlyPlayedTrack, TopTrack, Track } from './track';
+import { UserImport } from './user';
 
 export interface Object {
   id: number;
@@ -17,6 +13,7 @@ export interface Object {
 }
 
 export {
+  UserImport,
   TopObject,
   Album,
   AlbumSimple,
@@ -32,5 +29,5 @@ export {
   StreamMinifiedToStream,
   StreamToStreamMinified,
   AudioAnalysis,
-  AudioFeatures,
+  AudioFeatures
 };

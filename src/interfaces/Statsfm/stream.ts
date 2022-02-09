@@ -22,10 +22,8 @@ export interface StreamMinified {
   j?: number;
 }
 
-export const StreamToStreamMinified = (
-  stream: Stream
-): Omit<StreamMinified, "a"> => {
-  const obj: Omit<StreamMinified, "a"> = {
+export const StreamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'> => {
+  const obj: Omit<StreamMinified, 'a'> = {
     // a: stream.id,
     b: stream.userId,
     d: stream.endTime.getTime(),
@@ -33,9 +31,9 @@ export const StreamToStreamMinified = (
     f: stream.trackId,
     g: stream.trackName,
     h: stream.albumId,
-    i: stream.artistIds,
+    i: stream.artistIds
   };
-  if ("importId" in stream) obj.j = stream.importId;
+  if ('importId' in stream) obj.j = stream.importId;
   return obj;
 };
 
@@ -48,8 +46,8 @@ export const StreamMinifiedToStream = (stream: StreamMinified): Stream => {
     trackId: stream.f,
     trackName: stream.g,
     albumId: stream.h,
-    artistIds: stream.i,
+    artistIds: stream.i
   };
-  if ("j" in stream) obj.importId = stream.j;
+  if ('j' in stream) obj.importId = stream.j;
   return obj;
 };

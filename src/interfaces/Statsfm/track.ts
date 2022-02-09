@@ -1,7 +1,7 @@
-import { AlbumSimple } from "./album";
-import { ArtistSimple } from "./artist";
-import { Object } from ".";
-import { TopObject } from "./top";
+import { AlbumSimple } from './album';
+import { ArtistSimple } from './artist';
+import { Object } from '.';
+import { TopObject } from './top';
 
 export interface Track extends Object {
   name: string;

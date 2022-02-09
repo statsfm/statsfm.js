@@ -12,6 +12,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'jsdoc/require-param': 'off',
     'jsdoc/require-description-complete-sentence': 'off',
-    'no-loops/no-loops': 'off'
+    'no-loops/no-loops': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 };

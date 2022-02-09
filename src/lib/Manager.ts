@@ -1,8 +1,10 @@
-import { Config } from "../interfaces/Config";
-import { HttpClient } from "./http/HttpManager";
+import { Config } from '../interfaces/Config';
+import { HttpClient } from './http/HttpManager';
 
 export default class Manager {
-  protected http = new HttpClient(this.config);
+  protected http: HttpClient;
 
-  constructor(protected config: Config) {}
+  constructor(protected config: Config) {
+    this.http = new HttpClient(this.config);
+  }
 }

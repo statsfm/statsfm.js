@@ -1,5 +1,5 @@
-import { Object } from ".";
-import { TopObject } from "./top";
+import { Object } from '.';
+import { TopObject } from './top';
 
 export interface ArtistSimple extends Object {
   name: string;
