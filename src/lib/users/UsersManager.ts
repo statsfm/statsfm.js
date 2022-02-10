@@ -9,6 +9,21 @@ export default class UsersManager extends Manager {
     return res.data.item;
   }
 
+  async privacySettings(
+    id: string,
+    options?: RequestInitWithQuery
+  ): Promise<statsfm.UserPrivacySettings> {
+    const res = await this.http.get(`/users/${id}/privacy`, options);
+
+    return res.data.item;
+  }
+
+  async profile(id: string, options?: RequestInitWithQuery): Promise<statsfm.UserProfile> {
+    const res = await this.http.get(`/users/${id}/profile`, options);
+
+    return res.data.item;
+  }
+
   async streams(id: string, options?: RequestInitWithQuery): Promise<statsfm.Stream[]> {
     const res = await this.http.get(`/users/${id}/streams`, options);
 
