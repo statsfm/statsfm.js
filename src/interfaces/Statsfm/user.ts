@@ -13,7 +13,6 @@ export interface UserImport {
 }
 
 export interface UserPrivacySettings {
-  userId?: string;
   profile: boolean;
   currentlyPlaying: boolean;
   recentlyPlayed: boolean;
@@ -26,7 +25,6 @@ export interface UserPrivacySettings {
 }
 
 export interface UserProfile {
-  userId?: string;
   bio: string;
   pronouns?: string;
 }

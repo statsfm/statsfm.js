@@ -20,8 +20,10 @@ export default class MeManager extends Manager {
   }
 
   async updatePrivacySettings(
-    options?: RequestInitWithQuery & { body: statsfm.UserPrivacySettings }
+    data: statsfm.UserPrivacySettings,
+    options?: RequestInitWithQuery
   ): Promise<statsfm.UserPrivacySettings[]> {
+    options.body = JSON.stringify(data);
     const res = await this.http.put('/me/privacy', options);
 
     return res.data.item;
@@ -34,8 +36,10 @@ export default class MeManager extends Manager {
   }
 
   async updateProfile(
-    options?: RequestInitWithQuery & { body: statsfm.UserProfile }
+    data: statsfm.UserProfile,
+    options?: RequestInitWithQuery
   ): Promise<statsfm.UserPrivacySettings[]> {
+    options.body = JSON.stringify(data);
     const res = await this.http.put('/me/profile', options);
 
     return res.data.item;
