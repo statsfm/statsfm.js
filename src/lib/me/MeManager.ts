@@ -30,6 +30,14 @@ export default class MeManager extends Manager {
     return res.data.item;
   }
 
+  async customIdAvailable(data: string, options?: RequestInitWithQuery): Promise<boolean> {
+    if (typeof options !== 'object') options = {};
+    options.body = JSON.stringify({ customId: data });
+    const res = await this.http.put('/me/customid-available', options);
+
+    return res.data.item;
+  }
+
   async profile(options?: RequestInitWithQuery): Promise<statsfm.UserProfile> {
     const res = await this.http.get('/me/profile', options);
 
@@ -37,7 +45,7 @@ export default class MeManager extends Manager {
   }
 
   async updateProfile(
-    data: statsfm.UserProfile,
+    data: statsfm.UserProfile & { customId?: string },
     options?: RequestInitWithQuery
   ): Promise<statsfm.UserPrivacySettings[]> {
     if (typeof options !== 'object') options = {};
