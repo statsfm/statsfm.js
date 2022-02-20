@@ -28,3 +28,27 @@ export interface UserProfile {
   bio: string;
   pronouns?: string;
 }
+
+export enum OrderBySetting {
+  'PLATFORM',
+  'COUNT',
+  'TIME'
+}
+
+export interface PublicUser {
+  id: string;
+  customId: string;
+  displayName: string;
+  image: string;
+  isPlus: boolean;
+  hasImported: boolean;
+  orderBy: OrderBySetting;
+  privacySettings?: UserPrivacySettings;
+  profile?: UserProfile;
+}
+
+export interface PrivateUser extends PublicUser {
+  email: string;
+  country: string;
+  imports?: UserImport[];
+}

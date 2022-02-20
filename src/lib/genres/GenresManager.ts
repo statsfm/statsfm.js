@@ -5,7 +5,7 @@ export default class GenresManager extends Manager {
   async get(id: string): Promise<any> {
     const res = await this.http.get(`/genres/${id}`);
 
-    return res.data.item as statsfm.Album;
+    return res.data.item as statsfm.Genre;
   }
 
   async artists(id: string): Promise<statsfm.Artist[]> {

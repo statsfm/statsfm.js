@@ -22,7 +22,7 @@ export default class MeManager extends Manager {
   async updatePrivacySettings(
     data: statsfm.UserPrivacySettings,
     options?: RequestInitWithQuery
-  ): Promise<statsfm.UserPrivacySettings[]> {
+  ): Promise<statsfm.UserPrivacySettings> {
     if (typeof options !== 'object') options = {};
     options.body = JSON.stringify(data);
     const res = await this.http.put('/me/privacy', options);

@@ -34,4 +34,28 @@ export default class ArtistsManager extends Manager {
 
     return res.data.items as statsfm.Track[];
   }
+
+  async topTracks(id: number): Promise<statsfm.Track[]> {
+    const res = await this.http.get(`/artists/${id}/tracks/top`);
+
+    return res.data.items as statsfm.Track[];
+  }
+
+  async albums(id: number): Promise<statsfm.Album[]> {
+    const res = await this.http.get(`/artists/${id}/albums`);
+
+    return res.data.items as statsfm.Album[];
+  }
+
+  async topAlbums(id: number): Promise<statsfm.Album[]> {
+    const res = await this.http.get(`/artists/${id}/albums/top`);
+
+    return res.data.items as statsfm.Album[];
+  }
+
+  async related(id: number): Promise<statsfm.Artist[]> {
+    const res = await this.http.get(`/artists/${id}/related`);
+
+    return res.data.items as statsfm.Artist[];
+  }
 }
