@@ -27,7 +27,7 @@ export class HttpClient {
     const options = {
       ...init,
       headers: {
-        Authorization: this.config?.acccessToken,
+        Authorization: this.config?.accessToken,
         'Content-Type': 'application/json',
         ...init?.headers
       }

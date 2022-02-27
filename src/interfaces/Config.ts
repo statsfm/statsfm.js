@@ -1,4 +1,4 @@
 export interface Config {
   baseUrl: string;
-  acccessToken?: string;
+  accessToken?: string;
 }
