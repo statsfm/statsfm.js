@@ -28,8 +28,8 @@ export default class Api {
 
   search: SearchManager;
 
-  constructor(config: Config) {
-    if (!config.baseUrl) {
+  constructor(config: Config = {}) {
+    if (!config?.baseUrl) {
       config.baseUrl = 'https://api.stats.fm/api/v1';
     }
     this.http = new HttpClient(config);
