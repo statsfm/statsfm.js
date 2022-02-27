@@ -2,7 +2,7 @@ import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
 
 export default class GenresManager extends Manager {
-  async get(id: string): Promise<any> {
+  async get(id: string): Promise<statsfm.Genre> {
     const res = await this.http.get(`/genres/${id}`);
 
     return res.data.item as statsfm.Genre;
