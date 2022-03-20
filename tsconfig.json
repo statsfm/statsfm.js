@@ -9,7 +9,7 @@
     "removeComments": false,
     "sourceMap": true,
     "baseUrl": "./",
-    "lib": ["ES2020"],
+    "lib": ["ES2020", "DOM"],
     "rootDir": "src",
     "declaration": true,
     "experimentalDecorators": true,

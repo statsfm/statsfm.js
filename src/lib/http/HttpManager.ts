@@ -55,7 +55,7 @@ export class HttpClient {
       throw parsed;
     }
 
-    return parsed as Response;
+    return parsed;
   }
 
   /**
