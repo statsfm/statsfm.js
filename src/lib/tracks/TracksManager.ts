@@ -19,7 +19,54 @@ export default class TracksManager extends Manager {
    * @returns {Promise<Track[]>} Returns a promise with a single {@link Track}.
    */
   async list(ids: number[]): Promise<statsfm.Track[]> {
-    const res = await this.http.get(`/tracks/list?ids=${ids.join(',')}`);
+    const res = await this.http.get(`/tracks/list`, {
+      query: {
+        ids: ids.join(',')
+      }
+    });
+
+    return res.data.items;
+  }
+
+  async getSpotify(id: string): Promise<statsfm.Track> {
+    const res = await this.http.get(`/tracks/${id}`, {
+      query: {
+        type: 'spotify'
+      }
+    });
+
+    return res.data.item;
+  }
+
+  async listSpotify(ids: string[]): Promise<statsfm.Track[]> {
+    const res = await this.http.get(`/tracks/list`, {
+      query: {
+        ids: ids.join(','),
+        type: 'spotify'
+      }
+    });
+
+    return res.data.items;
+  }
+
+  async audioAnalysis(spotifyId: string): Promise<statsfm.AudioAnalysis> {
+    const res = await this.http.get(`/spotify/audio-analysis/${spotifyId}`);
+
+    return res.data.item;
+  }
+
+  async audioFeature(spotifyId: string): Promise<statsfm.AudioFeatures> {
+    const res = await this.http.get(`/spotify/audio-features/${spotifyId}`);
+
+    return res.data.item;
+  }
+
+  async audioFeatures(spotifyIds: string[]): Promise<statsfm.AudioFeatures[]> {
+    const res = await this.http.get(`/spotify/audio-features`, {
+      query: {
+        ids: spotifyIds.join(',')
+      }
+    });
 
     return res.data.items;
   }

@@ -19,7 +19,32 @@ export default class AlbumsManager extends Manager {
    * * @returns {Promise<Album[]>} Returns a promise with a {@link Album}s.
    */
   async list(ids: number[]): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/albums/list?ids=${ids.join(',')}`);
+    const res = await this.http.get(`/albums/list`, {
+      query: {
+        ids: ids.join(',')
+      }
+    });
+
+    return res.data.items as statsfm.Album[];
+  }
+
+  async getSpotify(id: string): Promise<statsfm.Album> {
+    const res = await this.http.get(`/albums/${id}`, {
+      query: {
+        type: 'spotify'
+      }
+    });
+
+    return res.data.item as statsfm.Album;
+  }
+
+  async listSpotify(ids: string[]): Promise<statsfm.Album[]> {
+    const res = await this.http.get(`/albums/list`, {
+      query: {
+        ids: ids.join(','),
+        type: 'spotify'
+      }
+    });
 
     return res.data.items as statsfm.Album[];
   }

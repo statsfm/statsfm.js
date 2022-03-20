@@ -2,10 +2,10 @@ import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
 
 export default class GenresManager extends Manager {
-  async get(id: string): Promise<any> {
-    const res = await this.http.get(`/genres/${id}`);
+  async get(tag: string): Promise<statsfm.Genre> {
+    const res = await this.http.get(`/genres/${tag}`);
 
-    return res.data.item as statsfm.Genre;
+    return res.data.item;
   }
 
   async artists(id: string): Promise<statsfm.Artist[]> {

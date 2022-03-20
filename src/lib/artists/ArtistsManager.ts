@@ -19,7 +19,32 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Artist[]>} Returns a promise with a {@link Artist}s.
    */
   async list(ids: number[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get(`/artists/list?ids=${ids.join(',')}`);
+    const res = await this.http.get(`/artists/list`, {
+      query: {
+        ids: ids.join(',')
+      }
+    });
+
+    return res.data.items as statsfm.Artist[];
+  }
+
+  async getSpotify(id: string): Promise<statsfm.Artist> {
+    const res = await this.http.get(`/artists/${id}`, {
+      query: {
+        type: 'spotify'
+      }
+    });
+
+    return res.data.item as statsfm.Artist;
+  }
+
+  async listSpotify(ids: string[]): Promise<statsfm.Artist[]> {
+    const res = await this.http.get(`/artists/list`, {
+      query: {
+        ids: ids.join(','),
+        type: 'spotify'
+      }
+    });
 
     return res.data.items as statsfm.Artist[];
   }
