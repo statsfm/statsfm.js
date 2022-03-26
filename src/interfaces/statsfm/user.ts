@@ -35,6 +35,20 @@ export interface UserSpotifyPlaylist {
   orderBy?: OrderBySetting;
 }
 
+export interface SocialMediaPlatform {
+  name: string;
+  icon: string;
+}
+
+export interface UserSocialMediaConnection {
+  id: number;
+  verified: boolean;
+  platformUserId: string;
+  platformUsername: string;
+  platformUserImage: string;
+  platform: SocialMediaPlatform;
+}
+
 export interface UserPrivacySettings {
   profile: boolean;
   currentlyPlaying: boolean;

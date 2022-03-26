@@ -22,6 +22,16 @@ export default class MeManager extends Manager {
     throw new Error('unimplemented error');
   }
 
+  async socialMediaConnections(): Promise<statsfm.UserSocialMediaConnection[]> {
+    const res = await this.http.get('/me/connections');
+
+    return res.data.items;
+  }
+
+  async removeSocialMediaConnection(id: number): Promise<void> {
+    await this.http.delete(`/me/connections/${id}`);
+  }
+
   async privacySettings(): Promise<statsfm.UserPrivacySettings> {
     const res = await this.http.get('/me/privacy');
 
