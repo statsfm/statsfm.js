@@ -173,7 +173,7 @@ export default class UsersManager extends Manager {
       query: options
     });
 
-    return res.data.items;
+    return res.data.item;
   }
 
   async topTracks(
