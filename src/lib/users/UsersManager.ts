@@ -95,7 +95,7 @@ export default class UsersManager extends Manager {
       query: options
     });
 
-    return res.data.item;
+    return res.data.items;
   }
 
   async trackListStreams(
@@ -149,7 +149,7 @@ export default class UsersManager extends Manager {
       query: options
     });
 
-    return res.data.item;
+    return res.data.items;
   }
 
   async albumStreams(
@@ -173,7 +173,7 @@ export default class UsersManager extends Manager {
       query: options
     });
 
-    return res.data.item;
+    return res.data.items;
   }
 
   async topTracks(
