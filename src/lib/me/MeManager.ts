@@ -1,5 +1,5 @@
 import * as statsfm from '../../interfaces/statsfm';
-import { RequestInitWithQuery } from '../../interfaces/Request';
+import { Response, RequestInitWithQuery } from '../../interfaces/Request';
 import Manager from '../Manager';
 import { UserPrivate } from '../../interfaces/statsfm';
 
@@ -18,8 +18,8 @@ export default class MeManager extends Manager {
     return res.data.item;
   }
 
-  deleteAccount(): Promise<void> {
-    throw new Error('unimplemented error');
+  deleteAccount(): Promise<Response> {
+    return this.http.post('/me');
   }
 
   async socialMediaConnections(): Promise<statsfm.UserSocialMediaConnection[]> {
