@@ -19,7 +19,7 @@ export default class MeManager extends Manager {
   }
 
   deleteAccount(): Promise<Response> {
-    return this.http.post('/me');
+    return this.http.delete('/me');
   }
 
   async socialMediaConnections(): Promise<statsfm.UserSocialMediaConnection[]> {
