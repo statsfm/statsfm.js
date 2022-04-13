@@ -3,9 +3,9 @@ import { Album } from './album';
 import { Artist } from './artist';
 
 export enum SearchTypes {
-  TRACK = 'artist',
+  TRACK = 'track',
   ARTIST = 'artist',
-  ALBUM = 'artist'
+  ALBUM = 'album'
 }
 
 export interface SearchResults {
