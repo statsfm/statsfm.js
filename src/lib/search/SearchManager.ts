@@ -7,7 +7,7 @@ export default class SearchManager extends Manager {
     query: string,
     type: statsfm.SearchTypes[],
     options: QueryWithPaging = {}
-  ): Promise<statsfm.SearchResults[]> {
+  ): Promise<statsfm.SearchResults> {
     // TODO: implement paging
     const res = await this.http.get(`/search`, {
       query: {
