@@ -2,6 +2,7 @@ export * from './album';
 export * from './artist';
 export * from './audio-analysis';
 export * from './audio-features';
+export * from './crown';
 export * from './database_size';
 export * from './genre';
 export * from './query';

@@ -247,4 +247,10 @@ export default class UsersManager extends Manager {
 
     return res.data.items;
   }
+
+  async artistCrowns(userId: string): Promise<statsfm.ArtistCrown[]> {
+    const res = await this.http.get(`/users/${userId}/crowns/artists`, { query: {} });
+
+    return res.data.items;
+  }
 }
