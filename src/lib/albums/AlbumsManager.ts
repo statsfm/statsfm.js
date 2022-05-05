@@ -3,56 +3,46 @@ import Manager from '../Manager';
 
 export default class AlbumsManager extends Manager {
   /**
-   * @description Get a album by ID.
-   * @param {number} id The ID of the album.
-   * @returns {Promise<Album>} Returns a promise with a single {@link Album}.
+   * @description Get an album by ID.
+   * @param {T} id The ID of the album.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Album>} Returns a promise with a single {@link statsfm.Album Album}.
    */
-  async get(id: number): Promise<statsfm.Album> {
-    const res = await this.http.get(`/albums/${id}`);
+  async get<T extends number | string>(
+    id: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Album> {
+    const res = await this.http.get(`/albums/${id}`, {
+      query: options[0]
+    });
 
-    return res.data.item as statsfm.Album;
+    return res.data.item;
   }
 
   /**
    * @description Get a list of albums by IDs.
-   * @param {string} ids The IDs of the albums
-   * * @returns {Promise<Album[]>} Returns a promise with a {@link Album}s.
+   * @param {T} ids The IDs of the albums.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Album[]>} Returns a promise with {@link statsfm.Album Albums}.
    */
-  async list(ids: number[]): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/albums/list`, {
-      query: {
-        ids: ids.join(',')
-      }
-    });
-
-    return res.data.items as statsfm.Album[];
-  }
-
-  async getSpotify(id: string): Promise<statsfm.Album> {
-    const res = await this.http.get(`/albums/${id}`, {
-      query: {
-        type: 'spotify'
-      }
-    });
-
-    return res.data.item as statsfm.Album;
-  }
-
-  async listSpotify(ids: string[]): Promise<statsfm.Album[]> {
+  async list<T extends number[] | string[]>(
+    ids: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Album[]> {
     const res = await this.http.get(`/albums/list`, {
       query: {
         ids: ids.join(','),
-        type: 'spotify'
+        ...options[0]
       }
     });
 
-    return res.data.items as statsfm.Album[];
+    return res.data.items;
   }
 
   /**
    * @description Get a list of tracks on the album.
-   * @param {number} id The IDs of the album.
-   * @returns {Promise<Track[]>} Returns a promise with a {@link Track[]}s.
+   * @param {number} id The ID of the album.
+   * @returns {Promise<Track[]>} Returns a promise with {@link statsfm.Track Tracks}.
    */
   async tracks(id: number): Promise<statsfm.Track[]> {
     const res = await this.http.get(`/albums/${id}/tracks`);
