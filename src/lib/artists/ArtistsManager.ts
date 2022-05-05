@@ -3,56 +3,46 @@ import Manager from '../Manager';
 
 export default class ArtistsManager extends Manager {
   /**
-   * @description Get a artist by ID.
-   * @param {number} id The ID of the artist.
-   * @returns {Promise<Artist>} Returns a promise with a single {@link Artist}.
+   * @description Get an artist by ID.
+   * @param {T} id The ID of the artist.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Artist>} Returns a promise with a single {@link statsfm.Artist Artist}.
    */
-  async get(id: number): Promise<statsfm.Artist> {
-    const res = await this.http.get(`/artists/${id}`);
+  async get<T extends number | string>(
+    id: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Artist> {
+    const res = await this.http.get(`/artists/${id}`, {
+      query: options[0]
+    });
 
-    return res.data.item as statsfm.Artist;
+    return res.data.item;
   }
 
   /**
    * @description Get a list of artists by IDs.
-   * @param {number} ids The IDs of the track.
-   * @returns {Promise<Artist[]>} Returns a promise with a {@link Artist}s.
+   * @param {T} ids The IDs of the artists.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Artist[]>} Returns a promise with {@link statsfm.Artist Artists}.
    */
-  async list(ids: number[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get(`/artists/list`, {
-      query: {
-        ids: ids.join(',')
-      }
-    });
-
-    return res.data.items as statsfm.Artist[];
-  }
-
-  async getSpotify(id: string): Promise<statsfm.Artist> {
-    const res = await this.http.get(`/artists/${id}`, {
-      query: {
-        type: 'spotify'
-      }
-    });
-
-    return res.data.item as statsfm.Artist;
-  }
-
-  async listSpotify(ids: string[]): Promise<statsfm.Artist[]> {
+  async list<T extends number[] | string[]>(
+    ids: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Artist[]> {
     const res = await this.http.get(`/artists/list`, {
       query: {
         ids: ids.join(','),
-        type: 'spotify'
+        ...options[0]
       }
     });
 
-    return res.data.items as statsfm.Artist[];
+    return res.data.items;
   }
 
   /**
    * @description Get a list of tracks by the artist ID.
-   * @param {number} id The IDs of the artist.
-   * @returns {Promise<Track[]>} Returns a promise with a {@link Track[]}s.
+   * @param {number} id The ID of the artist.
+   * @returns {Promise<statsfm.Track[]>} Returns a promise with {@link statsfm.Track Tracks}.
    */
   async tracks(id: number): Promise<statsfm.Track[]> {
     const res = await this.http.get(`/artists/${id}/tracks`);

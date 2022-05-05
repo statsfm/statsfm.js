@@ -4,45 +4,35 @@ import Manager from '../Manager';
 export default class TracksManager extends Manager {
   /**
    * @description Get a track by ID.
-   * @param {number} id The ID of the track.
-   * @returns {Promise<Track>} Returns a promise with a single {@link Track}.
+   * @param {T} id The ID of the track.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Track>} Returns a promise with a single {@link statsfm.Track Track}.
    */
-  async get(id: number): Promise<statsfm.Track> {
-    const res = await this.http.get(`/tracks/${id}`);
+  async get<T extends number | string>(
+    id: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Track> {
+    const res = await this.http.get(`/tracks/${id}`, {
+      query: options[0]
+    });
 
     return res.data.item;
   }
 
   /**
    * @description Get a list of tracks by IDs.
-   * @param {number} ids The IDs of the tracks.
-   * @returns {Promise<Track[]>} Returns a promise with a single {@link Track}.
+   * @param {T} ids The IDs of the tracks.
+   * @param {statsfm.QueryWithIdType} options Request options.
+   * @returns {Promise<statsfm.Track[]>} Returns a promise with {@link statsfm.Track Tracks}.
    */
-  async list(ids: number[]): Promise<statsfm.Track[]> {
-    const res = await this.http.get(`/tracks/list`, {
-      query: {
-        ids: ids.join(',')
-      }
-    });
-
-    return res.data.items;
-  }
-
-  async getSpotify(id: string): Promise<statsfm.Track> {
-    const res = await this.http.get(`/tracks/${id}`, {
-      query: {
-        type: 'spotify'
-      }
-    });
-
-    return res.data.item;
-  }
-
-  async listSpotify(ids: string[]): Promise<statsfm.Track[]> {
+  async list<T extends number[] | string[]>(
+    ids: T,
+    ...options: T extends number ? [options?: undefined] : [options: statsfm.QueryWithIdType]
+  ): Promise<statsfm.Track[]> {
     const res = await this.http.get(`/tracks/list`, {
       query: {
         ids: ids.join(','),
-        type: 'spotify'
+        ...options[0]
       }
     });
 

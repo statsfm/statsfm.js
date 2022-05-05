@@ -29,3 +29,7 @@ export interface QueryWithDates {
   before?: number;
   after?: number;
 }
+
+export interface QueryWithIdType {
+  type: 'spotify';
+}
