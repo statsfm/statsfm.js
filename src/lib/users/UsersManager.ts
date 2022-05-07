@@ -63,6 +63,14 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
+  async currentlyStreaming(userId: string): Promise<statsfm.CurrentlyPlayingTrack | undefined> {
+    const res = await this.http.get(`/users/${userId}/streams/current`, {
+      query: {}
+    });
+
+    return res.success ? res.data.item : undefined;
+  }
+
   async recentlyStreamed(
     userId: string,
     options: QueryWithPaging = {}
