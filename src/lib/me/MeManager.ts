@@ -109,4 +109,62 @@ export default class MeManager extends Manager {
   async deleteSpotifyPlaylist(id: number): Promise<void> {
     await this.http.delete(`/me/playlists/spotify/${id}`);
   }
+
+  async friends(): Promise<statsfm.UserPublic[]> {
+    const res = await this.http.get('/friends');
+
+    // @ts-expect-error // TODO
+    return res.data.data;
+  }
+
+  async incomingFriendRequests(): Promise<statsfm.UserPublic[]> {
+    const res = await this.http.get('/friends/requests/incoming');
+
+    // @ts-expect-error // TODO
+    return res.data.data;
+  }
+
+  async outgoingFriendRequests(): Promise<statsfm.UserPublic[]> {
+    const res = await this.http.get('/friends/requests/outgoing');
+
+    // @ts-expect-error // TODO
+    return res.data.data;
+  }
+
+  async sendFriendRequest(id: string): Promise<boolean> {
+    const res = await this.http.get(`/friends/requests/send/${encodeURIComponent(id)}`);
+
+    return res.status === 200;
+  }
+
+  async cancelFriendRequest(id: string): Promise<boolean> {
+    const res = await this.http.get(`/friends/requests/cancel/${encodeURIComponent(id)}`);
+
+    return res.status === 200;
+  }
+
+  async acceptFriendRequest(id: string): Promise<boolean> {
+    const res = await this.http.get(`/friends/requests/accept/${encodeURIComponent(id)}`);
+
+    return res.status === 200;
+  }
+
+  async denyFriendRequest(id: string): Promise<boolean> {
+    const res = await this.http.get(`/friends/requests/deny/${encodeURIComponent(id)}`);
+
+    return res.status === 200;
+  }
+
+  async removeFriend(id: string): Promise<boolean> {
+    const res = await this.http.get(`/friends/remove/${encodeURIComponent(id)}`);
+
+    return res.status === 200;
+  }
+
+  async friendStatus(id: string): Promise<any> {
+    const res = await this.http.get(`/friends/status/${encodeURIComponent(id)}`);
+
+    // @ts-expect-error // TODO
+    return res.data.data;
+  }
 }
