@@ -4,6 +4,7 @@ export * from './audio-analysis';
 export * from './audio-features';
 export * from './crown';
 export * from './database_size';
+export * from './friend_status';
 export * from './genre';
 export * from './query';
 export * from './search';

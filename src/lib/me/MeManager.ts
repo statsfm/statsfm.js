@@ -161,10 +161,12 @@ export default class MeManager extends Manager {
     return res.status === 200;
   }
 
-  async friendStatus(id: string): Promise<any> {
+  async friendStatus(id: string): Promise<statsfm.FriendStatus> {
     const res = await this.http.get(`/friends/status/${encodeURIComponent(id)}`);
 
-    // @ts-expect-error // TODO
-    return res.data.data;
+    // @ts-expect-error // TODO fix response
+    const status = res.data.data;
+
+    return statsfm.FriendStatus[status] ?? statsfm.FriendStatus.NONE;
   }
 }
