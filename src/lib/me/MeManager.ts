@@ -132,31 +132,31 @@ export default class MeManager extends Manager {
   }
 
   async sendFriendRequest(id: string): Promise<boolean> {
-    const res = await this.http.get(`/friends/requests/send/${encodeURIComponent(id)}`);
+    const res = await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`);
 
     return res.status === 200;
   }
 
   async cancelFriendRequest(id: string): Promise<boolean> {
-    const res = await this.http.get(`/friends/requests/cancel/${encodeURIComponent(id)}`);
+    const res = await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`);
 
     return res.status === 200;
   }
 
   async acceptFriendRequest(id: string): Promise<boolean> {
-    const res = await this.http.get(`/friends/requests/accept/${encodeURIComponent(id)}`);
+    const res = await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`);
 
     return res.status === 200;
   }
 
   async denyFriendRequest(id: string): Promise<boolean> {
-    const res = await this.http.get(`/friends/requests/deny/${encodeURIComponent(id)}`);
+    const res = await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`);
 
     return res.status === 200;
   }
 
   async removeFriend(id: string): Promise<boolean> {
-    const res = await this.http.get(`/friends/remove/${encodeURIComponent(id)}`);
+    const res = await this.http.post(`/friends/remove/${encodeURIComponent(id)}`);
 
     return res.status === 200;
   }
