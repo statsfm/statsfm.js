@@ -8,9 +8,9 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Artist>} Returns a promise with a single {@link Artist}.
    */
   async get(id: number): Promise<statsfm.Artist> {
-    const res = await this.http.get(`/artists/${id}`);
+    const res = await this.http.get<statsfm.Artist>(`/artists/${id}`);
 
-    return res.data.item as statsfm.Artist;
+    return res.data.item;
   }
 
   /**
@@ -19,34 +19,34 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Artist[]>} Returns a promise with a {@link Artist}s.
    */
   async list(ids: number[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get(`/artists/list`, {
+    const res = await this.http.get<statsfm.Artist[]>(`/artists/list`, {
       query: {
         ids: ids.join(',')
       }
     });
 
-    return res.data.items as statsfm.Artist[];
+    return res.data.items;
   }
 
   async getSpotify(id: string): Promise<statsfm.Artist> {
-    const res = await this.http.get(`/artists/${id}`, {
+    const res = await this.http.get<statsfm.Artist>(`/artists/${id}`, {
       query: {
         type: 'spotify'
       }
     });
 
-    return res.data.item as statsfm.Artist;
+    return res.data.item;
   }
 
   async listSpotify(ids: string[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get(`/artists/list`, {
+    const res = await this.http.get<statsfm.Artist[]>(`/artists/list`, {
       query: {
         ids: ids.join(','),
         type: 'spotify'
       }
     });
 
-    return res.data.items as statsfm.Artist[];
+    return res.data.items;
   }
 
   /**
@@ -55,32 +55,32 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Track[]>} Returns a promise with a {@link Track[]}s.
    */
   async tracks(id: number): Promise<statsfm.Track[]> {
-    const res = await this.http.get(`/artists/${id}/tracks`);
+    const res = await this.http.get<statsfm.Track[]>(`/artists/${id}/tracks`);
 
-    return res.data.items as statsfm.Track[];
+    return res.data.items;
   }
 
   async topTracks(id: number): Promise<statsfm.Track[]> {
-    const res = await this.http.get(`/artists/${id}/tracks/top`);
+    const res = await this.http.get<statsfm.Track[]>(`/artists/${id}/tracks/top`);
 
-    return res.data.items as statsfm.Track[];
+    return res.data.items;
   }
 
   async albums(id: number): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/artists/${id}/albums`);
+    const res = await this.http.get<statsfm.Album[]>(`/artists/${id}/albums`);
 
-    return res.data.items as statsfm.Album[];
+    return res.data.items;
   }
 
   async topAlbums(id: number): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/artists/${id}/albums/top`);
+    const res = await this.http.get<statsfm.Album[]>(`/artists/${id}/albums/top`);
 
-    return res.data.items as statsfm.Album[];
+    return res.data.items;
   }
 
   async related(id: number): Promise<statsfm.Artist[]> {
-    const res = await this.http.get(`/artists/${id}/related`);
+    const res = await this.http.get<statsfm.Artist[]>(`/artists/${id}/related`);
 
-    return res.data.items as statsfm.Artist[];
+    return res.data.items;
   }
 }

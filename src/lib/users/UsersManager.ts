@@ -1,83 +1,92 @@
 import * as statsfm from '../../interfaces/statsfm';
-import {
-  QueryWithDates,
-  QueryWithOrder,
-  QueryWithPaging,
-  QueryWithRange,
-  QueryWithTimeZoneOfsset
-} from '../../interfaces/statsfm';
 import Manager from '../Manager';
 
 export default class UsersManager extends Manager {
-  async get(userId: string): Promise<any> {
-    const res = await this.http.get(`/users/${userId}`);
+  async get(userId: string): Promise<statsfm.UserPublic> {
+    const res = await this.http.get<statsfm.UserPublic>(`/users/${userId}`);
 
     return res.data.item;
   }
 
   async privacySettings(userId: string): Promise<statsfm.UserPrivacySettings> {
-    const res = await this.http.get(`/users/${userId}/privacy`);
+    const res = await this.http.get<statsfm.UserPrivacySettings>(`/users/${userId}/privacy`);
 
     return res.data.item;
   }
 
   async profile(userId: string): Promise<statsfm.UserProfile> {
-    const res = await this.http.get(`/users/${userId}/profile`);
+    const res = await this.http.get<statsfm.UserProfile>(`/users/${userId}/profile`);
 
     return res.data.item;
   }
 
   async streams(
     userId: string,
-    options: QueryWithDates & QueryWithPaging = {}
+    options: statsfm.QueryWithDates & statsfm.QueryWithPaging = {}
   ): Promise<statsfm.Stream[]> {
-    const res = await this.http.get(`/users/${userId}/streams`, { query: options });
+    const res = await this.http.get<statsfm.Stream[]>(`/users/${userId}/streams`, {
+      query: options
+    });
 
     return res.data.items;
   }
 
   async stats(
     userId: string,
-    options?: QueryWithRange | QueryWithDates
+    options?: statsfm.QueryWithRange | statsfm.QueryWithDates
   ): Promise<statsfm.ExtendedDateStats> {
-    const res = await this.http.get(`/users/${userId}/streams/stats`, { query: options });
+    const res = await this.http.get<statsfm.ExtendedDateStats>(`/users/${userId}/streams/stats`, {
+      query: options
+    });
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
   async dateStats(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithTimeZoneOfsset = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) &
+      statsfm.QueryWithTimeZoneOfsset = {}
   ): Promise<statsfm.DateStats> {
-    const res = await this.http.get(`/users/${userId}/streams/stats/dates`, { query: options });
+    const res = await this.http.get<statsfm.DateStats>(`/users/${userId}/streams/stats/dates`, {
+      query: options
+    });
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
   async perDayStats(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithTimeZoneOfsset = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) &
+      statsfm.QueryWithTimeZoneOfsset = {}
   ): Promise<statsfm.DateStats> {
-    const res = await this.http.get(`/users/${userId}/streams/stats/dates`, { query: options });
+    const res = await this.http.get<statsfm.DateStats>(`/users/${userId}/streams/stats/dates`, {
+      query: options
+    });
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
-  async currentlyStreaming(userId: string): Promise<statsfm.CurrentlyPlayingTrack | undefined> {
-    const res = await this.http.get(`/users/${userId}/streams/current`, {
-      query: {}
-    });
+  async currentlyStreaming(userId: string): Promise<statsfm.CurrentlyPlayingTrack> {
+    const res = await this.http.get<statsfm.CurrentlyPlayingTrack>(
+      `/users/${userId}/streams/current`
+    );
 
-    return res.success ? res.data.item : undefined;
+    return res.data.item;
   }
 
   async recentlyStreamed(
     userId: string,
-    options: QueryWithPaging = {}
+    options: statsfm.QueryWithPaging = {}
   ): Promise<statsfm.RecentlyPlayedTrack[]> {
-    const res = await this.http.get(`/users/${userId}/streams/recent`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.RecentlyPlayedTrack[]>(
+      `/users/${userId}/streams/recent`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
@@ -85,11 +94,14 @@ export default class UsersManager extends Manager {
   async trackStreams(
     userId: string,
     trackId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithPaging = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging = {}
   ): Promise<statsfm.Stream[]> {
-    const res = await this.http.get(`/users/${userId}/streams/tracks/${trackId}`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.Stream[]>(
+      `/users/${userId}/streams/tracks/${trackId}`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
@@ -97,21 +109,25 @@ export default class UsersManager extends Manager {
   async trackStats(
     userId: string,
     trackId: number,
-    options?: QueryWithRange | QueryWithDates
+    options?: statsfm.QueryWithRange | statsfm.QueryWithDates
   ): Promise<statsfm.StreamStats> {
-    const res = await this.http.get(`/users/${userId}/streams/tracks/${trackId}/stats`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.StreamStats>(
+      `/users/${userId}/streams/tracks/${trackId}/stats`,
+      {
+        query: options
+      }
+    );
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
   async trackListStreams(
     userId: string,
     trackIds: number[],
-    options: (QueryWithRange | QueryWithDates) & QueryWithPaging = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging = {}
   ): Promise<statsfm.Stream[]> {
-    const res = await this.http.get(`/users/${userId}/streams/tracks/list`, {
+    const res = await this.http.get<statsfm.Stream[]>(`/users/${userId}/streams/tracks/list`, {
       query: {
         ids: trackIds.join(','),
         ...options
@@ -124,26 +140,33 @@ export default class UsersManager extends Manager {
   async trackListStats(
     userId: string,
     trackIds: number[],
-    options: QueryWithRange | QueryWithDates = {}
-  ): Promise<Map<number, statsfm.StreamStats[]>> {
-    const res = await this.http.get(`/users/${userId}/streams/tracks/list/stats`, {
-      query: {
-        ids: trackIds.join(','),
-        ...options
+    options: statsfm.QueryWithRange | statsfm.QueryWithDates = {}
+  ): Promise<Record<number, statsfm.StreamStats[]>> {
+    const res = await this.http.get<Record<number, statsfm.StreamStats[]>>(
+      `/users/${userId}/streams/tracks/list/stats`,
+      {
+        query: {
+          ids: trackIds.join(','),
+          ...options
+        }
       }
-    });
+    );
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
   async artistStreams(
     userId: string,
     artistId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithPaging = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging = {}
   ): Promise<statsfm.Stream[]> {
-    const res = await this.http.get(`/users/${userId}/streams/artists/${artistId}`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.Stream[]>(
+      `/users/${userId}/streams/artists/${artistId}`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
@@ -151,23 +174,30 @@ export default class UsersManager extends Manager {
   async artistStats(
     userId: string,
     artistId: number,
-    options?: QueryWithRange | QueryWithDates
+    options?: statsfm.QueryWithRange | statsfm.QueryWithDates
   ): Promise<statsfm.StreamStats> {
-    const res = await this.http.get(`/users/${userId}/streams/artists/${artistId}/stats`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.StreamStats>(
+      `/users/${userId}/streams/artists/${artistId}/stats`,
+      {
+        query: options
+      }
+    );
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 
   async albumStreams(
     userId: string,
     albumId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithPaging = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging = {}
   ): Promise<statsfm.Stream[]> {
-    const res = await this.http.get(`/users/${userId}/streams/albums/${albumId}`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.Stream[]>(
+      `/users/${userId}/streams/albums/${albumId}`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
@@ -175,29 +205,36 @@ export default class UsersManager extends Manager {
   async albumStats(
     userId: string,
     albumId: number,
-    options?: QueryWithRange | QueryWithDates
+    options?: statsfm.QueryWithRange | statsfm.QueryWithDates
   ): Promise<statsfm.StreamStats> {
-    const res = await this.http.get(`/users/${userId}/streams/albums/${albumId}/stats`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.StreamStats>(
+      `/users/${userId}/streams/albums/${albumId}/stats`,
+      {
+        query: options
+      }
+    );
 
     return res.data.item;
   }
 
   async topTracks(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get(`/users/${userId}/top/tracks`, { query: options });
+    const res = await this.http.get<statsfm.TopTrack[]>(`/users/${userId}/top/tracks`, {
+      query: options
+    });
 
     return res.data.items;
   }
 
   async topArtists(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopArtist[]> {
-    const res = await this.http.get(`/users/${userId}/top/artists`, { query: options });
+    const res = await this.http.get<statsfm.TopArtist[]>(`/users/${userId}/top/artists`, {
+      query: options
+    });
 
     return res.data.items;
   }
@@ -205,11 +242,14 @@ export default class UsersManager extends Manager {
   async topTracksFromArtist(
     userId: string,
     artistId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get(`/users/${userId}/top/artists/${artistId}/tracks`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.TopTrack[]>(
+      `/users/${userId}/top/artists/${artistId}/tracks`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
@@ -217,20 +257,25 @@ export default class UsersManager extends Manager {
   async topAlbumsFromArtist(
     userId: string,
     artistId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopAlbum[]> {
-    const res = await this.http.get(`/users/${userId}/top/artists/${artistId}/albums`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.TopAlbum[]>(
+      `/users/${userId}/top/artists/${artistId}/albums`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
 
   async topAlbums(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopAlbum[]> {
-    const res = await this.http.get(`/users/${userId}/top/albums`, { query: options });
+    const res = await this.http.get<statsfm.TopAlbum[]>(`/users/${userId}/top/albums`, {
+      query: options
+    });
 
     return res.data.items;
   }
@@ -238,26 +283,33 @@ export default class UsersManager extends Manager {
   async topTracksFromAlbums(
     userId: string,
     albumId: number,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get(`/users/${userId}/top/albums/${albumId}/tracks`, {
-      query: options
-    });
+    const res = await this.http.get<statsfm.TopTrack[]>(
+      `/users/${userId}/top/albums/${albumId}/tracks`,
+      {
+        query: options
+      }
+    );
 
     return res.data.items;
   }
 
   async topGenres(
     userId: string,
-    options: (QueryWithRange | QueryWithDates) & QueryWithOrder = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
   ): Promise<statsfm.TopGenre[]> {
-    const res = await this.http.get(`/users/${userId}/top/genres`, { query: options });
+    const res = await this.http.get<statsfm.TopGenre[]>(`/users/${userId}/top/genres`, {
+      query: options
+    });
 
     return res.data.items;
   }
 
   async artistCrowns(userId: string): Promise<statsfm.ArtistCrown[]> {
-    const res = await this.http.get(`/users/${userId}/crowns/artists`, { query: {} });
+    const res = await this.http.get<statsfm.ArtistCrown[]>(`/users/${userId}/crowns/artists`, {
+      query: {}
+    });
 
     return res.data.items;
   }

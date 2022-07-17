@@ -3,8 +3,8 @@ import Manager from '../Manager';
 
 export default class StatsManager extends Manager {
   async databaseSize(): Promise<statsfm.DatabaseSize> {
-    const res = await this.http.get(`/stats/database/size`);
+    const res = await this.http.get<statsfm.DatabaseSize>(`/stats/database/size`);
 
-    return res.data.item as statsfm.DatabaseSize;
+    return res.data.item;
   }
 }

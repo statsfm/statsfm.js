@@ -23,7 +23,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} init
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async request(slug: string, init?: RequestInitWithQuery): Promise<Response> {
+  async request<T>(slug: string, init?: RequestInitWithQuery): Promise<Response<T>> {
     const options = {
       ...init,
       headers: {
@@ -40,7 +40,7 @@ export class HttpClient {
     const url = this.getURL(slug, options?.query);
 
     const res = await fetch(url, options as unknown as RequestInit);
-    const parsed: Response = {
+    const parsed: Response<T> = {
       success: res.ok,
       status: res.status,
       statusText: res.statusText,
@@ -63,7 +63,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async get<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
+  async get<T>(slug: string, options?: RequestInitWithQuery): Promise<Response<T>> {
     return await this.request<T>(slug, {
       ...options,
       method: 'GET'
@@ -75,7 +75,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async post<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
+  async post<T>(slug: string, options?: RequestInitWithQuery): Promise<Response<T>> {
     return await this.request<T>(slug, {
       ...options,
       method: 'POST'
@@ -87,7 +87,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async put<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
+  async put<T>(slug: string, options?: RequestInitWithQuery): Promise<Response<T>> {
     return await this.request<T>(slug, {
       ...options,
       method: 'PUT'
@@ -99,7 +99,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} options
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async delete<T>(slug: string, options?: RequestInitWithQuery): Promise<Response> {
+  async delete<T>(slug: string, options?: RequestInitWithQuery): Promise<Response<T>> {
     return await this.request<T>(slug, {
       ...options,
       method: 'DELETE'

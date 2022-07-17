@@ -1,13 +1,10 @@
-export interface Response {
+export interface Response<T> {
   success: boolean;
   status: number;
   statusText: string;
   url: string;
   headers: any;
-  data: {
-    item?: any;
-    items?: any;
-  };
+  data: T extends any[] ? { items: T } : { item: T };
 }
 
 export interface QueryParams extends Record<string, any> {

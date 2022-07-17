@@ -5,25 +5,25 @@ import { UserPrivate } from '../../interfaces/statsfm';
 
 export default class MeManager extends Manager {
   async get(): Promise<statsfm.UserPrivate> {
-    const res = await this.http.get(`/me`);
+    const res = await this.http.get<statsfm.UserPrivate>(`/me`);
 
     return res.data.item;
   }
 
   async updateMe(data: UserPrivate): Promise<statsfm.UserPrivate> {
-    const res = await this.http.put('/me', {
+    const res = await this.http.put<statsfm.UserPrivate>('/me', {
       body: JSON.stringify(data)
     });
 
     return res.data.item;
   }
 
-  deleteAccount(): Promise<Response> {
+  deleteAccount(): Promise<Response<unknown>> {
     return this.http.delete('/me');
   }
 
   async socialMediaConnections(): Promise<statsfm.UserSocialMediaConnection[]> {
-    const res = await this.http.get('/me/connections');
+    const res = await this.http.get<statsfm.UserSocialMediaConnection[]>('/me/connections');
 
     return res.data.items;
   }
@@ -33,7 +33,7 @@ export default class MeManager extends Manager {
   }
 
   async privacySettings(): Promise<statsfm.UserPrivacySettings> {
-    const res = await this.http.get('/me/privacy');
+    const res = await this.http.get<statsfm.UserPrivacySettings>('/me/privacy');
 
     return res.data.item;
   }
@@ -41,7 +41,7 @@ export default class MeManager extends Manager {
   async updatePrivacySettings(
     data: statsfm.UserPrivacySettings
   ): Promise<statsfm.UserPrivacySettings> {
-    const res = await this.http.put('/me/privacy', {
+    const res = await this.http.put<statsfm.UserPrivacySettings>('/me/privacy', {
       body: JSON.stringify(data)
     });
 
@@ -49,7 +49,7 @@ export default class MeManager extends Manager {
   }
 
   async customIdAvailable(data: string): Promise<boolean> {
-    const res = await this.http.put('/me/customid-available', {
+    const res = await this.http.put<boolean>('/me/customid-available', {
       body: JSON.stringify({ customId: data })
     });
 
@@ -57,13 +57,13 @@ export default class MeManager extends Manager {
   }
 
   async profile(): Promise<statsfm.UserProfile> {
-    const res = await this.http.get('/me/profile');
+    const res = await this.http.get<statsfm.UserProfile>('/me/profile');
 
     return res.data.item;
   }
 
-  async updateProfile(data: statsfm.UserProfile): Promise<statsfm.UserPrivacySettings[]> {
-    const res = await this.http.put('/me/profile', {
+  async updateProfile(data: statsfm.UserProfile): Promise<statsfm.UserProfile> {
+    const res = await this.http.put<statsfm.UserProfile>('/me/profile', {
       body: JSON.stringify(data)
     });
 
@@ -71,13 +71,13 @@ export default class MeManager extends Manager {
   }
 
   async imports(): Promise<statsfm.UserImport[]> {
-    const res = await this.http.get('/me/imports');
+    const res = await this.http.get<statsfm.UserImport[]>('/me/imports');
 
     return res.data.items;
   }
 
   async import(options?: RequestInitWithQuery): Promise<statsfm.UserImport> {
-    const res = await this.http.post('/me/imports', options);
+    const res = await this.http.post<statsfm.UserImport>('/me/imports', options);
 
     return res.data.item;
   }
@@ -87,7 +87,7 @@ export default class MeManager extends Manager {
   }
 
   async spotifyPlaylists(): Promise<statsfm.UserSpotifyPlaylist[]> {
-    const res = await this.http.get('/me/playlists/spotify');
+    const res = await this.http.get<statsfm.UserSpotifyPlaylist[]>('/me/playlists/spotify');
 
     return res.data.items;
   }
@@ -99,9 +99,12 @@ export default class MeManager extends Manager {
   async updateSpotifyPlaylist(
     data: statsfm.UserSpotifyPlaylist
   ): Promise<statsfm.UserSpotifyPlaylist> {
-    const res = await this.http.put(`/me/playlists/spotify/${data.id}`, {
-      body: JSON.stringify(data)
-    });
+    const res = await this.http.put<statsfm.UserSpotifyPlaylist>(
+      `/me/playlists/spotify/${data.id}`,
+      {
+        body: JSON.stringify(data)
+      }
+    );
 
     return res.data.item;
   }
@@ -111,21 +114,21 @@ export default class MeManager extends Manager {
   }
 
   async friends(): Promise<statsfm.UserPublic[]> {
-    const res = await this.http.get('/friends');
+    const res = await this.http.get<statsfm.UserPublic[]>('/friends');
 
     // @ts-expect-error // TODO
     return res.data.data;
   }
 
   async incomingFriendRequests(): Promise<statsfm.UserPublic[]> {
-    const res = await this.http.get('/friends/requests/incoming');
+    const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/incoming');
 
     // @ts-expect-error // TODO
     return res.data.data;
   }
 
   async outgoingFriendRequests(): Promise<statsfm.UserPublic[]> {
-    const res = await this.http.get('/friends/requests/outgoing');
+    const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/outgoing');
 
     // @ts-expect-error // TODO
     return res.data.data;
@@ -162,7 +165,9 @@ export default class MeManager extends Manager {
   }
 
   async friendStatus(id: string): Promise<statsfm.FriendStatus> {
-    const res = await this.http.get(`/friends/status/${encodeURIComponent(id)}`);
+    const res = await this.http.get<statsfm.FriendStatus>(
+      `/friends/status/${encodeURIComponent(id)}`
+    );
 
     // @ts-expect-error // TODO fix response
     const status = res.data.data;

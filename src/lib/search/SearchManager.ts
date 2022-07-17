@@ -9,7 +9,7 @@ export default class SearchManager extends Manager {
     options: QueryWithPaging = {}
   ): Promise<statsfm.SearchResults> {
     // TODO: implement paging
-    const res = await this.http.get(`/search`, {
+    const res = await this.http.get<statsfm.SearchResults>(`/search`, {
       query: {
         query,
         type: type.join(','),
@@ -17,6 +17,7 @@ export default class SearchManager extends Manager {
       }
     });
 
+    // @ts-expect-error needs to be items but type is no array
     return res.data.items;
   }
 }

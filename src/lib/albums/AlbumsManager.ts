@@ -19,34 +19,34 @@ export default class AlbumsManager extends Manager {
    * * @returns {Promise<Album[]>} Returns a promise with a {@link Album}s.
    */
   async list(ids: number[]): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/albums/list`, {
+    const res = await this.http.get<statsfm.Album[]>(`/albums/list`, {
       query: {
         ids: ids.join(',')
       }
     });
 
-    return res.data.items as statsfm.Album[];
+    return res.data.items;
   }
 
   async getSpotify(id: string): Promise<statsfm.Album> {
-    const res = await this.http.get(`/albums/${id}`, {
+    const res = await this.http.get<statsfm.Album>(`/albums/${id}`, {
       query: {
         type: 'spotify'
       }
     });
 
-    return res.data.item as statsfm.Album;
+    return res.data.item;
   }
 
   async listSpotify(ids: string[]): Promise<statsfm.Album[]> {
-    const res = await this.http.get(`/albums/list`, {
+    const res = await this.http.get<statsfm.Album[]>(`/albums/list`, {
       query: {
         ids: ids.join(','),
         type: 'spotify'
       }
     });
 
-    return res.data.items as statsfm.Album[];
+    return res.data.items;
   }
 
   /**
@@ -55,8 +55,8 @@ export default class AlbumsManager extends Manager {
    * @returns {Promise<Track[]>} Returns a promise with a {@link Track[]}s.
    */
   async tracks(id: number): Promise<statsfm.Track[]> {
-    const res = await this.http.get(`/albums/${id}/tracks`);
+    const res = await this.http.get<statsfm.Track[]>(`/albums/${id}/tracks`);
 
-    return res.data.items as statsfm.Track[];
+    return res.data.items;
   }
 }
