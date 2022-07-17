@@ -23,7 +23,7 @@ export class HttpClient {
    * @param  {RequestInitWithQuery} init
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
-  async request<T>(slug: string, init?: RequestInitWithQuery): Promise<Response> {
+  async request(slug: string, init?: RequestInitWithQuery): Promise<Response> {
     const options = {
       ...init,
       headers: {
