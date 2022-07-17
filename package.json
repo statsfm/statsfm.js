@@ -1,6 +1,6 @@
 {
   "name": "@statsfm/statsfm.js",
-  "version": "1.14.3",
+  "version": "1.14.4",
   "description": "",
   "main": "dist/index.js",
   "private": false,
