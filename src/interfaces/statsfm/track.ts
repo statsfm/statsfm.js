@@ -19,6 +19,7 @@ export interface RecentlyPlayedTrack {
 
 export interface CurrentlyPlayingTrack {
   date: Date;
+  isPlaying: boolean;
   progressMs: number;
   deviceName?: string;
   track: Track;
