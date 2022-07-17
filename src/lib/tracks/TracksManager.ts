@@ -70,4 +70,10 @@ export default class TracksManager extends Manager {
 
     return res.data.items;
   }
+
+  async topListeners(id: number): Promise<statsfm.TopUser[]> {
+    const res = await this.http.get<statsfm.TopUser[]>(`/tracks/${id}/listeners/top`);
+
+    return res.data.items;
+  }
 }
