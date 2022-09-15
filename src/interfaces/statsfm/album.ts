@@ -14,7 +14,7 @@ export interface Album extends AlbumSimple {
   releaseDate: Date;
   genres: string[];
   artists: ArtistSimple[];
-  externalIds: Record<string, unknown> & { spotify?: string[] };
+  externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };
   type: 'single' | 'complication' | 'album';
 }
 

@@ -9,7 +9,7 @@ export interface Artist extends ArtistSimple {
   followers: number;
   image: string;
   spotifyPopularity: number;
-  externalIds: Record<string, unknown> & { spotify?: string[] };
+  externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };
   genres: string[];
 }
 
