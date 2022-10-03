@@ -35,6 +35,25 @@ export interface UserSpotifyPlaylist {
   orderBy?: OrderBySetting;
 }
 
+export interface UserDeviceNotifications {
+  imports: boolean;
+  friends: boolean;
+  weeklySummary: boolean;
+  monthlySummary: boolean;
+  updates: boolean;
+}
+export interface UserDevice {
+  id: number;
+  userId: string;
+  createdAt: Date;
+  lastUsed: Date;
+  name: string;
+  model: string;
+  type: string;
+  notifications: UserDeviceNotifications;
+  fcmToken?: string;
+}
+
 export interface SocialMediaPlatform {
   name: string;
   icon: string;

@@ -113,6 +113,12 @@ export default class MeManager extends Manager {
     await this.http.delete(`/me/playlists/spotify/${id}`);
   }
 
+  async devices(): Promise<statsfm.UserDevice[]> {
+    const res = await this.http.get<statsfm.UserDevice[]>('/me/devices');
+
+    return res.data.items;
+  }
+
   async soulmates(forceRefresh = false): Promise<statsfm.Soulmate[]> {
     const res = await this.http.get<statsfm.Soulmate[]>(
       '/me/soulmates',
