@@ -1,4 +1,4 @@
-enum CrownType {
+enum RecordType {
   'PLATINUM',
 
   'GOLD',
@@ -8,14 +8,14 @@ enum CrownType {
   'BRONZE'
 }
 
-export interface Crown extends Object {
+export interface Record extends Object {
   id: number;
-  type: CrownType;
+  type: RecordType;
   active: boolean;
   userId: string;
   createdAt: Date;
 }
 
-export interface ArtistCrown extends Object {
+export interface ArtistRecord extends Object {
   artistId: number;
 }

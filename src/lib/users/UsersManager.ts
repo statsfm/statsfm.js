@@ -306,8 +306,8 @@ export default class UsersManager extends Manager {
     return res.data.items;
   }
 
-  async artistCrowns(userId: string): Promise<statsfm.ArtistCrown[]> {
-    const res = await this.http.get<statsfm.ArtistCrown[]>(`/users/${userId}/crowns/artists`, {
+  async artistRecords(userId: string): Promise<statsfm.ArtistRecord[]> {
+    const res = await this.http.get<statsfm.ArtistRecord[]>(`/users/${userId}/records/artists`, {
       query: {}
     });
 
