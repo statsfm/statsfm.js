@@ -313,4 +313,17 @@ export default class UsersManager extends Manager {
 
     return res.data.items;
   }
+
+  async friends(userId: string): Promise<statsfm.UserPublic[]> {
+    const res = await this.http.get<statsfm.UserPublic[]>(`/users/${userId}/friends`);
+
+    // @ts-expect-error // TODO
+    return res.data.data;
+  }
+
+  async friendCount(userId: string): Promise<number> {
+    const res = await this.http.get<number>(`/users/${userId}/friends/count`);
+
+    return res.data.item;
+  }
 }
