@@ -8,12 +8,12 @@ export * from './genre';
 export * from './query';
 export * from './record';
 export * from './search';
+export * from './soulmate';
 export * from './stats';
 export * from './stream';
 export * from './top';
 export * from './track';
 export * from './user';
-export * from './stats';
 
 export interface Object {
   id: number;

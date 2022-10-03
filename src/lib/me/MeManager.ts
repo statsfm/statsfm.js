@@ -113,6 +113,19 @@ export default class MeManager extends Manager {
     await this.http.delete(`/me/playlists/spotify/${id}`);
   }
 
+  async soulmates(forceRefresh = false): Promise<statsfm.Soulmate[]> {
+    const res = await this.http.get<statsfm.Soulmate[]>(
+      '/me/soulmates',
+      forceRefresh
+        ? {
+            query: { force: forceRefresh }
+          }
+        : {} // for caching
+    );
+
+    return res.data.items;
+  }
+
   async friends(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends');
 
