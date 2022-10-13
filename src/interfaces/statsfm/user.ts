@@ -78,6 +78,8 @@ export interface UserPrivacySettings {
   topGenres: boolean;
   streams: boolean;
   streamStats: boolean;
+  leaderboards: boolean;
+  friends: boolean;
 }
 
 export interface UserProfile {
