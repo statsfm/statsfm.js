@@ -22,7 +22,7 @@ export interface StreamMinified {
   j?: number;
 }
 
-export const StreamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'> => {
+export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'> => {
   const obj: Omit<StreamMinified, 'a'> = {
     // a: stream.id,
     b: stream.userId,
@@ -37,7 +37,7 @@ export const StreamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'
   return obj;
 };
 
-export const StreamMinifiedToStream = (stream: StreamMinified): Stream => {
+export const streamMinifiedToStream = (stream: StreamMinified): Stream => {
   const obj: Stream = {
     id: stream.a,
     userId: stream.b,
