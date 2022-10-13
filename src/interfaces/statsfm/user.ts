@@ -82,7 +82,7 @@ export interface UserPrivacySettings {
 
 export interface UserProfile {
   bio: string;
-  pronouns?: string;
+  pronouns?: string | null;
 }
 
 export interface UserPublic {
