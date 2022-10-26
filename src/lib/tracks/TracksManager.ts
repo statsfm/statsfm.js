@@ -71,8 +71,10 @@ export default class TracksManager extends Manager {
     return res.data.items;
   }
 
-  async topListeners(id: number): Promise<statsfm.TopUser[]> {
-    const res = await this.http.get<statsfm.TopUser[]>(`/tracks/${id}/listeners/top`);
+  async topListeners(id: number, friendsOnly = false): Promise<statsfm.TopUser[]> {
+    const res = await this.http.get<statsfm.TopUser[]>(`/tracks/${id}/listeners/top`, {
+      query: friendsOnly === false ? {} : { friendsOnly } // for caching
+    });
 
     return res.data.items;
   }
