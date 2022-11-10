@@ -8,9 +8,12 @@ export enum Range {
   LIFETIME = 'lifetime'
 }
 
+export type OrderBy = 'desc' | 'asc';
+
 export interface QueryWithPaging {
   limit?: number;
   offset?: number;
+  order?: OrderBy;
 }
 
 export interface QueryWithRange {
