@@ -80,6 +80,7 @@ export interface UserPrivacySettings {
   streamStats: boolean;
   leaderboards: boolean;
   friends: boolean;
+  connections: boolean;
 }
 
 export interface UserProfile {
