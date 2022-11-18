@@ -85,6 +85,7 @@ export interface UserPrivacySettings {
 
 export interface UserProfile {
   bio: string;
+  theme: string;
   pronouns?: string | null;
 }
 
@@ -92,13 +93,15 @@ export interface UserPublic {
   id: string;
   customId: string;
   displayName: string;
-  image: string;
+  image?: string;
   isPlus: boolean;
   hasImported: boolean;
   syncEnabled: boolean;
   orderBy: OrderBySetting;
+  timezone?: string;
   privacySettings?: UserPrivacySettings;
   profile?: UserProfile;
+  socialMediaConnections: UserSocialMediaConnection[];
 }
 
 export interface UserPrivate extends UserPublic {
