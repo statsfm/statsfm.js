@@ -23,6 +23,7 @@ export interface CurrentlyPlayingTrack {
   progressMs: number;
   deviceName?: string;
   track: Track;
+  platform: 'spotify' | 'appleMusic';
 }
 
 export interface TopTrack extends TopObject {
