@@ -7,6 +7,7 @@ enum AchievementCategory {
 }
 
 export interface Achievement extends Object {
+  id: number;
   image: string;
   category: AchievementCategory;
   userId: string;
@@ -16,4 +17,8 @@ export interface Achievement extends Object {
   active: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface UserAchievements extends Object {
+  achievements?: Achievement[];
 }

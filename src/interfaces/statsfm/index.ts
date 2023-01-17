@@ -1,3 +1,4 @@
+export * from './achievement';
 export * from './album';
 export * from './artist';
 export * from './audio-analysis';
