@@ -19,7 +19,7 @@ export default class AchievementsManager extends Manager {
    * * @returns {Promise<Achievement[]>} Returns a promise with a {@link Achievement}s.
    */
   async list(ids: number[]): Promise<statsfm.Achievement[]> {
-    const res = await this.http.get<statsfm.Achievement[]>(`/achievements/list`, {
+    const res = await this.http.get<statsfm.Achievement[]>(`/achievements`, {
       query: {
         ids: ids.join(',')
       }
@@ -34,7 +34,7 @@ export default class AchievementsManager extends Manager {
    * @returns {Promise<Achievement[]>} Returns a promise with a {@link Achievement[]}s.
    */
   async getUserAchievements(userId: number): Promise<statsfm.Achievement[]> {
-    const res = await this.http.get<statsfm.Achievement[]>(`/achievements/list`, {
+    const res = await this.http.get<statsfm.Achievement[]>(`/achievements`, {
       query: {
         userId
       }
