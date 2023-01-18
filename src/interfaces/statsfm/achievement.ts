@@ -18,7 +18,3 @@ export interface Achievement extends Object {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface UserAchievements extends Object {
-  achievements?: Achievement[];
-}
