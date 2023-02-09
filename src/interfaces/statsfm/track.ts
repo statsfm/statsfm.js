@@ -14,6 +14,7 @@ export interface Track extends Object {
 }
 export interface RecentlyPlayedTrack {
   endTime: Date;
+  platform: 'spotify' | 'appleMusic';
   track: Track;
 }
 
