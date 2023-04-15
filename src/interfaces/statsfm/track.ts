@@ -8,7 +8,7 @@ export interface Track extends Object {
   explicit: boolean;
   durationMs: number;
   spotifyPopularity: number;
-  previewUrl?: string;
+  spotifyPreview?: string;
   externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };
   albums: AlbumSimple[];
   artists: ArtistSimple[];
