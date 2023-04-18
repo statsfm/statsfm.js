@@ -95,6 +95,7 @@ export interface UserPublic {
   displayName: string;
   image?: string;
   isPlus: boolean;
+  isPro: boolean;
   hasImported: boolean;
   syncEnabled: boolean;
   orderBy: OrderBySetting;
