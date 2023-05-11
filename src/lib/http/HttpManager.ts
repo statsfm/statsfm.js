@@ -24,12 +24,13 @@ export class HttpClient {
    * @returns {Promise<Response>} Returns a promise with the {@link Response response}.
    */
   async request<T>(slug: string, init?: RequestInitWithQuery): Promise<Response<T>> {
-    const options = {
+    const options: RequestInitWithQuery = {
       ...init,
       headers: {
-        Authorization: this.config?.accessToken,
         'Content-Type': 'application/json',
-        ...init?.headers
+        ...init?.headers,
+        Authorization: this.config?.accessToken,
+        'User-Agent': this.config?.userAgent
       }
     };
 
@@ -39,7 +40,7 @@ export class HttpClient {
 
     const url = this.getURL(slug, options?.query);
 
-    const res = await fetch(url, options as unknown as RequestInit);
+    const res = await fetch(url, options);
     const parsed: Response<T> = {
       success: res.ok,
       status: res.status,

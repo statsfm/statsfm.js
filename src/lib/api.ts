@@ -10,6 +10,8 @@ import StatsManager from './stats/StatsManager';
 import TracksManager from './tracks/TracksManager';
 import UsersManager from './users/UsersManager';
 
+const { version } = require('../../package.json');
+
 export default class Api {
   http: HttpClient;
 
@@ -35,6 +37,13 @@ export default class Api {
     if (!config?.baseUrl) {
       config.baseUrl = 'https://api.stats.fm/api/v1';
     }
+
+    if (!config?.userAgent) {
+      config.userAgent = `@statsfm/statsfm.js/${version} ${
+        process.release?.name === 'node' ? `Node.js/${process.version}` : ''
+      }`;
+    }
+
     this.http = new HttpClient(config);
     this.artists = new ArtistsManager(this.http);
     this.albums = new AlbumsManager(this.http);
