@@ -61,7 +61,7 @@ export default class AlbumsManager extends Manager {
   }
 
   async topListeners(id: number, friendsOnly = false): Promise<statsfm.TopUser[]> {
-    const res = await this.http.get<statsfm.TopUser[]>(`/albums/${id}/listeners/top`, {
+    const res = await this.http.get<statsfm.TopUser[]>(`/albums/${id}/top/listeners`, {
       query: friendsOnly === false ? {} : { friendsOnly } // for caching
     });
 
