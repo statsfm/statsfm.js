@@ -1,3 +1,4 @@
+import { ItemsResponse } from '../../interfaces';
 import * as statsfm from '../../interfaces/statsfm';
 import { QueryWithPaging } from '../../interfaces/statsfm';
 import Manager from '../Manager';
@@ -9,7 +10,7 @@ export default class SearchManager extends Manager {
     options: QueryWithPaging = {}
   ): Promise<statsfm.SearchResults> {
     // TODO: implement paging
-    const res = await this.http.get<statsfm.SearchResults>(`/search`, {
+    const res = await this.http.get<ItemsResponse<statsfm.SearchResults>>(`/search`, {
       query: {
         query,
         type: type.join(','),
@@ -17,8 +18,7 @@ export default class SearchManager extends Manager {
       }
     });
 
-    // @ts-expect-error needs to be items but type is no array
-    return res.data.items;
+    return res.items;
   }
 
   async searchElastic(
@@ -27,7 +27,7 @@ export default class SearchManager extends Manager {
     options: QueryWithPaging = {}
   ): Promise<statsfm.SearchResults> {
     // TODO: implement paging
-    const res = await this.http.get<statsfm.SearchResults>(`/search/elastic`, {
+    const res = await this.http.get<ItemsResponse<statsfm.SearchResults>>(`/search/elastic`, {
       query: {
         query,
         type: type.join(','),
@@ -35,7 +35,6 @@ export default class SearchManager extends Manager {
       }
     });
 
-    // @ts-expect-error needs to be items but type is no array
-    return res.data.items;
+    return res.items;
   }
 }

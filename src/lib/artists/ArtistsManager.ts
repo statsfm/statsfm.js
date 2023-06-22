@@ -1,3 +1,4 @@
+import { ItemResponse, ItemsResponse } from '../../interfaces';
 import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
 
@@ -8,9 +9,9 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Artist>} Returns a promise with a single {@link Artist}.
    */
   async get(id: number): Promise<statsfm.Artist> {
-    const res = await this.http.get<statsfm.Artist>(`/artists/${id}`);
+    const res = await this.http.get<ItemResponse<statsfm.Artist>>(`/artists/${id}`);
 
-    return res.data.item;
+    return res.item;
   }
 
   /**
@@ -19,34 +20,34 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Artist[]>} Returns a promise with a {@link Artist}s.
    */
   async list(ids: number[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get<statsfm.Artist[]>(`/artists/list`, {
+    const res = await this.http.get<ItemsResponse<statsfm.Artist[]>>(`/artists/list`, {
       query: {
         ids: ids.join(',')
       }
     });
 
-    return res.data.items;
+    return res.items;
   }
 
   async getSpotify(id: string): Promise<statsfm.Artist> {
-    const res = await this.http.get<statsfm.Artist>(`/artists/${id}`, {
+    const res = await this.http.get<ItemResponse<statsfm.Artist>>(`/artists/${id}`, {
       query: {
         type: 'spotify'
       }
     });
 
-    return res.data.item;
+    return res.item;
   }
 
   async listSpotify(ids: string[]): Promise<statsfm.Artist[]> {
-    const res = await this.http.get<statsfm.Artist[]>(`/artists/list`, {
+    const res = await this.http.get<ItemsResponse<statsfm.Artist[]>>(`/artists/list`, {
       query: {
         ids: ids.join(','),
         type: 'spotify'
       }
     });
 
-    return res.data.items;
+    return res.items;
   }
 
   /**
@@ -55,40 +56,44 @@ export default class ArtistsManager extends Manager {
    * @returns {Promise<Track[]>} Returns a promise with a {@link Track[]}s.
    */
   async tracks(id: number): Promise<statsfm.Track[]> {
-    const res = await this.http.get<statsfm.Track[]>(`/artists/${id}/tracks`);
+    const res = await this.http.get<ItemsResponse<statsfm.Track[]>>(`/artists/${id}/tracks`);
 
-    return res.data.items;
+    return res.items;
   }
 
   async topTracks(id: number): Promise<statsfm.Track[]> {
-    const res = await this.http.get<statsfm.Track[]>(`/artists/${id}/tracks/top`);
+    const res = await this.http.get<ItemsResponse<statsfm.Track[]>>(`/artists/${id}/tracks/top`);
 
-    return res.data.items;
+    return res.items;
   }
 
   async albums(id: number): Promise<statsfm.Album[]> {
-    const res = await this.http.get<statsfm.Album[]>(`/artists/${id}/albums`);
+    const res = await this.http.get<ItemsResponse<statsfm.Album[]>>(`/artists/${id}/albums`);
 
-    return res.data.items;
+    return res.items;
   }
 
   async topAlbums(id: number): Promise<statsfm.Album[]> {
-    const res = await this.http.get<statsfm.Album[]>(`/artists/${id}/albums/top`);
+    const res = await this.http.get<ItemsResponse<statsfm.Album[]>>(`/artists/${id}/albums/top`);
 
-    return res.data.items;
+    return res.items;
   }
 
   async related(id: number): Promise<statsfm.Artist[]> {
-    const res = await this.http.get<statsfm.Artist[]>(`/artists/${id}/related`);
+    const res = await this.http.get<ItemsResponse<statsfm.Artist[]>>(`/artists/${id}/related`);
 
-    return res.data.items;
+    return res.items;
   }
 
   async topListeners(id: number, friendsOnly = false): Promise<statsfm.TopUser[]> {
-    const res = await this.http.get<statsfm.TopUser[]>(`/artists/${id}/top/listeners`, {
-      query: friendsOnly === false ? {} : { friendsOnly } // for caching
-    });
+    const res = await this.http.get<ItemsResponse<statsfm.TopUser[]>>(
+      `/artists/${id}/top/listeners`,
+      {
+        auth: true,
+        query: friendsOnly === false ? {} : { friendsOnly } // for caching
+      }
+    );
 
-    return res.data.items;
+    return res.items;
   }
 }
