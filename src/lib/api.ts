@@ -1,19 +1,20 @@
-import { Config } from '../interfaces/Config';
+import { DefaultOptions } from '../util/constants';
+import { Options } from '../interfaces/Options';
 import AlbumsManager from './albums/AlbumsManager';
 import ArtistsManager from './artists/ArtistsManager';
 import ChartsManager from './charts/ChartsManager';
 import GenresManager from './genres/GenresManager';
-import { HttpClient } from './http/HttpManager';
+import { HttpManager } from './http/HttpManager';
 import MeManager from './me/MeManager';
 import SearchManager from './search/SearchManager';
 import StatsManager from './stats/StatsManager';
 import TracksManager from './tracks/TracksManager';
 import UsersManager from './users/UsersManager';
-
-const { version } = require('../../package.json');
+import { RecursivePartial } from '../interfaces';
+import { mergeDefault } from '../util/mergeDefaults';
 
 export default class Api {
-  http: HttpClient;
+  http: HttpManager;
 
   artists: ArtistsManager;
 
@@ -33,18 +34,12 @@ export default class Api {
 
   users: UsersManager;
 
-  constructor(config: Config = {}) {
-    if (!config?.baseUrl) {
-      config.baseUrl = 'https://api.stats.fm/api/v1';
-    }
+  options: Options;
 
-    if (!config?.userAgent) {
-      config.userAgent = `@statsfm/statsfm.js/${version} ${
-        process.release?.name === 'node' ? `Node.js/${process.version}` : ''
-      }`;
-    }
+  constructor(options: RecursivePartial<Options> = {}) {
+    this.options = mergeDefault(DefaultOptions, options) as Options;
 
-    this.http = new HttpClient(config);
+    this.http = new HttpManager(this.options);
     this.artists = new ArtistsManager(this.http);
     this.albums = new AlbumsManager(this.http);
     this.charts = new ChartsManager(this.http);

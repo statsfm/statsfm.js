@@ -1,9 +1,9 @@
-import { HttpClient } from './http/HttpManager';
+import { HttpManager } from './http/HttpManager';
 
 export default class Manager {
-  protected http: HttpClient;
+  protected http: HttpManager;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpManager) {
     this.http = http;
   }
 }
