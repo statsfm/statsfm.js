@@ -5,6 +5,7 @@ export * from './audio-features';
 export * from './database_size';
 export * from './friend_status';
 export * from './genre';
+export * from './giftCode';
 export * from './query';
 export * from './record';
 export * from './search';
