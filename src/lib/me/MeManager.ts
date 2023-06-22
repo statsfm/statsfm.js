@@ -18,6 +18,18 @@ export default class MeManager extends Manager {
     return res.item;
   }
 
+  async uploadAvatar(file: File): Promise<{ image: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await this.http.post<{ image: string }>('/me/image', {
+      auth: true,
+      body: formData,
+      passThroughBody: true
+    });
+
+    return res;
+  }
+
   deleteAccount(): Promise<unknown> {
     return this.http.delete('/me', { auth: true });
   }
@@ -109,6 +121,44 @@ export default class MeManager extends Manager {
     );
 
     return res.items;
+  }
+
+  async getGiftCode(code: string): Promise<statsfm.GiftCode> {
+    const res = await this.http.get<ItemResponse<statsfm.GiftCode>>(`/me/plus/giftcodes/${code}`, {
+      auth: true,
+      query: { type: 'code' }
+    });
+
+    return res.item;
+  }
+
+  async updateGiftCode(giftCodeId: number, message: string | null): Promise<statsfm.GiftCode> {
+    const res = await this.http.put<ItemResponse<statsfm.GiftCode>>(
+      `/me/plus/giftcodes/${giftCodeId}`,
+      {
+        auth: true,
+        body: JSON.stringify({ message })
+      }
+    );
+
+    return res.item;
+  }
+
+  async getGiftCodes(): Promise<statsfm.GiftCode[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.GiftCode[]>>('/me/plus/giftcodes', {
+      auth: true
+    });
+
+    return res.items;
+  }
+
+  async redeemGiftCode(code: string): Promise<statsfm.GiftCode> {
+    const res = await this.http.post<ItemResponse<statsfm.GiftCode>>('/me/plus/giftcodes/redeem', {
+      auth: true,
+      body: JSON.stringify({ code })
+    });
+
+    return res.item;
   }
 
   createSpotifyPlaylist(): Promise<statsfm.UserSpotifyPlaylist> {
