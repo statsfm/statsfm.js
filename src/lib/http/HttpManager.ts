@@ -10,7 +10,7 @@ import {
   RequestData
 } from '../../interfaces/Request';
 import { HTTPError } from '../errors/HttpError';
-import { StatsFMAPIError, StatsFMErrorData } from '../errors/StatsFMApiError';
+import { StatsFMAPIError, StatsFMErrorData } from '../errors/StatsFMAPIError';
 
 export class HttpManager {
   accessToken?: string;
