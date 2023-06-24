@@ -32,4 +32,14 @@ export default class ChartsManager extends Manager {
 
     return res.items;
   }
+
+  async topUsers(options?: statsfm.QueryWithRange): Promise<statsfm.TopUser[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.TopUser[]>>(`/charts/top/users`, {
+      query: {
+        ...options
+      }
+    });
+
+    return res.items;
+  }
 }
