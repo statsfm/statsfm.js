@@ -9,6 +9,16 @@ export default class GenresManager extends Manager {
     return res.item;
   }
 
+  async list(tags: string[]): Promise<statsfm.Genre[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.Genre[]>>(`/genres`, {
+      query: {
+        ids: tags.join(',')
+      }
+    });
+
+    return res.items;
+  }
+
   async artists(id: string): Promise<statsfm.Artist[]> {
     const res = await this.http.get<ItemsResponse<statsfm.Artist[]>>(`/genres/${id}/artists`);
 
