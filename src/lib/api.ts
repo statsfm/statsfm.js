@@ -3,6 +3,7 @@ import { Options } from '../interfaces/Options';
 import AlbumsManager from './albums/AlbumsManager';
 import ArtistsManager from './artists/ArtistsManager';
 import ChartsManager from './charts/ChartsManager';
+import FriendsManager from './friends/FriendsManager';
 import GenresManager from './genres/GenresManager';
 import { HttpManager } from './http/HttpManager';
 import MeManager from './me/MeManager';
@@ -21,6 +22,8 @@ export default class Api {
   albums: AlbumsManager;
 
   charts: ChartsManager;
+
+  friends: FriendsManager;
 
   genres: GenresManager;
 
@@ -43,6 +46,7 @@ export default class Api {
     this.artists = new ArtistsManager(this.http);
     this.albums = new AlbumsManager(this.http);
     this.charts = new ChartsManager(this.http);
+    this.friends = new FriendsManager(this.http);
     this.genres = new GenresManager(this.http);
     this.me = new MeManager(this.http);
     this.search = new SearchManager(this.http);

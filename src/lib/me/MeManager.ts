@@ -1,3 +1,5 @@
+/* eslint-disable deprecation/deprecation */
+import { deprecate } from 'node:util';
 import { ItemResponse, ItemsResponse, RawFile, RequestData } from '../../interfaces';
 import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
@@ -204,12 +206,18 @@ export default class MeManager extends Manager {
     return res.items;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#get} instead
+   */
   async friends(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends', { auth: true });
 
     return res;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#getIncomingRequests} instead
+   */
   async incomingFriendRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/incoming', {
       auth: true
@@ -218,6 +226,9 @@ export default class MeManager extends Manager {
     return res;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#getOutgoingRequests} instead
+   */
   async outgoingFriendRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/outgoing', {
       auth: true
@@ -226,6 +237,10 @@ export default class MeManager extends Manager {
     return res;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#sendRequest} instead
+   * @param id
+   */
   async sendFriendRequest(id: string): Promise<boolean> {
     try {
       await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`, { auth: true });
@@ -236,6 +251,10 @@ export default class MeManager extends Manager {
     return true;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#cancelRequest} instead
+   * @param id
+   */
   async cancelFriendRequest(id: string): Promise<boolean> {
     try {
       await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`, { auth: true });
@@ -245,6 +264,10 @@ export default class MeManager extends Manager {
     return true;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#acceptRequest} instead
+   * @param id
+   */
   async acceptFriendRequest(id: string): Promise<boolean> {
     try {
       await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`, { auth: true });
@@ -254,6 +277,10 @@ export default class MeManager extends Manager {
     return true;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#denyRequest} instead
+   * @param id
+   */
   async denyFriendRequest(id: string): Promise<boolean> {
     try {
       await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`, { auth: true });
@@ -263,6 +290,10 @@ export default class MeManager extends Manager {
     return true;
   }
 
+  /**
+   * @deprecated use {@link FriendsManager#remove} instead
+   * @param id
+   */
   async removeFriend(id: string): Promise<boolean> {
     try {
       await this.http.post(`/friends/remove/${encodeURIComponent(id)}`, { auth: true });
@@ -272,6 +303,11 @@ export default class MeManager extends Manager {
     return true;
   }
 
+  /**
+   *
+   * @param id
+   * @deprecated use {@link FriendsManager#status} instead
+   */
   async friendStatus(id: string): Promise<statsfm.FriendStatus> {
     const res = await this.http.get<statsfm.FriendStatus>(
       `/friends/status/${encodeURIComponent(id)}`,
@@ -281,3 +317,48 @@ export default class MeManager extends Manager {
     return statsfm.FriendStatus[res] ?? statsfm.FriendStatus.NONE;
   }
 }
+
+MeManager.prototype.friends = deprecate(
+  MeManager.prototype.friends,
+  'use FriendsManager#get instead'
+);
+
+MeManager.prototype.incomingFriendRequests = deprecate(
+  MeManager.prototype.incomingFriendRequests,
+  'use FriendsManager#getIncomingRequests instead'
+);
+
+MeManager.prototype.outgoingFriendRequests = deprecate(
+  MeManager.prototype.outgoingFriendRequests,
+  'use FriendsManager#getOutgoingRequests instead'
+);
+
+MeManager.prototype.sendFriendRequest = deprecate(
+  MeManager.prototype.sendFriendRequest,
+  'use FriendsManager#sendRequest instead'
+);
+
+MeManager.prototype.cancelFriendRequest = deprecate(
+  MeManager.prototype.cancelFriendRequest,
+  'use FriendsManager#cancelRequest instead'
+);
+
+MeManager.prototype.acceptFriendRequest = deprecate(
+  MeManager.prototype.acceptFriendRequest,
+  'use FriendsManager#acceptRequest instead'
+);
+
+MeManager.prototype.denyFriendRequest = deprecate(
+  MeManager.prototype.denyFriendRequest,
+  'use FriendsManager#denyRequest instead'
+);
+
+MeManager.prototype.removeFriend = deprecate(
+  MeManager.prototype.removeFriend,
+  'use FriendsManager#remove instead'
+);
+
+MeManager.prototype.friendStatus = deprecate(
+  MeManager.prototype.friendStatus,
+  'use FriendsManager#status instead'
+);
