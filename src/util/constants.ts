@@ -1,11 +1,12 @@
 import { Options } from '../interfaces';
 
+// eslint-disable-next-line import/no-commonjs
 const { version } = require('../../package.json');
 
 export const DefaultUserAgent = `@statsfm/statsfm.js (${version})`;
 
 export const DefaultUserAgentAppendix =
-  process.release?.name === 'node' ? `Node.js/${process.version}` : '';
+  process.release?.name === 'node' ? `Node.js/${process.version}` : navigator.userAgent || '';
 
 export const DefaultOptions = {
   http: {
