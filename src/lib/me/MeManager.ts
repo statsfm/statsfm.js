@@ -1,5 +1,3 @@
-/* eslint-disable deprecation/deprecation */
-import { deprecate } from 'node:util';
 import { ItemResponse, ItemsResponse, RawFile, RequestData } from '../../interfaces';
 import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
@@ -317,48 +315,3 @@ export default class MeManager extends Manager {
     return statsfm.FriendStatus[res] ?? statsfm.FriendStatus.NONE;
   }
 }
-
-MeManager.prototype.friends = deprecate(
-  MeManager.prototype.friends,
-  'use FriendsManager#get instead'
-);
-
-MeManager.prototype.incomingFriendRequests = deprecate(
-  MeManager.prototype.incomingFriendRequests,
-  'use FriendsManager#getIncomingRequests instead'
-);
-
-MeManager.prototype.outgoingFriendRequests = deprecate(
-  MeManager.prototype.outgoingFriendRequests,
-  'use FriendsManager#getOutgoingRequests instead'
-);
-
-MeManager.prototype.sendFriendRequest = deprecate(
-  MeManager.prototype.sendFriendRequest,
-  'use FriendsManager#sendRequest instead'
-);
-
-MeManager.prototype.cancelFriendRequest = deprecate(
-  MeManager.prototype.cancelFriendRequest,
-  'use FriendsManager#cancelRequest instead'
-);
-
-MeManager.prototype.acceptFriendRequest = deprecate(
-  MeManager.prototype.acceptFriendRequest,
-  'use FriendsManager#acceptRequest instead'
-);
-
-MeManager.prototype.denyFriendRequest = deprecate(
-  MeManager.prototype.denyFriendRequest,
-  'use FriendsManager#denyRequest instead'
-);
-
-MeManager.prototype.removeFriend = deprecate(
-  MeManager.prototype.removeFriend,
-  'use FriendsManager#remove instead'
-);
-
-MeManager.prototype.friendStatus = deprecate(
-  MeManager.prototype.friendStatus,
-  'use FriendsManager#status instead'
-);
