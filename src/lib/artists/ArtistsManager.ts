@@ -90,7 +90,7 @@ export default class ArtistsManager extends Manager {
       `/artists/${id}/top/listeners`,
       {
         auth: true,
-        query: friendsOnly === false ? {} : { friendsOnly } // for caching
+        query: friendsOnly === false ? {} : { friends: friendsOnly } // for caching
       }
     );
 

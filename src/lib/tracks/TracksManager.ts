@@ -84,7 +84,7 @@ export default class TracksManager extends Manager {
       `/tracks/${id}/top/listeners`,
       {
         auth: true,
-        query: friendsOnly === false ? {} : { friendsOnly } // for caching
+        query: friendsOnly === false ? {} : { friends: friendsOnly } // for caching
       }
     );
 
