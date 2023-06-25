@@ -32,3 +32,5 @@ export interface QueryWithDates {
   before?: number;
   after?: number;
 }
+
+export type QueryStatsDates = (QueryWithDates | QueryWithRange) & QueryWithTimeZoneOfsset;

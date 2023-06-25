@@ -144,6 +144,44 @@ export default class UsersManager extends Manager {
     return res.items;
   }
 
+  async trackDateStats(
+    userId: string,
+    trackId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.DateStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
+      `/users/${userId}/streams/tracks/${trackId}/stats/dates`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
+  }
+
+  async trackPerDayStats(
+    userId: string,
+    trackId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.PerDayStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.PerDayStats>>(
+      `/users/${userId}/streams/tracks/${trackId}/stats/per-day`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
+  }
+
   async trackListStreams(
     userId: string,
     trackIds: number[],
@@ -214,6 +252,44 @@ export default class UsersManager extends Manager {
     return res.items;
   }
 
+  async artistDateStats(
+    userId: string,
+    artistId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.DateStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
+      `/users/${userId}/streams/artists/${artistId}/stats/dates`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
+  }
+
+  async artistPerDayStats(
+    userId: string,
+    artistId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.PerDayStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.PerDayStats>>(
+      `/users/${userId}/streams/artists/${artistId}/stats/per-day`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
+  }
+
   async albumStreams(
     userId: string,
     albumId: number,
@@ -246,6 +322,44 @@ export default class UsersManager extends Manager {
     );
 
     return res.item;
+  }
+
+  async albumDateStats(
+    userId: string,
+    albumId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.DateStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
+      `/users/${userId}/streams/albums/${albumId}/stats/dates`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
+  }
+
+  async albumPerDayStats(
+    userId: string,
+    albumId: number,
+    timeZone: string,
+    options?: statsfm.QueryStatsDates
+  ): Promise<statsfm.PerDayStats> {
+    const res = await this.http.get<ItemsResponse<statsfm.PerDayStats>>(
+      `/users/${userId}/streams/albums/${albumId}/stats/per-day`,
+      {
+        query: {
+          ...options,
+          timeZone
+        }
+      }
+    );
+
+    return res.items;
   }
 
   async topTracks(
