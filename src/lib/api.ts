@@ -7,6 +7,7 @@ import FriendsManager from './friends/FriendsManager';
 import GenresManager from './genres/GenresManager';
 import { HttpManager } from './http/HttpManager';
 import MeManager from './me/MeManager';
+import RecordsManager from './records/RecordsManager';
 import SearchManager from './search/SearchManager';
 import StatsManager from './stats/StatsManager';
 import TracksManager from './tracks/TracksManager';
@@ -29,6 +30,8 @@ export default class Api {
 
   me: MeManager;
 
+  records: RecordsManager;
+
   search: SearchManager;
 
   stats: StatsManager;
@@ -49,6 +52,7 @@ export default class Api {
     this.friends = new FriendsManager(this.http);
     this.genres = new GenresManager(this.http);
     this.me = new MeManager(this.http);
+    this.records = new RecordsManager(this.http);
     this.search = new SearchManager(this.http);
     this.stats = new StatsManager(this.http);
     this.tracks = new TracksManager(this.http);

@@ -477,8 +477,8 @@ export default class UsersManager extends Manager {
     return res.items;
   }
 
-  async artistRecords(userId: string): Promise<statsfm.ArtistRecord[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.ArtistRecord[]>>(
+  async artistRecords(userId: string): Promise<statsfm.StatsFMRecord[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.StatsFMRecord[]>>(
       `/users/${userId}/records/artists`,
       {
         query: {}

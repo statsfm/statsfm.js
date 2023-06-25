@@ -1,21 +1,15 @@
 enum RecordType {
-  'PLATINUM',
-
-  'GOLD',
-
-  'SILVER',
-
-  'BRONZE'
+  'PLATINUM' = 'PLATINUM',
+  'GOLD' = 'GOLD',
+  'SILVER' = 'SILVER',
+  'BRONZE' = 'BRONZE'
 }
 
-export interface Record extends Object {
+export interface StatsFMRecord {
   id: number;
+  artistId: number;
   type: RecordType;
   active: boolean;
   userId: string;
   createdAt: Date;
-}
-
-export interface ArtistRecord extends Object {
-  artistId: number;
 }
