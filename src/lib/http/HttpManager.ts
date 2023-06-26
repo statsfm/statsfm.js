@@ -35,7 +35,7 @@ export class HttpManager {
   resolveUrl(route: RouteLike, versioned?: boolean, query?: string): string {
     return `${this.options.http.apiUrl}${
       versioned === false ? '' : `/v${this.options.http.version}`
-    }${route}${query}`;
+    }${route}${query ? `?${query}` : ''}`;
   }
 
   private async resolveRequest(request: InternalRequest): Promise<{
@@ -51,7 +51,7 @@ export class HttpManager {
         )
       ).toString();
       if (resolvedQuery !== '') {
-        query = `?${resolvedQuery}`;
+        query = resolvedQuery;
       }
     }
 
