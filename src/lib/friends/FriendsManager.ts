@@ -91,11 +91,11 @@ export default class FriendsManager extends Manager {
   }
 
   async status(id: string): Promise<statsfm.FriendStatus> {
-    const res = await this.http.get<statsfm.FriendStatus>(
+    const res = await this.http.get<{ data: statsfm.FriendStatus }>(
       `/friends/status/${encodeURIComponent(id)}`,
       { auth: true }
     );
 
-    return statsfm.FriendStatus[res] ?? statsfm.FriendStatus.NONE;
+    return statsfm.FriendStatus[res.data] ?? statsfm.FriendStatus.NONE;
   }
 }
