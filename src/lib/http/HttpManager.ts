@@ -38,6 +38,37 @@ export class HttpManager {
     }${route}${query ? `?${query}` : ''}`;
   }
 
+  private async getFiles(files: InternalRequest['files']): Promise<FormData> {
+    const formData = new FormData();
+
+    // Attach all files to the request
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
+      if (Buffer.isBuffer(file.data)) {
+        let finalContentType = file.contentType;
+        if (!finalContentType) {
+          // eslint-disable-next-line no-await-in-loop
+          const parsedFileType = (await fromBuffer(file.data))?.mime;
+          if (parsedFileType) {
+            finalContentType = parsedFileType;
+          }
+          formData.append(
+            file.key,
+            new Blob([`${file.data}`], { type: file.contentType }),
+            file.name
+          );
+        }
+      } else {
+        formData.append(
+          file.key,
+          new Blob([`${file.data}`], { type: file.contentType }),
+          file.name
+        );
+      }
+    }
+    return formData;
+  }
+
   private async resolveRequest(request: InternalRequest): Promise<{
     url: string;
     fetchOptions: RequestInit;
@@ -73,35 +104,7 @@ export class HttpManager {
     let additionalHeaders: Record<string, string> = {};
 
     if (request.files?.length) {
-      const formData = new FormData();
-
-      // Attach all files to the request
-      for (let index = 0; index < request.files.length; index++) {
-        const file = request.files[index];
-        if (Buffer.isBuffer(file.data)) {
-          let finalContentType = file.contentType;
-          if (!finalContentType) {
-            // eslint-disable-next-line no-await-in-loop
-            const parsedFileType = (await fromBuffer(file.data))?.mime;
-            if (parsedFileType) {
-              finalContentType = parsedFileType;
-            }
-            formData.append(
-              file.key,
-              new Blob([`${file.data}`], { type: file.contentType }),
-              file.name
-            );
-          }
-        } else {
-          formData.append(
-            file.key,
-            new Blob([`${file.data}`], { type: file.contentType }),
-            file.name
-          );
-        }
-      }
-      // Set the final body to the form data
-      finalBody = formData;
+      finalBody = await this.getFiles(request.files);
     } else if (request.body != null) {
       if (request.passThroughBody) {
         finalBody = request.body;
