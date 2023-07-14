@@ -59,11 +59,11 @@ export class HttpManager {
       'User-Agent': `${DefaultUserAgent} ${this.options.http.userAgentAppendix}`.trim()
     } as Record<string, string>;
 
-    if (request.auth === true) {
-      if (!this.accessToken) {
-        throw new Error('Expected access token to be set for this request, but none was found.');
-      }
+    if (request.authRequired === true && !this.accessToken) {
+      throw new Error('Expected access token to be set for this request, but none was found.');
+    }
 
+    if (this.accessToken) {
       headers.Authorization = `Bearer ${this.accessToken}`;
     }
 
@@ -206,7 +206,7 @@ export class HttpManager {
       throw new HTTPError(status, method, url, requestData);
     } else {
       if (status >= 400 && status < 500) {
-        if (status === 401 && requestData.auth) {
+        if (status === 401 && requestData.authRequired) {
           this.setToken(null);
         }
 

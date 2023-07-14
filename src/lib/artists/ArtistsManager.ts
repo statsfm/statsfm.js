@@ -89,7 +89,7 @@ export default class ArtistsManager extends Manager {
     const res = await this.http.get<ItemsResponse<statsfm.TopUser[]>>(
       `/artists/${id}/top/listeners`,
       {
-        auth: true,
+        authRequired: true,
         query: friendsOnly === false ? {} : { friends: friendsOnly } // for caching
       }
     );

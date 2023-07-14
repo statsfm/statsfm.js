@@ -4,14 +4,16 @@ import Manager from '../Manager';
 
 export default class MeManager extends Manager {
   async get(): Promise<statsfm.UserPrivate> {
-    const res = await this.http.get<ItemResponse<statsfm.UserPrivate>>(`/me`, { auth: true });
+    const res = await this.http.get<ItemResponse<statsfm.UserPrivate>>(`/me`, {
+      authRequired: true
+    });
 
     return res.item;
   }
 
   async updateMe(data: statsfm.UserPrivate): Promise<statsfm.UserPrivate> {
     const res = await this.http.put<ItemResponse<statsfm.UserPrivate>>('/me', {
-      auth: true,
+      authRequired: true,
       body: JSON.stringify(data)
     });
 
@@ -22,7 +24,7 @@ export default class MeManager extends Manager {
     const formData = new FormData();
     formData.append('file', file);
     const res = await this.http.post<{ image: string }>('/me/image', {
-      auth: true,
+      authRequired: true,
       body: formData,
       passThroughBody: true
     });
@@ -31,25 +33,25 @@ export default class MeManager extends Manager {
   }
 
   deleteAccount(): Promise<unknown> {
-    return this.http.delete('/me', { auth: true });
+    return this.http.delete('/me', { authRequired: true });
   }
 
   async socialMediaConnections(): Promise<statsfm.UserSocialMediaConnection[]> {
     const res = await this.http.get<ItemsResponse<statsfm.UserSocialMediaConnection[]>>(
       '/me/connections',
-      { auth: true }
+      { authRequired: true }
     );
 
     return res.items;
   }
 
   async removeSocialMediaConnection(id: number): Promise<void> {
-    await this.http.delete(`/me/connections/${id}`, { auth: true });
+    await this.http.delete(`/me/connections/${id}`, { authRequired: true });
   }
 
   async privacySettings(): Promise<statsfm.UserPrivacySettings> {
     const res = await this.http.get<ItemResponse<statsfm.UserPrivacySettings>>('/me/privacy', {
-      auth: true
+      authRequired: true
     });
 
     return res.item;
@@ -59,7 +61,7 @@ export default class MeManager extends Manager {
     data: statsfm.UserPrivacySettings
   ): Promise<statsfm.UserPrivacySettings> {
     const res = await this.http.put<ItemResponse<statsfm.UserPrivacySettings>>('/me/privacy', {
-      auth: true,
+      authRequired: true,
       body: JSON.stringify(data)
     });
 
@@ -68,7 +70,7 @@ export default class MeManager extends Manager {
 
   async customIdAvailable(data: string): Promise<boolean> {
     const res = await this.http.put<ItemResponse<boolean>>('/me/customid-available', {
-      auth: true,
+      authRequired: true,
       body: JSON.stringify({ customId: data })
     });
 
@@ -77,7 +79,7 @@ export default class MeManager extends Manager {
 
   async profile(): Promise<statsfm.UserProfile> {
     const res = await this.http.get<ItemResponse<statsfm.UserProfile>>('/me/profile', {
-      auth: true
+      authRequired: true
     });
 
     return res.item;
@@ -85,7 +87,7 @@ export default class MeManager extends Manager {
 
   async updateProfile(data: statsfm.UserProfile): Promise<statsfm.UserProfile> {
     const res = await this.http.put<ItemResponse<statsfm.UserProfile>>('/me/profile', {
-      auth: true,
+      authRequired: true,
       body: JSON.stringify(data)
     });
 
@@ -94,7 +96,7 @@ export default class MeManager extends Manager {
 
   async imports(): Promise<statsfm.UserImport[]> {
     const res = await this.http.get<ItemsResponse<statsfm.UserImport[]>>('/me/imports', {
-      auth: true
+      authRequired: true
     });
 
     return res.items;
@@ -103,7 +105,7 @@ export default class MeManager extends Manager {
   async import(file: Required<RawFile>, requestData?: RequestData): Promise<statsfm.UserImport> {
     const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/imports', {
       ...requestData,
-      auth: true,
+      authRequired: true,
       files: [file]
     });
 
@@ -111,13 +113,13 @@ export default class MeManager extends Manager {
   }
 
   async removeImport(id: number): Promise<void> {
-    await this.http.delete(`/me/imports/${id}`, { auth: true });
+    await this.http.delete(`/me/imports/${id}`, { authRequired: true });
   }
 
   async spotifyPlaylists(): Promise<statsfm.UserSpotifyPlaylist[]> {
     const res = await this.http.get<ItemsResponse<statsfm.UserSpotifyPlaylist[]>>(
       '/me/playlists/spotify',
-      { auth: true }
+      { authRequired: true }
     );
 
     return res.items;
@@ -125,7 +127,7 @@ export default class MeManager extends Manager {
 
   async getGiftCode(code: string): Promise<statsfm.GiftCode> {
     const res = await this.http.get<ItemResponse<statsfm.GiftCode>>(`/me/plus/giftcodes/${code}`, {
-      auth: true,
+      authRequired: true,
       query: { type: 'code' }
     });
 
@@ -136,7 +138,7 @@ export default class MeManager extends Manager {
     const res = await this.http.put<ItemResponse<statsfm.GiftCode>>(
       `/me/plus/giftcodes/${giftCodeId}`,
       {
-        auth: true,
+        authRequired: true,
         body: JSON.stringify({ message })
       }
     );
@@ -146,7 +148,7 @@ export default class MeManager extends Manager {
 
   async getGiftCodes(): Promise<statsfm.GiftCode[]> {
     const res = await this.http.get<ItemsResponse<statsfm.GiftCode[]>>('/me/plus/giftcodes', {
-      auth: true
+      authRequired: true
     });
 
     return res.items;
@@ -154,7 +156,7 @@ export default class MeManager extends Manager {
 
   async redeemGiftCode(code: string): Promise<statsfm.GiftCode> {
     const res = await this.http.post<ItemResponse<statsfm.GiftCode>>('/me/plus/giftcodes/redeem', {
-      auth: true,
+      authRequired: true,
       body: JSON.stringify({ code })
     });
 
@@ -171,7 +173,7 @@ export default class MeManager extends Manager {
     const res = await this.http.put<ItemResponse<statsfm.UserSpotifyPlaylist>>(
       `/me/playlists/spotify/${data.id}`,
       {
-        auth: true,
+        authRequired: true,
         body: JSON.stringify(data)
       }
     );
@@ -180,12 +182,12 @@ export default class MeManager extends Manager {
   }
 
   async deleteSpotifyPlaylist(id: number): Promise<void> {
-    await this.http.delete(`/me/playlists/spotify/${id}`, { auth: true });
+    await this.http.delete(`/me/playlists/spotify/${id}`, { authRequired: true });
   }
 
   async devices(): Promise<statsfm.UserDevice[]> {
     const res = await this.http.get<ItemsResponse<statsfm.UserDevice[]>>('/me/devices', {
-      auth: true
+      authRequired: true
     });
 
     return res.items;
@@ -193,7 +195,7 @@ export default class MeManager extends Manager {
 
   async soulmates(forceRefresh = false): Promise<statsfm.Soulmate[]> {
     const res = await this.http.get<ItemsResponse<statsfm.Soulmate[]>>('/me/soulmates', {
-      auth: true,
+      authRequired: true,
       ...(forceRefresh
         ? {
             query: { force: forceRefresh }
@@ -208,7 +210,7 @@ export default class MeManager extends Manager {
    * @deprecated use {@link FriendsManager#get} instead
    */
   async friends(): Promise<statsfm.UserPublic[]> {
-    const res = await this.http.get<statsfm.UserPublic[]>('/friends', { auth: true });
+    const res = await this.http.get<statsfm.UserPublic[]>('/friends', { authRequired: true });
 
     return res;
   }
@@ -218,7 +220,7 @@ export default class MeManager extends Manager {
    */
   async incomingFriendRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/incoming', {
-      auth: true
+      authRequired: true
     });
 
     return res;
@@ -229,7 +231,7 @@ export default class MeManager extends Manager {
    */
   async outgoingFriendRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/outgoing', {
-      auth: true
+      authRequired: true
     });
 
     return res;
@@ -241,7 +243,9 @@ export default class MeManager extends Manager {
    */
   async sendFriendRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -255,7 +259,9 @@ export default class MeManager extends Manager {
    */
   async cancelFriendRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -268,7 +274,9 @@ export default class MeManager extends Manager {
    */
   async acceptFriendRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -281,7 +289,9 @@ export default class MeManager extends Manager {
    */
   async denyFriendRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -294,7 +304,7 @@ export default class MeManager extends Manager {
    */
   async removeFriend(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/remove/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/remove/${encodeURIComponent(id)}`, { authRequired: true });
     } catch (e) {
       return false;
     }
@@ -309,7 +319,7 @@ export default class MeManager extends Manager {
   async friendStatus(id: string): Promise<statsfm.FriendStatus> {
     const res = await this.http.get<{ data: statsfm.FriendStatus }>(
       `/friends/status/${encodeURIComponent(id)}`,
-      { auth: true }
+      { authRequired: true }
     );
 
     return statsfm.FriendStatus[res.data] ?? statsfm.FriendStatus.NONE;

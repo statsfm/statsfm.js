@@ -33,7 +33,7 @@ export interface RequestData {
    * If this requests requires authentication.
    * @default false
    */
-  auth?: boolean;
+  authRequired?: boolean;
 
   /**
    * The body of the request.

@@ -65,7 +65,7 @@ export default class AlbumsManager extends Manager {
     const res = await this.http.get<ItemsResponse<statsfm.TopUser[]>>(
       `/albums/${id}/top/listeners`,
       {
-        auth: true,
+        authRequired: true,
         query: friendsOnly === false ? {} : { friends: friendsOnly } // for caching
       }
     );

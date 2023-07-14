@@ -3,14 +3,14 @@ import Manager from '../Manager';
 
 export default class FriendsManager extends Manager {
   async get(): Promise<statsfm.UserPublic[]> {
-    const res = await this.http.get<statsfm.UserPublic[]>('/friends', { auth: true });
+    const res = await this.http.get<statsfm.UserPublic[]>('/friends', { authRequired: true });
 
     return res;
   }
 
   async getIncomingRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/incoming', {
-      auth: true
+      authRequired: true
     });
 
     return res;
@@ -18,7 +18,7 @@ export default class FriendsManager extends Manager {
 
   async getOutgoingRequests(): Promise<statsfm.UserPublic[]> {
     const res = await this.http.get<statsfm.UserPublic[]>('/friends/requests/outgoing', {
-      auth: true
+      authRequired: true
     });
 
     return res;
@@ -26,7 +26,9 @@ export default class FriendsManager extends Manager {
 
   async sendRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/send/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -36,7 +38,9 @@ export default class FriendsManager extends Manager {
 
   async cancelRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/cancel/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -45,7 +49,9 @@ export default class FriendsManager extends Manager {
 
   async acceptRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/accept/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -54,7 +60,9 @@ export default class FriendsManager extends Manager {
 
   async denyRequest(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/requests/deny/${encodeURIComponent(id)}`, {
+        authRequired: true
+      });
     } catch (e) {
       return false;
     }
@@ -63,7 +71,7 @@ export default class FriendsManager extends Manager {
 
   async remove(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/remove/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/remove/${encodeURIComponent(id)}`, { authRequired: true });
     } catch (e) {
       return false;
     }
@@ -72,7 +80,7 @@ export default class FriendsManager extends Manager {
 
   async block(id: string): Promise<boolean> {
     try {
-      await this.http.post(`/friends/block/${encodeURIComponent(id)}`, { auth: true });
+      await this.http.post(`/friends/block/${encodeURIComponent(id)}`, { authRequired: true });
     } catch (e) {
       return false;
     }
@@ -82,7 +90,7 @@ export default class FriendsManager extends Manager {
   async blockStatus(id: string): Promise<boolean> {
     try {
       await this.http.get(`/friends/block-status/${encodeURIComponent(id)}`, {
-        auth: true
+        authRequired: true
       });
     } catch (e) {
       return false;
@@ -93,7 +101,7 @@ export default class FriendsManager extends Manager {
   async status(id: string): Promise<statsfm.FriendStatus> {
     const res = await this.http.get<{ data: statsfm.FriendStatus }>(
       `/friends/status/${encodeURIComponent(id)}`,
-      { auth: true }
+      { authRequired: true }
     );
 
     return statsfm.FriendStatus[res.data] ?? statsfm.FriendStatus.NONE;

@@ -83,7 +83,7 @@ export default class TracksManager extends Manager {
     const res = await this.http.get<ItemsResponse<statsfm.TopUser[]>>(
       `/tracks/${id}/top/listeners`,
       {
-        auth: true,
+        authRequired: true,
         query: friendsOnly === false ? {} : { friends: friendsOnly } // for caching
       }
     );
