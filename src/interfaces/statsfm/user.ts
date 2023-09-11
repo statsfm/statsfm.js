@@ -103,6 +103,8 @@ export interface UserPublic {
   privacySettings?: UserPrivacySettings;
   profile?: UserProfile;
   socialMediaConnections: UserSocialMediaConnection[];
+  ban: UserBan | null;
+  quarantined: boolean;
 }
 
 export interface UserPrivate extends UserPublic {
@@ -112,4 +114,9 @@ export interface UserPrivate extends UserPublic {
 
 export interface TopUser extends TopObject {
   user: UserPublic;
+}
+
+export interface UserBan {
+  active: boolean;
+  createdAt: Date;
 }
