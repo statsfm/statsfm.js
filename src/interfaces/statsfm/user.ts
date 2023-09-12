@@ -108,7 +108,7 @@ export interface UserPublic {
   privacySettings?: UserPrivacySettings;
   profile?: UserProfile;
   socialMediaConnections: UserSocialMediaConnection[];
-  ban: UserBan | null;
+  userBan: UserBan | null;
   quarantined: boolean;
 }
 
