@@ -1,4 +1,3 @@
-import { Range } from './query';
 import { TopObject } from './top';
 
 export enum OrderBySetting {
@@ -98,7 +97,6 @@ export interface UserBan {
 export interface UserPublic {
   id: string;
   customId: string;
-  createdAt: Date;
   displayName: string;
   image?: string;
   isPlus: boolean;

@@ -70,19 +70,13 @@ export default class ArtistsManager extends Manager {
   async albums(id: number): Promise<statsfm.Album[]> {
     const res = await this.http.get<ItemsResponse<statsfm.Album[]>>(`/artists/${id}/albums`);
 
-    return res.items.map((item) => ({
-      ...item,
-      releaseDate: new Date(item.releaseDate)
-    }));
+    return res.items;
   }
 
   async topAlbums(id: number): Promise<statsfm.Album[]> {
     const res = await this.http.get<ItemsResponse<statsfm.Album[]>>(`/artists/${id}/albums/top`);
 
-    return res.items.map((item) => ({
-      ...item,
-      releaseDate: new Date(item.releaseDate)
-    }));
+    return res.items;
   }
 
   async related(id: number): Promise<statsfm.Artist[]> {
@@ -100,18 +94,6 @@ export default class ArtistsManager extends Manager {
       }
     );
 
-    return res.items.map((item) => ({
-      ...item,
-      user: {
-        ...item.user,
-        createdAt: new Date(item.user.createdAt),
-        ban: item.user.ban
-          ? {
-              ...item.user.ban,
-              createdAt: new Date(item.user.ban.createdAt)
-            }
-          : null
-      }
-    }));
+    return res.items;
   }
 }

@@ -1,6 +1,6 @@
 import { UserPublic } from './user';
 
-export interface GiftCode {
+export interface GiftCode extends Object {
   id: number;
   purchasedAt: Date;
   claimedAt: Date | null;

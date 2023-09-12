@@ -11,10 +11,7 @@ export default class AlbumsManager extends Manager {
   async get(id: number): Promise<statsfm.Album> {
     const res = await this.http.get<ItemResponse<statsfm.Album>>(`/albums/${id}`);
 
-    return {
-      ...res.item,
-      releaseDate: new Date(res.item.releaseDate)
-    };
+    return res.item;
   }
 
   /**
@@ -29,10 +26,7 @@ export default class AlbumsManager extends Manager {
       }
     });
 
-    return res.items.map((item) => ({
-      ...item,
-      releaseDate: new Date(item.releaseDate)
-    }));
+    return res.items;
   }
 
   async getSpotify(id: string): Promise<statsfm.Album> {
@@ -42,10 +36,7 @@ export default class AlbumsManager extends Manager {
       }
     });
 
-    return {
-      ...res.item,
-      releaseDate: new Date(res.item.releaseDate)
-    };
+    return res.item;
   }
 
   async listSpotify(ids: string[]): Promise<statsfm.Album[]> {
@@ -56,10 +47,7 @@ export default class AlbumsManager extends Manager {
       }
     });
 
-    return res.items.map((item) => ({
-      ...item,
-      releaseDate: new Date(item.releaseDate)
-    }));
+    return res.items;
   }
 
   /**
@@ -82,18 +70,6 @@ export default class AlbumsManager extends Manager {
       }
     );
 
-    return res.items.map((item) => ({
-      ...item,
-      user: {
-        ...item.user,
-        createdAt: new Date(item.user.createdAt),
-        ban: item.user.ban
-          ? {
-              ...item.user.ban,
-              createdAt: new Date(item.user.ban.createdAt)
-            }
-          : null
-      }
-    }));
+    return res.items;
   }
 }
