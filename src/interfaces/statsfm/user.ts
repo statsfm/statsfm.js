@@ -89,6 +89,11 @@ export interface UserProfile {
   pronouns?: string | null;
 }
 
+export interface UserBan {
+  active: boolean;
+  createdAt: Date;
+}
+
 export interface UserPublic {
   id: string;
   customId: string;
@@ -114,9 +119,4 @@ export interface UserPrivate extends UserPublic {
 
 export interface TopUser extends TopObject {
   user: UserPublic;
-}
-
-export interface UserBan {
-  active: boolean;
-  createdAt: Date;
 }
