@@ -84,10 +84,24 @@ export interface InternalRequest extends RequestData {
   method: RequestMethod;
 }
 
+export type DateToString<T> = T extends Date
+  ? string
+  : T extends Map<any, any> | Set<any>
+  ? T
+  : T extends Record<string, any>
+  ? {
+      [K in keyof T]: DateToString<T[K]>;
+    }
+  : T;
+
 export interface ItemResponse<Item> {
-  item: Item;
+  item: DateToString<Item>;
 }
 
-export interface ItemsResponse<Item> {
-  items: Item;
-}
+export type ItemsResponse<Item> = Item extends any[]
+  ? {
+      items: DateToString<Item[number]>[];
+    }
+  : {
+      items: DateToString<Item>;
+    };

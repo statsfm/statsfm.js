@@ -6,7 +6,16 @@ export default class UsersManager extends Manager {
   async get(userId: string): Promise<statsfm.UserPublic> {
     const res = await this.http.get<ItemResponse<statsfm.UserPublic>>(`/users/${userId}`);
 
-    return res.item;
+    return {
+      ...res.item,
+      createdAt: new Date(res.item.createdAt),
+      ban: res.item.ban
+        ? {
+            ...res.item.ban,
+            createdAt: new Date(res.item.ban.createdAt)
+          }
+        : null
+    };
   }
 
   async privacySettings(userId: string): Promise<statsfm.UserPrivacySettings> {
@@ -33,7 +42,10 @@ export default class UsersManager extends Manager {
       }
     });
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async stats(
@@ -69,21 +81,15 @@ export default class UsersManager extends Manager {
     return res.items;
   }
 
+  /**
+   * @deprecated Use {@link UsersManager.dateStats} instead.
+   */
   async perDayStats(
     userId: string,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) &
       statsfm.QueryWithTimeZoneOfsset = {}
   ): Promise<statsfm.DateStats> {
-    const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
-      `/users/${userId}/streams/stats/dates`,
-      {
-        query: {
-          ...options
-        }
-      }
-    );
-
-    return res.items;
+    return await this.dateStats(userId, options);
   }
 
   async currentlyStreaming(userId: string): Promise<statsfm.CurrentlyPlayingTrack> {
@@ -91,7 +97,10 @@ export default class UsersManager extends Manager {
       `/users/${userId}/streams/current`
     );
 
-    return res.item;
+    return {
+      ...res.item,
+      date: new Date(res.item.date)
+    };
   }
 
   async recentlyStreamed(
@@ -107,7 +116,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async trackStreams(
@@ -124,7 +136,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async trackStats(
@@ -197,7 +212,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async trackListStats(
@@ -232,7 +250,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async artistStats(
@@ -304,7 +325,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      endTime: new Date(item.endTime)
+    }));
   }
 
   async albumStats(
@@ -425,7 +449,13 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      album: {
+        ...item.album,
+        releaseDate: new Date(item.album.releaseDate)
+      }
+    }));
   }
 
   async topAlbums(
@@ -441,7 +471,13 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      album: {
+        ...item.album,
+        releaseDate: new Date(item.album.releaseDate)
+      }
+    }));
   }
 
   async topTracksFromAlbums(
@@ -485,7 +521,10 @@ export default class UsersManager extends Manager {
       }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      createdAt: new Date(item.createdAt)
+    }));
   }
 
   async friends(userId: string): Promise<statsfm.UserPublic[]> {
@@ -493,7 +532,16 @@ export default class UsersManager extends Manager {
       `/users/${userId}/friends`
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      createdAt: new Date(item.createdAt),
+      ban: item.ban
+        ? {
+            ...item.ban,
+            createdAt: new Date(item.ban.createdAt)
+          }
+        : null
+    }));
   }
 
   async friendCount(userId: string): Promise<number> {

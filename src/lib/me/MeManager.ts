@@ -8,7 +8,16 @@ export default class MeManager extends Manager {
       authRequired: true
     });
 
-    return res.item;
+    return {
+      ...res.item,
+      createdAt: new Date(res.item.createdAt),
+      ban: res.item.ban
+        ? {
+            ...res.item.ban,
+            createdAt: new Date(res.item.ban.createdAt)
+          }
+        : null
+    };
   }
 
   async updateMe(data: statsfm.UserPrivate): Promise<statsfm.UserPrivate> {
@@ -17,7 +26,16 @@ export default class MeManager extends Manager {
       body: JSON.stringify(data)
     });
 
-    return res.item;
+    return {
+      ...res.item,
+      createdAt: new Date(res.item.createdAt),
+      ban: res.item.ban
+        ? {
+            ...res.item.ban,
+            createdAt: new Date(res.item.ban.createdAt)
+          }
+        : null
+    };
   }
 
   async uploadAvatar(file: File): Promise<{ image: string }> {
@@ -99,7 +117,11 @@ export default class MeManager extends Manager {
       authRequired: true
     });
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      createdAt: new Date(item.createdAt),
+      updatedAt: new Date(item.updatedAt)
+    }));
   }
 
   async import(file: Required<RawFile>, requestData?: RequestData): Promise<statsfm.UserImport> {
@@ -109,7 +131,11 @@ export default class MeManager extends Manager {
       files: [file]
     });
 
-    return res.item;
+    return {
+      ...res.item,
+      createdAt: new Date(res.item.createdAt),
+      updatedAt: new Date(res.item.updatedAt)
+    };
   }
 
   async removeImport(id: number): Promise<void> {
@@ -122,7 +148,11 @@ export default class MeManager extends Manager {
       { authRequired: true }
     );
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      createdAt: new Date(item.createdAt),
+      syncedAt: new Date(item.syncedAt)
+    }));
   }
 
   async getGiftCode(code: string): Promise<statsfm.GiftCode> {
@@ -131,7 +161,33 @@ export default class MeManager extends Manager {
       query: { type: 'code' }
     });
 
-    return res.item;
+    return {
+      ...res.item,
+      claimedAt: res.item.claimedAt ? new Date(res.item.claimedAt) : null,
+      purchasedAt: new Date(res.item.purchasedAt),
+      claimedBy: res.item.claimedBy
+        ? {
+            ...res.item.claimedBy,
+            createdAt: new Date(res.item.claimedBy.createdAt),
+            ban: res.item.claimedBy.ban
+              ? {
+                  ...res.item.claimedBy.ban,
+                  createdAt: new Date(res.item.claimedBy.ban.createdAt)
+                }
+              : null
+          }
+        : null,
+      boughtBy: {
+        ...res.item.boughtBy,
+        createdAt: new Date(res.item.boughtBy.createdAt),
+        ban: res.item.boughtBy.ban
+          ? {
+              ...res.item.boughtBy.ban,
+              createdAt: new Date(res.item.boughtBy.ban.createdAt)
+            }
+          : null
+      }
+    };
   }
 
   async updateGiftCode(giftCodeId: number, message: string | null): Promise<statsfm.GiftCode> {
@@ -143,7 +199,33 @@ export default class MeManager extends Manager {
       }
     );
 
-    return res.item;
+    return {
+      ...res.item,
+      claimedAt: res.item.claimedAt ? new Date(res.item.claimedAt) : null,
+      purchasedAt: new Date(res.item.purchasedAt),
+      claimedBy: res.item.claimedBy
+        ? {
+            ...res.item.claimedBy,
+            createdAt: new Date(res.item.claimedBy.createdAt),
+            ban: res.item.claimedBy.ban
+              ? {
+                  ...res.item.claimedBy.ban,
+                  createdAt: new Date(res.item.claimedBy.ban.createdAt)
+                }
+              : null
+          }
+        : null,
+      boughtBy: {
+        ...res.item.boughtBy,
+        createdAt: new Date(res.item.boughtBy.createdAt),
+        ban: res.item.boughtBy.ban
+          ? {
+              ...res.item.boughtBy.ban,
+              createdAt: new Date(res.item.boughtBy.ban.createdAt)
+            }
+          : null
+      }
+    };
   }
 
   async getGiftCodes(): Promise<statsfm.GiftCode[]> {
@@ -151,7 +233,33 @@ export default class MeManager extends Manager {
       authRequired: true
     });
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      claimedAt: item.claimedAt ? new Date(item.claimedAt) : null,
+      purchasedAt: new Date(item.purchasedAt),
+      claimedBy: item.claimedBy
+        ? {
+            ...item.claimedBy,
+            createdAt: new Date(item.claimedBy.createdAt),
+            ban: item.claimedBy.ban
+              ? {
+                  ...item.claimedBy.ban,
+                  createdAt: new Date(item.claimedBy.ban.createdAt)
+                }
+              : null
+          }
+        : null,
+      boughtBy: {
+        ...item.boughtBy,
+        createdAt: new Date(item.boughtBy.createdAt),
+        ban: item.boughtBy.ban
+          ? {
+              ...item.boughtBy.ban,
+              createdAt: new Date(item.boughtBy.ban.createdAt)
+            }
+          : null
+      }
+    }));
   }
 
   async redeemGiftCode(code: string): Promise<statsfm.GiftCode> {
@@ -160,7 +268,33 @@ export default class MeManager extends Manager {
       body: JSON.stringify({ code })
     });
 
-    return res.item;
+    return {
+      ...res.item,
+      claimedAt: res.item.claimedAt ? new Date(res.item.claimedAt) : null,
+      purchasedAt: new Date(res.item.purchasedAt),
+      claimedBy: res.item.claimedBy
+        ? {
+            ...res.item.claimedBy,
+            createdAt: new Date(res.item.claimedBy.createdAt),
+            ban: res.item.claimedBy.ban
+              ? {
+                  ...res.item.claimedBy.ban,
+                  createdAt: new Date(res.item.claimedBy.ban.createdAt)
+                }
+              : null
+          }
+        : null,
+      boughtBy: {
+        ...res.item.boughtBy,
+        createdAt: new Date(res.item.boughtBy.createdAt),
+        ban: res.item.boughtBy.ban
+          ? {
+              ...res.item.boughtBy.ban,
+              createdAt: new Date(res.item.boughtBy.ban.createdAt)
+            }
+          : null
+      }
+    };
   }
 
   createSpotifyPlaylist(): Promise<statsfm.UserSpotifyPlaylist> {
@@ -178,7 +312,11 @@ export default class MeManager extends Manager {
       }
     );
 
-    return res.item;
+    return {
+      ...res.item,
+      createdAt: new Date(res.item.createdAt),
+      syncedAt: new Date(res.item.syncedAt)
+    };
   }
 
   async deleteSpotifyPlaylist(id: number): Promise<void> {
@@ -190,7 +328,11 @@ export default class MeManager extends Manager {
       authRequired: true
     });
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      createdAt: new Date(item.createdAt),
+      lastUsed: new Date(item.lastUsed)
+    }));
   }
 
   async soulmates(forceRefresh = false): Promise<statsfm.Soulmate[]> {
@@ -203,7 +345,19 @@ export default class MeManager extends Manager {
         : {}) // for caching
     });
 
-    return res.items;
+    return res.items.map((item) => ({
+      ...item,
+      user: {
+        ...item.user,
+        createdAt: new Date(item.user.createdAt),
+        ban: item.user.ban
+          ? {
+              ...item.user.ban,
+              createdAt: new Date(item.user.ban.createdAt)
+            }
+          : null
+      }
+    }));
   }
 
   /**

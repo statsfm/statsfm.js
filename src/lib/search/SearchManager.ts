@@ -18,7 +18,28 @@ export default class SearchManager extends Manager {
       }
     });
 
-    return res.items;
+    return {
+      albums: res.items.albums
+        ? res.items.albums.map((album) => ({
+            ...album,
+            releaseDate: new Date(album.releaseDate)
+          }))
+        : undefined,
+      artists: res.items.artists ? res.items.artists : undefined,
+      tracks: res.items.tracks ? res.items.tracks : undefined,
+      users: res.items.users
+        ? res.items.users.map((user) => ({
+            ...user,
+            createdAt: new Date(user.createdAt),
+            ban: user.ban
+              ? {
+                  ...user.ban,
+                  createdAt: new Date(user.ban.createdAt)
+                }
+              : null
+          }))
+        : undefined
+    };
   }
 
   async searchElastic(
@@ -35,6 +56,27 @@ export default class SearchManager extends Manager {
       }
     });
 
-    return res.items;
+    return {
+      albums: res.items.albums
+        ? res.items.albums.map((album) => ({
+            ...album,
+            releaseDate: new Date(album.releaseDate)
+          }))
+        : undefined,
+      artists: res.items.artists ? res.items.artists : undefined,
+      tracks: res.items.tracks ? res.items.tracks : undefined,
+      users: res.items.users
+        ? res.items.users.map((user) => ({
+            ...user,
+            createdAt: new Date(user.createdAt),
+            ban: user.ban
+              ? {
+                  ...user.ban,
+                  createdAt: new Date(user.ban.createdAt)
+                }
+              : null
+          }))
+        : undefined
+    };
   }
 }

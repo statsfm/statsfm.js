@@ -7,20 +7,29 @@ export default class RecordsManager extends Manager {
     const response = await this.http.get<ItemResponse<statsfm.StatsFMRecord>>(
       `/records/artists/${recordId}`
     );
-    return response.item;
+    return {
+      ...response.item,
+      createdAt: new Date(response.item.createdAt)
+    };
   }
 
   async listArtistRecords(recordIds: number[]): Promise<statsfm.StatsFMRecord> {
     const response = await this.http.get<ItemsResponse<statsfm.StatsFMRecord>>(`/records/artists`, {
       query: { ids: recordIds.join(',') }
     });
-    return response.items;
+    return {
+      ...response.items,
+      createdAt: new Date(response.items.createdAt)
+    };
   }
 
   async getArtistRecordHistory(recordId: number): Promise<statsfm.StatsFMRecord> {
     const response = await this.http.get<ItemsResponse<statsfm.StatsFMRecord>>(
       `/records/artists/${recordId}/history`
     );
-    return response.items;
+    return {
+      ...response.items,
+      createdAt: new Date(response.items.createdAt)
+    };
   }
 }

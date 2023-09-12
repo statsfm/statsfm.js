@@ -18,5 +18,4 @@ export * from './user';
 
 export interface Object {
   id: number;
-  updatedAt?: Date;
 }
