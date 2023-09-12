@@ -115,6 +115,7 @@ export interface UserPublic {
 export interface UserPrivate extends UserPublic {
   email: string;
   country: string;
+  disabled: boolean;
 }
 
 export interface TopUser extends TopObject {
