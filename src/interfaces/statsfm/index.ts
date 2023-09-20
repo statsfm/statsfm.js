@@ -20,3 +20,5 @@ export interface Object {
   id: number;
   updatedAt?: Date;
 }
+
+export type AvailableService = 'spotify' | 'appleMusic';

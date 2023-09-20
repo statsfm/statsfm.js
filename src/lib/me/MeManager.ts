@@ -112,8 +112,38 @@ export default class MeManager extends Manager {
     return res.item;
   }
 
+  async importSpotify(
+    file: Required<RawFile>,
+    requestData?: RequestData
+  ): Promise<statsfm.UserImport> {
+    return await this.import(file, requestData);
+  }
+
+  async importAppleMusic(
+    file: Required<RawFile>,
+    requestData?: RequestData
+  ): Promise<statsfm.UserImport> {
+    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/import-apple-music', {
+      ...requestData,
+      authRequired: true,
+      files: [file]
+    });
+
+    return res.item;
+  }
+
   async removeImport(id: number): Promise<void> {
     await this.http.delete(`/me/imports/${id}`, { authRequired: true });
+  }
+
+  async setConnectedServiceSettings(
+    service: statsfm.AvailableService,
+    settings: statsfm.ServiceSettings
+  ): Promise<void> {
+    await this.http.post(`/me/service/${service}/settings`, {
+      authRequired: true,
+      body: JSON.stringify(settings)
+    });
   }
 
   async spotifyPlaylists(): Promise<statsfm.UserSpotifyPlaylist[]> {

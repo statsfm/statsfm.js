@@ -94,6 +94,50 @@ export interface UserBan {
   createdAt: Date;
 }
 
+export enum ConnectedServiceStatus {
+  CONNECTED = 0,
+  DISABLED = 1,
+  TOKEN_EXPIRED = 2,
+  DISABLED_AND_TOKEN_EXPIRED = 3
+}
+
+export interface SpotifyAuth {
+  disabled: boolean;
+  email: string;
+  displayName: string;
+  platformUserId: string;
+  image?: string;
+  country: string;
+  syncStreams: boolean;
+  imported: boolean;
+}
+
+export interface AppleMusicAuth {
+  disabled: boolean;
+  email: string;
+  emailVerified: boolean;
+  appleUserId: string;
+  syncStreams: boolean;
+  imported: boolean;
+}
+
+export interface AuthConnections {
+  spotify: SpotifyAuth;
+  appleMusic: AppleMusicAuth;
+}
+
+export interface ServiceSettings {
+  hasImported?: boolean;
+  sync?: boolean;
+}
+
+export type StreamingService<Private extends boolean = false> = {
+  connected: boolean;
+  hasImported: boolean;
+  platformId?: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+} & (Private extends true ? { status: ConnectedServiceStatus } : {});
+
 export interface UserPublic {
   id: string;
   customId: string;
@@ -110,12 +154,20 @@ export interface UserPublic {
   socialMediaConnections: UserSocialMediaConnection[];
   userBan: UserBan | null;
   quarantined: boolean;
+  connectedServices: {
+    spotify: StreamingService<false>;
+    appleMusic: StreamingService<false>;
+  };
 }
 
 export interface UserPrivate extends UserPublic {
-  email: string;
+  email?: string | null;
   country: string;
   disabled: boolean;
+  connectedServices: {
+    spotify: StreamingService<true>;
+    appleMusic: StreamingService<true>;
+  };
 }
 
 export interface TopUser extends TopObject {
