@@ -20,8 +20,9 @@ export interface QueryWithRange {
   range?: Range;
 }
 
-export interface QueryWithTimeZoneOfsset {
+export interface QueryWithTimeZone {
   timeZoneOffset?: number;
+  timeZone?: string;
 }
 
 export interface QueryWithOrder {
@@ -33,4 +34,4 @@ export interface QueryWithDates {
   after?: number;
 }
 
-export type QueryStatsDates = (QueryWithDates | QueryWithRange) & QueryWithTimeZoneOfsset;
+export type QueryStatsDates = (QueryWithDates | QueryWithRange) & QueryWithTimeZone;
