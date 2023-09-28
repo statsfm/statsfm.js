@@ -4,11 +4,11 @@ export interface StreamStats {
 }
 
 export interface DateStats {
-  hours: Map<number, StreamStats>;
-  weekDays: Map<number, StreamStats>;
-  monthDays: Map<number, StreamStats>;
-  months: Map<number, StreamStats>;
-  years: Map<number, StreamStats>;
+  hours: Record<number, StreamStats>;
+  weekDays: Record<number, StreamStats>;
+  monthDays: Record<number, StreamStats>;
+  months: Record<number, StreamStats>;
+  years: Record<number, StreamStats>;
 }
 
 export interface ExtendedDateStats extends StreamStats {
@@ -21,5 +21,5 @@ export interface ExtendedDateStats extends StreamStats {
 
 export interface PerDayStats {
   average: StreamStats;
-  days: Map<Date, StreamStats>;
+  days: Record<string, StreamStats>;
 }
