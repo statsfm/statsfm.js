@@ -102,23 +102,29 @@ export enum ConnectedServiceStatus {
 }
 
 export interface SpotifyAuth {
+  displayName?: string;
   disabled: boolean;
-  email: string;
-  displayName: string;
-  platformUserId: string;
+  email?: string;
   image?: string;
-  country: string;
-  syncStreams: boolean;
+  syncedAt?: Date;
+  country?: string;
+  product?: string;
+  platformUserId: string;
+  sync: boolean;
   imported: boolean;
 }
 
 export interface AppleMusicAuth {
   disabled: boolean;
-  email: string;
+  email?: string;
+  syncedAt?: Date;
+  sync: boolean;
+  imported: boolean;
   emailVerified: boolean;
   appleUserId: string;
-  syncStreams: boolean;
-  imported: boolean;
+  tokenExpired: boolean;
+  userToken?: string;
+  status: ConnectedServiceStatus;
 }
 
 export interface AuthConnections {
@@ -134,7 +140,8 @@ export interface ServiceSettings {
 export type StreamingService<Private extends boolean = false> = {
   connected: boolean;
   hasImported: boolean;
-  platformId?: string;
+  platformId?: string | null;
+  sync: boolean;
   // eslint-disable-next-line @typescript-eslint/ban-types
 } & (Private extends true ? { status: ConnectedServiceStatus } : {});
 
