@@ -54,8 +54,7 @@ export default class UsersManager extends Manager {
 
   async dateStats(
     userId: string,
-    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) &
-      statsfm.QueryWithTimeZoneOfsset = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithTimeZone = {}
   ): Promise<statsfm.DateStats> {
     const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
       `/users/${userId}/streams/stats/dates`,
@@ -71,8 +70,7 @@ export default class UsersManager extends Manager {
 
   async perDayStats(
     userId: string,
-    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) &
-      statsfm.QueryWithTimeZoneOfsset = {}
+    options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithTimeZone = {}
   ): Promise<statsfm.DateStats> {
     const res = await this.http.get<ItemsResponse<statsfm.DateStats>>(
       `/users/${userId}/streams/stats/dates`,
