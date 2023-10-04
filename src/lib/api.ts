@@ -14,7 +14,6 @@ import TracksManager from './tracks/TracksManager';
 import UsersManager from './users/UsersManager';
 import { RecursivePartial } from '../interfaces';
 import { mergeDefault } from '../util/mergeDefaults';
-import AuthManager from './auth/AuthManager';
 import ImportManager from './imports/ImportManager';
 
 export default class Api {
@@ -23,8 +22,6 @@ export default class Api {
   artists: ArtistsManager;
 
   albums: AlbumsManager;
-
-  auth: AuthManager;
 
   charts: ChartsManager;
 
@@ -63,7 +60,6 @@ export default class Api {
     this.stats = new StatsManager(this.http);
     this.tracks = new TracksManager(this.http);
     this.users = new UsersManager(this.http);
-    this.auth = new AuthManager(this.http);
     this.imports = new ImportManager(this.http);
   }
 }

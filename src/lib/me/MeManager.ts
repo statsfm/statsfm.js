@@ -103,7 +103,7 @@ export default class MeManager extends Manager {
   }
 
   async import(file: Required<RawFile>, requestData?: RequestData): Promise<statsfm.UserImport> {
-    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/imports', {
+    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/imports/spotify', {
       ...requestData,
       authRequired: true,
       files: [file]
@@ -123,7 +123,7 @@ export default class MeManager extends Manager {
     file: Required<RawFile>,
     requestData?: RequestData
   ): Promise<statsfm.UserImport> {
-    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/import-apple-music', {
+    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/imports/apple-music', {
       ...requestData,
       authRequired: true,
       files: [file]

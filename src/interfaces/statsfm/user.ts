@@ -94,56 +94,10 @@ export interface UserBan {
   createdAt: Date;
 }
 
-export enum ConnectedServiceStatus {
-  CONNECTED = 0,
-  DISABLED = 1,
-  TOKEN_EXPIRED = 2,
-  DISABLED_AND_TOKEN_EXPIRED = 3
-}
-
-export interface SpotifyAuth {
-  displayName?: string;
-  disabled: boolean;
-  email?: string;
-  image?: string;
-  syncedAt?: Date;
-  country?: string;
-  product?: string;
-  platformUserId: string;
-  sync: boolean;
-  imported: boolean;
-}
-
-export interface AppleMusicAuth {
-  disabled: boolean;
-  email?: string;
-  syncedAt?: Date;
-  sync: boolean;
-  imported: boolean;
-  emailVerified: boolean;
-  appleUserId: string;
-  tokenExpired: boolean;
-  userToken?: string;
-  status: ConnectedServiceStatus;
-}
-
-export interface AuthConnections {
-  spotify: SpotifyAuth;
-  appleMusic: AppleMusicAuth;
-}
-
 export interface ServiceSettings {
   hasImported?: boolean;
   sync?: boolean;
 }
-
-export type StreamingService<Private extends boolean = false> = {
-  connected: boolean;
-  hasImported: boolean;
-  platformId?: string | null;
-  sync: boolean;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-} & (Private extends true ? { status: ConnectedServiceStatus } : {});
 
 export interface UserPublic {
   id: string;
@@ -152,7 +106,9 @@ export interface UserPublic {
   image?: string;
   isPlus: boolean;
   isPro: boolean;
+  /* deprecated */
   hasImported: boolean;
+  /* deprecated */
   syncEnabled: boolean;
   orderBy: OrderBySetting;
   timezone?: string;
@@ -161,19 +117,46 @@ export interface UserPublic {
   socialMediaConnections: UserSocialMediaConnection[];
   userBan: UserBan | null;
   quarantined: boolean;
-  connectedServices: {
-    spotify: StreamingService<false>;
-    appleMusic: StreamingService<false>;
-  };
+  appleMusicAuth: {
+    sync: boolean;
+    imported: boolean;
+  } | null;
+  spotifyAuth: {
+    displayName: string;
+    platformUserId: string;
+    image?: string;
+    product?: string;
+    sync: boolean;
+    imported: boolean;
+  } | null;
 }
 
 export interface UserPrivate extends UserPublic {
   email?: string | null;
   country: string;
+  /* deprecated */
   disabled: boolean;
-  connectedServices: {
-    spotify: StreamingService<true>;
-    appleMusic: StreamingService<true>;
+  appleMusicAuth: {
+    disabled: boolean;
+    email?: string;
+    emailVerified: boolean;
+    appleUserId: string;
+    sync: boolean;
+    imported: boolean;
+    syncedAt?: Date;
+    tokenExpired: boolean;
+  };
+  spotifyAuth: {
+    displayName: string;
+    disabled: boolean;
+    email?: string;
+    image?: string;
+    syncedAt?: Date;
+    country?: string;
+    product?: string;
+    platformUserId: string;
+    sync: boolean;
+    imported: boolean;
   };
 }
 
