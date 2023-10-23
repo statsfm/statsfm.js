@@ -1,9 +1,14 @@
 import { TopObject } from './top';
 
 export enum OrderBySetting {
+  /**
+   * @deprecated Use SPOTIFY or APPLEMUSIC instead
+   */
   'PLATFORM' = 'PLATFORM',
   'COUNT' = 'COUNT',
-  'TIME' = 'TIME'
+  'TIME' = 'TIME',
+  'SPOTIFY' = 'SPOTIFY',
+  'APPLEMUSIC' = 'APPLEMUSIC'
 }
 
 export interface UserImport {
