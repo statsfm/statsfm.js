@@ -3,7 +3,9 @@ import { TopObject } from './top';
 export enum OrderBySetting {
   'PLATFORM' = 'PLATFORM',
   'COUNT' = 'COUNT',
-  'TIME' = 'TIME'
+  'TIME' = 'TIME',
+  'SPOTIFY' = 'SPOTIFY',
+  'APPLEMUSIC' = 'APPLEMUSIC'
 }
 
 export interface UserImport {
