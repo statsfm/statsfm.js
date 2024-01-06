@@ -1,5 +1,4 @@
-import { Object } from '.';
-import { ArtistSimple } from './artist';
+import { Artist, Object } from '.';
 import { TopObject } from './top';
 
 export interface GenreSimple extends Object {
@@ -7,7 +6,7 @@ export interface GenreSimple extends Object {
 }
 
 export interface Genre extends GenreSimple {
-  artists: ArtistSimple[];
+  artists: Artist[];
   related: GenreSimple[];
   sub: GenreSimple[];
 }

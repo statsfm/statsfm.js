@@ -24,7 +24,7 @@ export interface AlbumReleaseImage {
   textColors: string[];
   source: AlbumReleaseImageSource;
 
-  albumReleaseId: number;
+  // albumReleaseId: number;
   // albumRelease: AlbumRelease; // relation
 }
 
@@ -37,26 +37,33 @@ export interface AlbumRelease {
   genres: string[];
   images: AlbumReleaseImage[];
   releasedAt: Date;
+  totalTracks: number;
 
   albumId: number;
   // album: Album; // relation
 
   artists: Artist[];
-  trackReleases: TrackRelease[];
+  // trackReleases: TrackRelease[]; // relation
 
   isrc?: string;
   upc?: string;
   ean?: string;
 
   spotifyId?: string;
-  spotifyPopularity?: string;
+  spotifyPopularity?: number;
   spotifyFetchedAt?: Date;
 
   appleMusicId?: string;
   appleMusicFetchedAt?: Date;
 }
 
-export interface Album extends Object {
+// /albums/:id
+export interface Album {
+  id: number;
+  primaryRelease: AlbumRelease;
+}
+
+export interface AlbumWithReleases extends Album {
   releases: AlbumRelease[];
 }
 

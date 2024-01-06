@@ -17,7 +17,7 @@ export interface TrackRelease {
   trackId: number;
   // track: Track; // relation
 
-  albumReleaseId: number;
+  // albumReleaseId: number;
   albumRelease: AlbumRelease;
 
   artists: Artist[];
@@ -28,7 +28,7 @@ export interface TrackRelease {
 
   spotifyId?: string;
   spotifyPreview?: string;
-  spotifyPopularity?: string;
+  spotifyPopularity?: number;
   spotifyFetchedAt?: Date;
 
   appleMusicId?: string;
@@ -36,13 +36,18 @@ export interface TrackRelease {
   appleMusicFetchedAt?: Date;
 }
 
-export interface Track extends Object {
+export interface Track {
+  id: number;
+  primaryRelease: TrackRelease;
+}
+
+export interface TrackWithReleases extends Track {
   releases: TrackRelease[];
 }
 
 export interface RecentlyPlayedTrack {
   endTime: Date;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
   track: Track;
 }
 
@@ -52,7 +57,7 @@ export interface CurrentlyPlayingTrack {
   progressMs: number;
   deviceName?: string;
   track: Track;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
 }
 
 export interface TopTrack extends TopObject {

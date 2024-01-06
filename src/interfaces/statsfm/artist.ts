@@ -16,16 +16,18 @@ export interface ArtistImage {
   textColors: string[];
   source: ArtistImageSource;
 
-  artistId: number;
+  // artistId: number;
   // artist: Artist; // relation
 }
 
-export interface Artist extends Object {
+export interface Artist {
+  id: number;
+  name: string;
   genres: string[];
   images: ArtistImage[];
 
   spotifyId?: string;
-  spotifyPopularity?: string;
+  spotifyPopularity?: number;
   spotifyFetchedAt?: Date;
 
   appleMusicId?: string;
