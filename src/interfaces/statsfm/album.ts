@@ -2,34 +2,17 @@ import { Artist } from './artist';
 import { Object, TrackRelease } from '.';
 import { TopObject } from './top';
 
-// export enum AlbumReleaseType {
-//   SINGLE = 'SINGLE',
-//   ALBUM = 'ALBUM',
-//   COMPILATION = 'COMPILATION',
-//   EP = 'EP'
-// }
+export enum AlbumReleaseType {
+  SINGLE,
+  ALBUM,
+  COMPILATION,
+  EP
+}
 
-// export enum AlbumReleaseImageSource {
-//   SPOTIFY = 'SPOTIFY',
-//   APPLEMUSIC = 'APPLEMUSIC'
-// }
-
-export const AlbumReleaseImageSource = {
-  SPOTIFY: 'SPOTIFY',
-  APPLEMUSIC: 'APPLEMUSIC'
-};
-
-export type AlbumReleaseImageSource = (typeof AlbumReleaseImageSource)[keyof typeof AlbumReleaseImageSource]
-
-
-export const AlbumReleaseType = {
-  SINGLE: 'SINGLE',
-  ALBUM: 'ALBUM',
-  COMPILATION: 'COMPILATION',
-  EP: 'EP'
-};
-
-export type AlbumReleaseType = (typeof AlbumReleaseType)[keyof typeof AlbumReleaseType]
+export enum AlbumReleaseImageSource {
+  SPOTIFY,
+  APPLEMUSIC
+}
 
 export interface AlbumReleaseImage {
   id: number;
