@@ -125,6 +125,7 @@ export interface UserPublic {
   appleMusicAuth: {
     sync: boolean;
     imported: boolean;
+    firstYear: number;
   } | null;
   spotifyAuth: {
     displayName: string;
@@ -150,6 +151,7 @@ export interface UserPrivate extends UserPublic {
     imported: boolean;
     syncedAt?: Date;
     tokenExpired: boolean;
+    firstYear: number;
   };
   spotifyAuth: {
     displayName: string;
