@@ -1,21 +1,70 @@
-import { ArtistSimple } from './artist';
-import { Object } from '.';
+import { Artist } from './artist';
+import { Object, TrackRelease } from '.';
 import { TopObject } from './top';
 
-export interface AlbumSimple extends Object {
-  name: string;
-  image: string;
+export enum AlbumReleaseType {
+  SINGLE,
+  ALBUM,
+  COMPILATION,
+  EP
 }
 
-export interface Album extends AlbumSimple {
-  label: string;
-  spotifyPopularity: number;
-  totalTracks: number;
-  releaseDate: Date;
+export enum AlbumReleaseImageSource {
+  SPOTIFY,
+  APPLEMUSIC
+}
+
+export interface AlbumReleaseImage {
+  id: number;
+  url: string;
+  height: number;
+  width: number;
+  animated: boolean;
+  backgroundColor?: string;
+  textColors: string[];
+  source: AlbumReleaseImageSource;
+
+  // albumReleaseId: number;
+  // albumRelease: AlbumRelease; // relation
+}
+
+export interface AlbumRelease {
+  id: number;
+  primary: boolean;
+  name: string;
+  type: AlbumReleaseType;
+  markets: string[];
   genres: string[];
-  artists: ArtistSimple[];
-  externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };
-  type: 'single' | 'complication' | 'album';
+  images: AlbumReleaseImage[];
+  releasedAt: Date;
+  totalTracks: number;
+
+  albumId: number;
+  // album: Album; // relation
+
+  artists: Artist[];
+  // trackReleases: TrackRelease[]; // relation
+
+  isrc?: string;
+  upc?: string;
+  ean?: string;
+
+  spotifyId?: string;
+  spotifyPopularity?: number;
+  spotifyFetchedAt?: Date;
+
+  appleMusicId?: string;
+  appleMusicFetchedAt?: Date;
+}
+
+// /albums/:id
+export interface Album {
+  id: number;
+  primaryRelease: AlbumRelease;
+}
+
+export interface AlbumWithReleases extends Album {
+  releases: AlbumRelease[];
 }
 
 export interface TopAlbum extends TopObject {

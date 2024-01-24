@@ -1,21 +1,53 @@
-import { AlbumSimple } from './album';
-import { ArtistSimple } from './artist';
+import { AlbumRelease } from './album';
+import { Artist } from './artist';
 import { Object } from '.';
 import { TopObject } from './top';
 
-export interface Track extends Object {
+export interface TrackRelease {
+  id: number;
+  primary: boolean;
   name: string;
-  explicit: boolean;
   durationMs: number;
-  spotifyPopularity: number;
+  explicit: boolean;
+  composerName?: string;
+  trackNumber: number;
+  discNumber: number;
+  genres: string[];
+
+  trackId: number;
+  // track: Track; // relation
+
+  // albumReleaseId: number;
+  albumRelease: AlbumRelease;
+
+  artists: Artist[];
+
+  isrc?: string;
+  upc?: string;
+  ean?: string;
+
+  spotifyId?: string;
   spotifyPreview?: string;
-  externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };
-  albums: AlbumSimple[];
-  artists: ArtistSimple[];
+  spotifyPopularity?: number;
+  spotifyFetchedAt?: Date;
+
+  appleMusicId?: string;
+  appleMusicPreview?: string;
+  appleMusicFetchedAt?: Date;
 }
+
+export interface Track {
+  id: number;
+  primaryRelease: TrackRelease;
+}
+
+export interface TrackWithReleases extends Track {
+  releases: TrackRelease[];
+}
+
 export interface RecentlyPlayedTrack {
   endTime: Date;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
   track: Track;
 }
 
@@ -25,7 +57,7 @@ export interface CurrentlyPlayingTrack {
   progressMs: number;
   deviceName?: string;
   track: Track;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
 }
 
 export interface TopTrack extends TopObject {
