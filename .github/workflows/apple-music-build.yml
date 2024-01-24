@@ -1,0 +1,43 @@
+name: Build Apple Music version
+
+on: [workflow_dispatch]
+
+jobs:
+  build-apple-music:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Apple Music version
+        run: yarn build
+
+      - name: Checkout to Apple Music Build
+        run: git checkout --orphan apple-music-build
+
+      - name: Remove all unneeded files
+        run: rm -rf node_modules src .gitignore yarn-error.log yarn.lock tsconfig.json .eslintrc.js .prettierrc.js .npmignore
+
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "new-build: $(date -u)"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+          branch: apple-music-build
