@@ -1,10 +1,12 @@
 import { Object } from '.';
 import { TopObject } from './top';
 
-export enum ArtistImageSource {
-  SPOTIFY,
-  APPLEMUSIC
-}
+export const ArtistImageSource = {
+  SPOTIFY: 'SPOTIFY',
+  APPLEMUSIC: 'APPLEMUSIC'
+};
+
+export type ArtistImageSource = (typeof ArtistImageSource)[keyof typeof ArtistImageSource];
 
 export interface ArtistImage {
   id: number;
