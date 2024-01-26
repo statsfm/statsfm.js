@@ -7,14 +7,14 @@ export const AlbumReleaseType = {
   ALBUM: 'ALBUM',
   COMPILATION: 'COMPILATION',
   EP: 'EP'
-};
+} as const;
 
 export type AlbumReleaseType = (typeof AlbumReleaseType)[keyof typeof AlbumReleaseType];
 
 export const AlbumReleaseImageSource = {
   SPOTIFY: 'SPOTIFY',
   APPLEMUSIC: 'APPLEMUSIC'
-};
+} as const;
 
 export type AlbumReleaseImageSource =
   (typeof AlbumReleaseImageSource)[keyof typeof AlbumReleaseImageSource];

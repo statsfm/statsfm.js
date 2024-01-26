@@ -4,7 +4,7 @@ import { TopObject } from './top';
 export const ArtistImageSource = {
   SPOTIFY: 'SPOTIFY',
   APPLEMUSIC: 'APPLEMUSIC'
-};
+} as const;
 
 export type ArtistImageSource = (typeof ArtistImageSource)[keyof typeof ArtistImageSource];
 
