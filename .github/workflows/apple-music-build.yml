@@ -33,6 +33,7 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git add .
           git commit -a -m "new-build: $(date -u)"
 
       - name: Push changes
