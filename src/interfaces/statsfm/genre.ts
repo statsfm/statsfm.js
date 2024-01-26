@@ -1,4 +1,4 @@
-import { Artist, Object } from '.';
+import { Artist, Object, TopArtist } from '.';
 import { TopObject } from './top';
 
 export interface GenreSimple extends Object {
@@ -14,4 +14,5 @@ export interface Genre extends GenreSimple {
 export interface TopGenre extends TopObject {
   genre: GenreSimple;
   artistCount?: number;
+  previewArtists: TopArtist[];
 }
