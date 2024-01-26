@@ -1,7 +1,7 @@
-import { Artist, Object, TopArtist } from '.';
+import { Artist, TopArtist } from '.';
 import { TopObject } from './top';
 
-export interface GenreSimple extends Object {
+export interface GenreSimple {
   tag: string;
 }
 
