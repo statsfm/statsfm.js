@@ -8,8 +8,8 @@ export default class TracksManager extends Manager {
    * @param {number} id The ID of the track.
    * @returns {Promise<Track>} Returns a promise with a single {@link Track}.
    */
-  async get(id: number): Promise<statsfm.Track> {
-    const res = await this.http.get<ItemResponse<statsfm.Track>>(`/tracks/${id}`);
+  async get(id: number): Promise<statsfm.v1.Track> {
+    const res = await this.http.get<ItemResponse<statsfm.v1.Track>>(`/tracks/${id}`);
 
     return res.item;
   }
@@ -19,8 +19,8 @@ export default class TracksManager extends Manager {
    * @param {number} ids The IDs of the tracks.
    * @returns {Promise<Track[]>} Returns a promise with a single {@link Track}.
    */
-  async list(ids: number[]): Promise<statsfm.Track[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.Track[]>>(`/tracks/list`, {
+  async list(ids: number[]): Promise<statsfm.v1.Track[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.Track[]>>(`/tracks/list`, {
       query: {
         ids: ids.join(',')
       }
@@ -29,8 +29,8 @@ export default class TracksManager extends Manager {
     return res.items;
   }
 
-  async getSpotify(id: string): Promise<statsfm.Track> {
-    const res = await this.http.get<ItemResponse<statsfm.Track>>(`/tracks/${id}`, {
+  async getSpotify(id: string): Promise<statsfm.v1.Track> {
+    const res = await this.http.get<ItemResponse<statsfm.v1.Track>>(`/tracks/${id}`, {
       query: {
         type: 'spotify'
       }
@@ -39,8 +39,8 @@ export default class TracksManager extends Manager {
     return res.item;
   }
 
-  async listSpotify(ids: string[]): Promise<statsfm.Track[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.Track[]>>(`/tracks/list`, {
+  async listSpotify(ids: string[]): Promise<statsfm.v1.Track[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.Track[]>>(`/tracks/list`, {
       query: {
         ids: ids.join(','),
         type: 'spotify'

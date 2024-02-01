@@ -1,7 +1,6 @@
 import { AlbumRelease } from './album';
 import { Artist } from './artist';
-import { Object } from '.';
-import { TopObject } from './top';
+import { TopObject } from '../top';
 
 export interface TrackRelease {
   id: number;

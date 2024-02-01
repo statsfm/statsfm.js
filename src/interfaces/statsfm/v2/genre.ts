@@ -1,5 +1,5 @@
-import { Artist, TopArtist } from '.';
-import { TopObject } from './top';
+import { Artist, TopArtist } from './artist';
+import { TopObject } from '../top';
 
 export interface GenreSimple {
   tag: string;

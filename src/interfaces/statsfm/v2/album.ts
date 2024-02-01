@@ -1,6 +1,5 @@
 import { Artist } from './artist';
-import { Object, TrackRelease } from '.';
-import { TopObject } from './top';
+import { TopObject } from '../top';
 
 export const AlbumReleaseType = {
   SINGLE: 'SINGLE',

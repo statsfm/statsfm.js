@@ -3,8 +3,8 @@ import * as statsfm from '../../interfaces/statsfm';
 import Manager from '../Manager';
 
 export default class ChartsManager extends Manager {
-  async topTracks(options?: statsfm.QueryWithRange): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopTrack[]>>(`/charts/top/tracks`, {
+  async topTracks(options?: statsfm.QueryWithRange): Promise<statsfm.v1.TopTrack[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopTrack[]>>(`/charts/top/tracks`, {
       query: {
         ...options
       }
@@ -13,8 +13,8 @@ export default class ChartsManager extends Manager {
     return res.items;
   }
 
-  async topArtists(options?: statsfm.QueryWithRange): Promise<statsfm.TopArtist[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopArtist[]>>(`/charts/top/artists`, {
+  async topArtists(options?: statsfm.QueryWithRange): Promise<statsfm.v1.TopArtist[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopArtist[]>>(`/charts/top/artists`, {
       query: {
         ...options
       }
@@ -23,8 +23,8 @@ export default class ChartsManager extends Manager {
     return res.items;
   }
 
-  async topAlbums(options?: statsfm.QueryWithRange): Promise<statsfm.TopAlbum[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopAlbum[]>>(`/charts/top/albums`, {
+  async topAlbums(options?: statsfm.QueryWithRange): Promise<statsfm.v1.TopAlbum[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopAlbum[]>>(`/charts/top/albums`, {
       query: {
         ...options
       }

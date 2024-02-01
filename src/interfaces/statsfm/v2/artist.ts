@@ -1,5 +1,4 @@
-import { Object } from '.';
-import { TopObject } from './top';
+import { TopObject } from '../top';
 
 export const ArtistImageSource = {
   SPOTIFY: 'SPOTIFY',
