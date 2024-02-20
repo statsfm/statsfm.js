@@ -1,0 +1,30 @@
+import { Options } from '../interfaces/Options';
+import AlbumsManager from './albums/AlbumsManager';
+import ArtistsManager from './artists/ArtistsManager';
+import ChartsManager from './charts/ChartsManager';
+import FriendsManager from './friends/FriendsManager';
+import GenresManager from './genres/GenresManager';
+import { HttpManager } from './http/HttpManager';
+import MeManager from './me/MeManager';
+import RecordsManager from './records/RecordsManager';
+import SearchManager from './search/SearchManager';
+import StatsManager from './stats/StatsManager';
+import TracksManager from './tracks/TracksManager';
+import UsersManager from './users/UsersManager';
+import { RecursivePartial } from '../interfaces';
+export default class Api {
+    http: HttpManager;
+    artists: ArtistsManager;
+    albums: AlbumsManager;
+    charts: ChartsManager;
+    friends: FriendsManager;
+    genres: GenresManager;
+    me: MeManager;
+    records: RecordsManager;
+    search: SearchManager;
+    stats: StatsManager;
+    tracks: TracksManager;
+    users: UsersManager;
+    options: Options;
+    constructor(options?: RecursivePartial<Options>);
+}

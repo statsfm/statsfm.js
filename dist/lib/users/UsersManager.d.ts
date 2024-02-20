@@ -1,0 +1,37 @@
+import * as statsfm from '../../interfaces/statsfm';
+import Manager from '../Manager';
+export default class UsersManager extends Manager {
+    get(userId: string): Promise<statsfm.UserPublic>;
+    privacySettings(userId: string): Promise<statsfm.UserPrivacySettings>;
+    profile(userId: string): Promise<statsfm.UserProfile>;
+    streams(userId: string, options?: statsfm.QueryWithDates & statsfm.QueryWithPaging): Promise<statsfm.Stream[]>;
+    stats(userId: string, options?: statsfm.QueryWithRange | statsfm.QueryWithDates): Promise<statsfm.ExtendedDateStats>;
+    dateStats(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithTimeZone): Promise<statsfm.DateStats>;
+    perDayStats(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithTimeZone): Promise<statsfm.DateStats>;
+    currentlyStreaming(userId: string): Promise<statsfm.v1.CurrentlyPlayingTrack>;
+    recentlyStreamed(userId: string, options?: statsfm.QueryWithPaging): Promise<statsfm.v1.RecentlyPlayedTrack[]>;
+    trackStreams(userId: string, trackId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging): Promise<statsfm.Stream[]>;
+    trackStats(userId: string, trackId: number, options?: statsfm.QueryWithRange | statsfm.QueryWithDates): Promise<statsfm.StreamStats>;
+    trackDateStats(userId: string, trackId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.DateStats>;
+    trackPerDayStats(userId: string, trackId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.PerDayStats>;
+    trackListStreams(userId: string, trackIds: number[], options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging): Promise<statsfm.Stream[]>;
+    trackListStats(userId: string, trackIds: number[], options?: statsfm.QueryWithRange | statsfm.QueryWithDates): Promise<Record<number, statsfm.StreamStats[]>>;
+    artistStreams(userId: string, artistId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging): Promise<statsfm.Stream[]>;
+    artistStats(userId: string, artistId: number, options?: statsfm.QueryWithRange | statsfm.QueryWithDates): Promise<statsfm.StreamStats>;
+    artistDateStats(userId: string, artistId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.DateStats>;
+    artistPerDayStats(userId: string, artistId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.PerDayStats>;
+    albumStreams(userId: string, albumId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithPaging): Promise<statsfm.Stream[]>;
+    albumStats(userId: string, albumId: number, options?: statsfm.QueryWithRange | statsfm.QueryWithDates): Promise<statsfm.StreamStats>;
+    albumDateStats(userId: string, albumId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.DateStats>;
+    albumPerDayStats(userId: string, albumId: number, timeZone: string, options?: statsfm.QueryStatsDates): Promise<statsfm.PerDayStats>;
+    topTracks(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopTrack[]>;
+    topArtists(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopArtist[]>;
+    topTracksFromArtist(userId: string, artistId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopTrack[]>;
+    topAlbumsFromArtist(userId: string, artistId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopAlbum[]>;
+    topAlbums(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopAlbum[]>;
+    topTracksFromAlbums(userId: string, albumId: number, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopTrack[]>;
+    topGenres(userId: string, options?: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder): Promise<statsfm.v1.TopGenre[]>;
+    artistRecords(userId: string): Promise<statsfm.StatsFMRecord[]>;
+    friends(userId: string): Promise<statsfm.UserPublic[]>;
+    friendCount(userId: string): Promise<number>;
+}

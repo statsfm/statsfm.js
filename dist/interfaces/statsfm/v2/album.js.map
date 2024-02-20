@@ -1,0 +1,1 @@
+{"version":3,"file":"album.js","sourceRoot":"","sources":["../../../../src/interfaces/statsfm/v2/album.ts"],"names":[],"mappings":";;;AAGa,QAAA,gBAAgB,GAAG;IAC9B,MAAM,EAAE,QAAQ;IAChB,KAAK,EAAE,OAAO;IACd,WAAW,EAAE,aAAa;IAC1B,EAAE,EAAE,IAAI;CACA,CAAC;AAIE,QAAA,uBAAuB,GAAG;IACrC,OAAO,EAAE,SAAS;IAClB,UAAU,EAAE,YAAY;CAChB,CAAC"}

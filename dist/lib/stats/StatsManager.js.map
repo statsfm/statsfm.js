@@ -1,0 +1,1 @@
+{"version":3,"file":"StatsManager.js","sourceRoot":"","sources":["../../../src/lib/stats/StatsManager.ts"],"names":[],"mappings":";;;;;AAEA,yDAAiC;AAEjC,MAAqB,YAAa,SAAQ,iBAAO;IAC/C,KAAK,CAAC,YAAY;QAChB,MAAM,GAAG,GAAG,MAAM,IAAI,CAAC,IAAI,CAAC,GAAG,CAAqC,sBAAsB,CAAC,CAAC;QAE5F,OAAO,GAAG,CAAC,IAAI,CAAC;IAClB,CAAC;CACF;AAND,+BAMC"}
