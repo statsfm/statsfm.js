@@ -36,7 +36,7 @@ jobs:
       - name: Copy build files to apple-music-build
         working-directory: main
         # Copy the dist folder, package.json, README and LICENSE to the apple-music-build directory
-        run: cp -r dist package.json README.md LICENSE apple-music-build
+        run: cp -r dist package.json README.md LICENSE ../apple-music-build
 
       - name: Commit files
         working-directory: apple-music-build
