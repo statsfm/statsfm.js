@@ -52,7 +52,7 @@ export default class TracksManager extends Manager {
 
   async audioAnalysis(spotifyId: string): Promise<statsfm.AudioAnalysis> {
     const res = await this.http.get<ItemResponse<statsfm.AudioAnalysis>>(
-      `/spotify/audio-analysis/${spotifyId}`
+      `/SPOTIFY/audio-analysis/${spotifyId}`
     );
 
     return res.item;
@@ -60,7 +60,7 @@ export default class TracksManager extends Manager {
 
   async audioFeature(spotifyId: string): Promise<statsfm.AudioFeatures> {
     const res = await this.http.get<ItemResponse<statsfm.AudioFeatures>>(
-      `/spotify/audio-features/${spotifyId}`
+      `/SPOTIFY/audio-features/${spotifyId}`
     );
 
     return res.item;
@@ -68,7 +68,7 @@ export default class TracksManager extends Manager {
 
   async audioFeatures(spotifyIds: string[]): Promise<statsfm.AudioFeatures[]> {
     const res = await this.http.get<ItemsResponse<statsfm.AudioFeatures[]>>(
-      `/spotify/audio-features`,
+      `/SPOTIFY/audio-features`,
       {
         query: {
           ids: spotifyIds.join(',')

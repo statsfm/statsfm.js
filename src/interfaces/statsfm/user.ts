@@ -125,7 +125,8 @@ export interface UserPublic {
   appleMusicAuth: {
     sync: boolean;
     imported: boolean;
-    firstYear: number;
+    availableYears: number[];
+    disabled: boolean;
   } | null;
   spotifyAuth: {
     displayName: string;
@@ -134,6 +135,7 @@ export interface UserPublic {
     product?: string;
     sync: boolean;
     imported: boolean;
+    disabled: boolean;
   } | null;
 }
 
@@ -151,7 +153,7 @@ export interface UserPrivate extends UserPublic {
     imported: boolean;
     syncedAt?: Date;
     tokenExpired: boolean;
-    firstYear: number;
+    availableYears: number[];
   };
   spotifyAuth: {
     displayName: string;
