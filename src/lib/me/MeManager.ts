@@ -104,7 +104,7 @@ export default class MeManager extends Manager {
 
   async import(
     file: Required<RawFile>,
-    platform: statsfm.AvailableService,
+    platform: statsfm.Platform,
     requestData?: RequestData
   ): Promise<statsfm.UserImport> {
     const res = await this.http.post<ItemResponse<statsfm.UserImport>>(`/me/imports/${platform}`, {
@@ -121,7 +121,7 @@ export default class MeManager extends Manager {
   }
 
   async setConnectedServiceSettings(
-    service: statsfm.AvailableService,
+    service: statsfm.Platform,
     settings: statsfm.ServiceSettings
   ): Promise<void> {
     await this.http.post(`/me/service/${service}/settings`, {
