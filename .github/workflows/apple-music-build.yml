@@ -9,6 +9,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: main
+
+      - uses: actions/checkout@v3
+        with:
+          ref: apple-music-build
+          path: apple-music-build
 
       - uses: actions/setup-node@v3
 
@@ -18,27 +25,23 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
+        working-directory: main
         run: yarn install
 
       - name: Build Apple Music version
+        working-directory: main
         run: yarn build
 
-      - name: Checkout to Apple Music Build
-        run: git checkout --orphan apple-music-build
-
-      - name: Remove all unneeded files
-        run: rm -rf node_modules src .gitignore yarn-error.log yarn.lock tsconfig.json .eslintrc.js .prettierrc.js .npmignore
+      - name: Copy build files to apple-music-build
+        working-directory: main
+        # Copy the dist folder, package.json, README and LICENSE to the apple-music-build directory
+        run: cp -r dist package.json README.md LICENSE apple-music-build
 
       - name: Commit files
+        working-directory: apple-music-build
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -a -m "new-build: $(date -u)"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
-          branch: apple-music-build
+          git push
