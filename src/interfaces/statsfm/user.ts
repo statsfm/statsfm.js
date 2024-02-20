@@ -1,3 +1,4 @@
+import { Platform } from '.';
 import { TopObject } from './top';
 
 export enum OrderBySetting {
@@ -23,6 +24,7 @@ export interface UserImport {
   serverId: number;
   error: string | null;
   name: string | null;
+  service?: Platform;
 }
 
 export interface UserSpotifyPlaylist {
