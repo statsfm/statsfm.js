@@ -16,9 +16,9 @@ export default class MeManager extends Manager {
     profile(): Promise<statsfm.UserProfile>;
     updateProfile(data: statsfm.UserProfile): Promise<statsfm.UserProfile>;
     imports(): Promise<statsfm.UserImport[]>;
-    import(file: Required<RawFile>, platform: statsfm.AvailableService, requestData?: RequestData): Promise<statsfm.UserImport>;
+    import(file: Required<RawFile>, platform: statsfm.Platform, requestData?: RequestData): Promise<statsfm.UserImport>;
     removeImport(id: number): Promise<void>;
-    setConnectedServiceSettings(service: statsfm.AvailableService, settings: statsfm.ServiceSettings): Promise<void>;
+    setConnectedServiceSettings(service: statsfm.Platform, settings: statsfm.ServiceSettings): Promise<void>;
     spotifyPlaylists(): Promise<statsfm.UserSpotifyPlaylist[]>;
     getGiftCode(code: string): Promise<statsfm.GiftCode>;
     updateGiftCode(giftCodeId: number, message: string | null): Promise<statsfm.GiftCode>;

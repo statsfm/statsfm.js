@@ -15,6 +15,9 @@ export interface Object {
     id: number;
     updatedAt?: Date;
 }
-export type AvailableService = 'SPOTIFY' | 'APPLEMUSIC';
+export declare enum Platform {
+    SPOTIFY = "SPOTIFY",
+    APPLEMUSIC = "APPLEMUSIC"
+}
 export * as v1 from './v1';
 export * as v2 from './v2';

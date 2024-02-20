@@ -26,7 +26,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.v2 = exports.v1 = void 0;
+exports.v2 = exports.v1 = exports.Platform = void 0;
 __exportStar(require("./audio-analysis"), exports);
 __exportStar(require("./audio-features"), exports);
 __exportStar(require("./database_size"), exports);
@@ -40,6 +40,11 @@ __exportStar(require("./stats"), exports);
 __exportStar(require("./stream"), exports);
 __exportStar(require("./top"), exports);
 __exportStar(require("./user"), exports);
+var Platform;
+(function (Platform) {
+    Platform["SPOTIFY"] = "SPOTIFY";
+    Platform["APPLEMUSIC"] = "APPLEMUSIC";
+})(Platform || (exports.Platform = Platform = {}));
 exports.v1 = __importStar(require("./v1"));
 exports.v2 = __importStar(require("./v2"));
 //# sourceMappingURL=index.js.map
