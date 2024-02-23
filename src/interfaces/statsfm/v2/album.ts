@@ -24,12 +24,9 @@ export interface AlbumReleaseImage {
   height: number;
   width: number;
   animated: boolean;
-  backgroundColor?: string;
+  backgroundColor: string | null;
   textColors: string[];
   source: AlbumReleaseImageSource;
-
-  // albumReleaseId: number;
-  // albumRelease: AlbumRelease; // relation
 }
 
 export interface AlbumRelease {
@@ -39,26 +36,25 @@ export interface AlbumRelease {
   type: AlbumReleaseType;
   markets: string[];
   genres: string[];
+  label: string | null;
   images: AlbumReleaseImage[];
-  releasedAt: Date;
+  releasedAt: Date | string;
   totalTracks: number;
 
   albumId: number;
-  // album: Album; // relation
 
   artists: Artist[];
-  // trackReleases: TrackRelease[]; // relation
 
-  isrc?: string;
-  upc?: string;
-  ean?: string;
+  isrc: string | null;
+  upc: string | null;
+  ean: string | null;
 
-  spotifyId?: string;
-  spotifyPopularity?: number;
-  spotifyFetchedAt?: Date;
+  spotifyId: string | null;
+  spotifyPopularity: number | null;
+  spotifyFetchedAt: Date | string | null;
 
-  appleMusicId?: string;
-  appleMusicFetchedAt?: Date;
+  appleMusicId: string | null;
+  appleMusicFetchedAt: Date | string | null;
 }
 
 // /albums/:id
