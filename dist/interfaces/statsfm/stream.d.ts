@@ -8,6 +8,9 @@ export interface Stream {
     albumId: number;
     artistIds: number[];
     importId?: number;
+    trackReleaseId?: number;
+    albumReleaseId?: number;
+    contextId?: string;
 }
 export interface StreamMinified {
     a: string;
@@ -19,6 +22,9 @@ export interface StreamMinified {
     h: number;
     i: number[];
     j?: number;
+    k?: number;
+    l?: number;
+    m?: string;
 }
 export declare const streamToStreamMinified: (stream: Stream) => Omit<StreamMinified, 'a'>;
 export declare const streamMinifiedToStream: (stream: StreamMinified) => Stream;

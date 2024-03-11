@@ -10,7 +10,10 @@ const streamToStreamMinified = (stream) => {
         f: stream.trackId,
         g: stream.trackName,
         h: stream.albumId,
-        i: stream.artistIds
+        i: stream.artistIds,
+        k: stream.trackReleaseId ?? undefined,
+        l: stream.albumReleaseId ?? undefined,
+        m: stream.contextId ?? undefined
     };
     if ('importId' in stream)
         obj.j = stream.importId;
@@ -26,7 +29,10 @@ const streamMinifiedToStream = (stream) => {
         trackId: stream.f,
         trackName: stream.g,
         albumId: stream.h,
-        artistIds: stream.i
+        artistIds: stream.i,
+        trackReleaseId: stream.k ?? undefined,
+        albumReleaseId: stream.l ?? undefined,
+        contextId: stream.m ?? undefined
     };
     if ('j' in stream)
         obj.importId = stream.j;
