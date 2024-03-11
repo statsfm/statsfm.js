@@ -8,6 +8,9 @@ export interface Stream {
   albumId: number;
   artistIds: number[];
   importId?: number;
+  trackReleaseId?: number;
+  albumReleaseId?: number;
+  contextId?: string;
 }
 
 export interface StreamMinified {
@@ -20,6 +23,9 @@ export interface StreamMinified {
   h: number;
   i: number[];
   j?: number;
+  k?: number;
+  l?: number;
+  m?: string;
 }
 
 export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'> => {
@@ -31,7 +37,10 @@ export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'
     f: stream.trackId,
     g: stream.trackName,
     h: stream.albumId,
-    i: stream.artistIds
+    i: stream.artistIds,
+    k: stream.trackReleaseId ?? undefined,
+    l: stream.albumReleaseId ?? undefined,
+    m: stream.contextId ?? undefined
   };
   if ('importId' in stream) obj.j = stream.importId;
   return obj;
@@ -46,7 +55,10 @@ export const streamMinifiedToStream = (stream: StreamMinified): Stream => {
     trackId: stream.f,
     trackName: stream.g,
     albumId: stream.h,
-    artistIds: stream.i
+    artistIds: stream.i,
+    trackReleaseId: stream.k ?? undefined,
+    albumReleaseId: stream.l ?? undefined,
+    contextId: stream.m ?? undefined
   };
   if ('j' in stream) obj.importId = stream.j;
   return obj;
