@@ -21,6 +21,7 @@ export interface Artist {
     images: ArtistImage[];
     spotifyId?: string;
     spotifyPopularity?: number;
+    spotifyFollowers?: number;
     spotifyFetchedAt?: Date;
     appleMusicId?: string;
     appleMusicFetchedAt?: Date;

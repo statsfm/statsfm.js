@@ -22,9 +22,10 @@ export interface StreamMinified {
     h: number;
     i: number[];
     j?: number;
-    k?: number;
-    l?: number;
+    k?: number | string;
+    l?: number | string;
     m?: string;
 }
 export declare const streamToStreamMinified: (stream: Stream) => Omit<StreamMinified, 'a'>;
 export declare const streamMinifiedToStream: (stream: StreamMinified) => Stream;
+export declare const tryParseInt: (str: string | number | null | undefined) => number | null;

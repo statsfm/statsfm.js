@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.streamMinifiedToStream = exports.streamToStreamMinified = void 0;
+exports.tryParseInt = exports.streamMinifiedToStream = exports.streamToStreamMinified = void 0;
 const streamToStreamMinified = (stream) => {
     const obj = {
         // a: stream.id,
@@ -11,8 +11,8 @@ const streamToStreamMinified = (stream) => {
         g: stream.trackName,
         h: stream.albumId,
         i: stream.artistIds,
-        k: stream.trackReleaseId ?? undefined,
-        l: stream.albumReleaseId ?? undefined,
+        k: (0, exports.tryParseInt)(stream.trackReleaseId),
+        l: (0, exports.tryParseInt)(stream.trackReleaseId),
         m: stream.contextId ?? undefined
     };
     if ('importId' in stream)
@@ -30,8 +30,8 @@ const streamMinifiedToStream = (stream) => {
         trackName: stream.g,
         albumId: stream.h,
         artistIds: stream.i,
-        trackReleaseId: stream.k ?? undefined,
-        albumReleaseId: stream.l ?? undefined,
+        trackReleaseId: (0, exports.tryParseInt)(stream.k),
+        albumReleaseId: (0, exports.tryParseInt)(stream.l),
         contextId: stream.m ?? undefined
     };
     if ('j' in stream)
@@ -39,4 +39,19 @@ const streamMinifiedToStream = (stream) => {
     return obj;
 };
 exports.streamMinifiedToStream = streamMinifiedToStream;
+const tryParseInt = (str) => {
+    try {
+        if (typeof str === 'number')
+            return str;
+        if (str === null || str === undefined || str.trim() === '') {
+            return undefined;
+        }
+        const parsedInt = parseInt(str);
+        return isNaN(parsedInt) ? null : parsedInt;
+    }
+    catch (e) {
+        return undefined;
+    }
+};
+exports.tryParseInt = tryParseInt;
 //# sourceMappingURL=stream.js.map
