@@ -29,6 +29,7 @@ export interface Artist {
 
   spotifyId?: string;
   spotifyPopularity?: number;
+  spotifyFollowers?: number;
   spotifyFetchedAt?: Date;
 
   appleMusicId?: string;
