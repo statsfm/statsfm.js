@@ -11,6 +11,10 @@ export * from './stats';
 export * from './stream';
 export * from './top';
 export * from './user';
+export * from './album';
+export * from './artist';
+export * from './genre';
+export * from './track';
 
 export interface Object {
   id: number;

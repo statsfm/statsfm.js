@@ -1,3 +1,5 @@
+import { tryParseInt } from '../../util/tryParseInt';
+
 export interface Stream {
   id: string;
   userId: string;
@@ -62,19 +64,4 @@ export const streamMinifiedToStream = (stream: StreamMinified): Stream => {
   };
   if ('j' in stream) obj.importId = stream.j;
   return obj;
-};
-
-export const tryParseInt = (str: string | number | null | undefined): number | null => {
-  try {
-    if(typeof str === 'number') return str;
-
-    if (str === null || str === undefined || str.trim() === '') {
-      return undefined;
-    }
-    
-    const parsedInt = parseInt(str);
-    return isNaN(parsedInt) ? null : parsedInt;
-  } catch (e) {
-    return undefined;
-  }
 };
