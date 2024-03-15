@@ -1,6 +1,5 @@
-import { Track, UserPublic } from '.';
-import { Album } from './album';
-import { Artist } from './artist';
+import { UserPublic } from './user';
+import { Album, Artist, Track } from './v1';
 
 export enum SearchTypes {
   TRACK = 'track',

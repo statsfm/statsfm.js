@@ -1,6 +1,6 @@
 import { ArtistSimple } from './artist';
-import { Object } from '.';
-import { TopObject } from './top';
+import { Object } from '..';
+import { TopObject } from '../top';
 
 export interface AlbumSimple extends Object {
   name: string;
@@ -11,7 +11,7 @@ export interface Album extends AlbumSimple {
   label: string;
   spotifyPopularity: number;
   totalTracks: number;
-  releaseDate: Date;
+  releaseDate: Date | number;
   genres: string[];
   artists: ArtistSimple[];
   externalIds: Record<string, unknown> & { spotify?: string[]; appleMusic?: string[] };

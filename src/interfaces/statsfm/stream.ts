@@ -8,6 +8,9 @@ export interface Stream {
   albumId: number;
   artistIds: number[];
   importId?: number;
+  trackReleaseId?: number;
+  albumReleaseId?: number;
+  contextId?: string;
 }
 
 export interface StreamMinified {
@@ -20,6 +23,9 @@ export interface StreamMinified {
   h: number;
   i: number[];
   j?: number;
+  k?: number | string;
+  l?: number | string;
+  m?: string;
 }
 
 export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'> => {
@@ -31,7 +37,10 @@ export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'
     f: stream.trackId,
     g: stream.trackName,
     h: stream.albumId,
-    i: stream.artistIds
+    i: stream.artistIds,
+    k: tryParseInt(stream.trackReleaseId),
+    l: tryParseInt(stream.trackReleaseId),
+    m: stream.contextId ?? undefined
   };
   if ('importId' in stream) obj.j = stream.importId;
   return obj;
@@ -46,8 +55,26 @@ export const streamMinifiedToStream = (stream: StreamMinified): Stream => {
     trackId: stream.f,
     trackName: stream.g,
     albumId: stream.h,
-    artistIds: stream.i
+    artistIds: stream.i,
+    trackReleaseId: tryParseInt(stream.k),
+    albumReleaseId: tryParseInt(stream.l),
+    contextId: stream.m ?? undefined
   };
   if ('j' in stream) obj.importId = stream.j;
   return obj;
+};
+
+export const tryParseInt = (str: string | number | null | undefined): number | null => {
+  try {
+    if(typeof str === 'number') return str;
+
+    if (str === null || str === undefined || str.trim() === '') {
+      return undefined;
+    }
+    
+    const parsedInt = parseInt(str);
+    return isNaN(parsedInt) ? null : parsedInt;
+  } catch (e) {
+    return undefined;
+  }
 };

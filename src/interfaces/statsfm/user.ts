@@ -1,9 +1,15 @@
+import { Platform } from '.';
 import { TopObject } from './top';
 
 export enum OrderBySetting {
+  /**
+   * @deprecated Use SPOTIFY or APPLEMUSIC instead
+   */
   'PLATFORM' = 'PLATFORM',
   'COUNT' = 'COUNT',
-  'TIME' = 'TIME'
+  'TIME' = 'TIME',
+  'SPOTIFY' = 'SPOTIFY',
+  'APPLEMUSIC' = 'APPLEMUSIC'
 }
 
 export interface UserImport {
@@ -18,6 +24,7 @@ export interface UserImport {
   serverId: number;
   error: string | null;
   name: string | null;
+  service?: Platform;
 }
 
 export interface UserSpotifyPlaylist {
@@ -94,6 +101,36 @@ export interface UserBan {
   createdAt: Date;
 }
 
+export interface ServiceSettings {
+  hasImported?: boolean;
+  sync?: boolean;
+}
+
+export interface UserSpotifyAuth {
+  displayName: string;
+  disabled: boolean;
+  email?: string;
+  image?: string;
+  syncedAt?: Date;
+  country?: string;
+  product?: string;
+  platformUserId: string;
+  sync: boolean;
+  imported: boolean;
+}
+
+export interface UserAppleMusicAuth {
+  disabled: boolean;
+  email?: string;
+  emailVerified: boolean;
+  appleUserId: string;
+  sync: boolean;
+  imported: boolean;
+  syncedAt?: Date;
+  tokenExpired: boolean;
+  availableYears: number[];
+}
+
 export interface UserPublic {
   id: string;
   customId: string;
@@ -101,7 +138,13 @@ export interface UserPublic {
   image?: string;
   isPlus: boolean;
   isPro: boolean;
+  /**
+   * @deprecated use the `spotifyAuth` and `appleMusicAuth` fields instead
+   */
   hasImported: boolean;
+  /**
+   * @deprecated use the `spotifyAuth` and `appleMusicAuth` fields instead
+   */
   syncEnabled: boolean;
   orderBy: OrderBySetting;
   timezone?: string;
@@ -110,12 +153,25 @@ export interface UserPublic {
   socialMediaConnections: UserSocialMediaConnection[];
   userBan: UserBan | null;
   quarantined: boolean;
+  appleMusicAuth: Pick<
+    UserAppleMusicAuth,
+    'sync' | 'imported' | 'availableYears' | 'disabled'
+  > | null;
+  spotifyAuth: Pick<
+    UserSpotifyAuth,
+    'displayName' | 'platformUserId' | 'image' | 'product' | 'sync' | 'imported' | 'disabled'
+  > | null;
 }
 
 export interface UserPrivate extends UserPublic {
-  email: string;
+  email?: string | null;
   country: string;
+  /**
+   * @deprecated use the `spotifyAuth` and `appleMusicAuth` fields instead
+   */
   disabled: boolean;
+  appleMusicAuth: UserAppleMusicAuth | null;
+  spotifyAuth: UserSpotifyAuth | null;
 }
 
 export interface TopUser extends TopObject {

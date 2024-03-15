@@ -84,8 +84,8 @@ export default class UsersManager extends Manager {
     return res.items;
   }
 
-  async currentlyStreaming(userId: string): Promise<statsfm.CurrentlyPlayingTrack> {
-    const res = await this.http.get<ItemResponse<statsfm.CurrentlyPlayingTrack>>(
+  async currentlyStreaming(userId: string): Promise<statsfm.v1.CurrentlyPlayingTrack> {
+    const res = await this.http.get<ItemResponse<statsfm.v1.CurrentlyPlayingTrack>>(
       `/users/${userId}/streams/current`
     );
 
@@ -95,8 +95,8 @@ export default class UsersManager extends Manager {
   async recentlyStreamed(
     userId: string,
     options: statsfm.QueryWithPaging = {}
-  ): Promise<statsfm.RecentlyPlayedTrack[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.RecentlyPlayedTrack[]>>(
+  ): Promise<statsfm.v1.RecentlyPlayedTrack[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.RecentlyPlayedTrack[]>>(
       `/users/${userId}/streams/recent`,
       {
         query: {
@@ -363,8 +363,8 @@ export default class UsersManager extends Manager {
   async topTracks(
     userId: string,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopTrack[]>>(
+  ): Promise<statsfm.v1.TopTrack[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopTrack[]>>(
       `/users/${userId}/top/tracks`,
       {
         query: {
@@ -379,8 +379,8 @@ export default class UsersManager extends Manager {
   async topArtists(
     userId: string,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopArtist[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopArtist[]>>(
+  ): Promise<statsfm.v1.TopArtist[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopArtist[]>>(
       `/users/${userId}/top/artists`,
       {
         query: {
@@ -396,8 +396,8 @@ export default class UsersManager extends Manager {
     userId: string,
     artistId: number,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopTrack[]>>(
+  ): Promise<statsfm.v1.TopTrack[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopTrack[]>>(
       `/users/${userId}/top/artists/${artistId}/tracks`,
       {
         query: {
@@ -413,8 +413,8 @@ export default class UsersManager extends Manager {
     userId: string,
     artistId: number,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopAlbum[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopAlbum[]>>(
+  ): Promise<statsfm.v1.TopAlbum[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopAlbum[]>>(
       `/users/${userId}/top/artists/${artistId}/albums`,
       {
         query: {
@@ -429,8 +429,8 @@ export default class UsersManager extends Manager {
   async topAlbums(
     userId: string,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopAlbum[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopAlbum[]>>(
+  ): Promise<statsfm.v1.TopAlbum[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopAlbum[]>>(
       `/users/${userId}/top/albums`,
       {
         query: {
@@ -446,8 +446,8 @@ export default class UsersManager extends Manager {
     userId: string,
     albumId: number,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopTrack[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopTrack[]>>(
+  ): Promise<statsfm.v1.TopTrack[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopTrack[]>>(
       `/users/${userId}/top/albums/${albumId}/tracks`,
       {
         query: {
@@ -462,8 +462,8 @@ export default class UsersManager extends Manager {
   async topGenres(
     userId: string,
     options: (statsfm.QueryWithRange | statsfm.QueryWithDates) & statsfm.QueryWithOrder = {}
-  ): Promise<statsfm.TopGenre[]> {
-    const res = await this.http.get<ItemsResponse<statsfm.TopGenre[]>>(
+  ): Promise<statsfm.v1.TopGenre[]> {
+    const res = await this.http.get<ItemsResponse<statsfm.v1.TopGenre[]>>(
       `/users/${userId}/top/genres`,
       {
         query: {

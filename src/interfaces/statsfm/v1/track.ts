@@ -1,7 +1,7 @@
 import { AlbumSimple } from './album';
 import { ArtistSimple } from './artist';
-import { Object } from '.';
-import { TopObject } from './top';
+import { Object } from '..';
+import { TopObject } from '../top';
 
 export interface Track extends Object {
   name: string;
@@ -15,7 +15,7 @@ export interface Track extends Object {
 }
 export interface RecentlyPlayedTrack {
   endTime: Date;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
   track: Track;
 }
 
@@ -25,7 +25,7 @@ export interface CurrentlyPlayingTrack {
   progressMs: number;
   deviceName?: string;
   track: Track;
-  platform: 'spotify' | 'appleMusic';
+  platform: 'SPOTIFY' | 'APPLEMUSIC';
 }
 
 export interface TopTrack extends TopObject {

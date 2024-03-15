@@ -102,8 +102,12 @@ export default class MeManager extends Manager {
     return res.items;
   }
 
-  async import(file: Required<RawFile>, requestData?: RequestData): Promise<statsfm.UserImport> {
-    const res = await this.http.post<ItemResponse<statsfm.UserImport>>('/me/imports', {
+  async import(
+    file: Required<RawFile>,
+    platform: statsfm.Platform,
+    requestData?: RequestData
+  ): Promise<statsfm.UserImport> {
+    const res = await this.http.post<ItemResponse<statsfm.UserImport>>(`/me/imports/${platform}`, {
       ...requestData,
       authRequired: true,
       files: [file]
@@ -114,6 +118,16 @@ export default class MeManager extends Manager {
 
   async removeImport(id: number): Promise<void> {
     await this.http.delete(`/me/imports/${id}`, { authRequired: true });
+  }
+
+  async setConnectedServiceSettings(
+    service: statsfm.Platform,
+    settings: statsfm.ServiceSettings
+  ): Promise<void> {
+    await this.http.post(`/me/service/${service}/settings`, {
+      authRequired: true,
+      body: JSON.stringify(settings)
+    });
   }
 
   async spotifyPlaylists(): Promise<statsfm.UserSpotifyPlaylist[]> {
