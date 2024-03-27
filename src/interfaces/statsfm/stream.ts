@@ -41,7 +41,7 @@ export const streamToStreamMinified = (stream: Stream): Omit<StreamMinified, 'a'
     h: stream.albumId,
     i: stream.artistIds,
     k: tryParseInt(stream.trackReleaseId),
-    l: tryParseInt(stream.trackReleaseId),
+    l: tryParseInt(stream.albumReleaseId),
     m: stream.contextId ?? undefined
   };
   if ('importId' in stream) obj.j = stream.importId;
