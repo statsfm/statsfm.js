@@ -19,7 +19,6 @@ export type AlbumReleaseImageSource =
   (typeof AlbumReleaseImageSource)[keyof typeof AlbumReleaseImageSource];
 
 export interface AlbumReleaseImage {
-  id: number;
   url: string;
   height: number;
   width: number;

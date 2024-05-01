@@ -8,7 +8,6 @@ export const ArtistImageSource = {
 export type ArtistImageSource = (typeof ArtistImageSource)[keyof typeof ArtistImageSource];
 
 export interface ArtistImage {
-  id: number;
   url: string;
   height: number;
   width: number;
