@@ -153,6 +153,8 @@ export interface UserPublic {
   socialMediaConnections: UserSocialMediaConnection[];
   userBan: UserBan | null;
   quarantined: boolean;
+  referralURL: string | null;
+  referralImage: string | null;
   appleMusicAuth: Pick<
     UserAppleMusicAuth,
     'sync' | 'imported' | 'availableYears' | 'disabled'
