@@ -6,7 +6,7 @@ import { Platform } from '..';
 export type ProviderTrack = {
   providerId: string;
   providerName: string | Platform;
-}
+};
 
 export interface TrackRelease {
   id: number;

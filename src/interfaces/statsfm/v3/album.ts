@@ -5,7 +5,7 @@ import { Platform } from '..';
 export type ProviderAlbum = {
   providerId: string;
   providerName: string | Platform;
-}
+};
 
 export const AlbumReleaseType = {
   SINGLE: 'SINGLE',
@@ -49,7 +49,7 @@ export interface AlbumRelease {
   albumId: number;
 
   artists: Artist[];
-  providerAlbum: ProviderAlbum[]
+  providerAlbum: ProviderAlbum[];
 
   isrc: string | null;
   upc: string | null;

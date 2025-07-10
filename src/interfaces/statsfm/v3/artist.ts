@@ -4,7 +4,7 @@ import { Platform } from '..';
 export type ProviderArtist = {
   providerId: string;
   providerName: string | Platform;
-}
+};
 
 export const ArtistImageSource = {
   SPOTIFY: 'SPOTIFY',
